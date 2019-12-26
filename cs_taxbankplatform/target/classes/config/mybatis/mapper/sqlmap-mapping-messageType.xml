@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.messageType.mapper.MessageTypeMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	
+	<resultMap id="MessageTypeMap" type="com.dcits.govsbu.sd.taxbankplatform.messageType.model.MessageType">
+		<id property="id" column="mt_id"/>
+		<result property="typeName" column="mt_name" />
+		<result property="creatorid" column="creatorid" />
+		<result property="createtime" column="createtime" />
+		<result property="updatorid" column="updatorid" />
+		<result property="updatetime" column="updatetime" />
+		<result property="enabled" column="enabled"/>
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.messageType.model.MessageType">
+		insert into tb_message_type (
+		     mt_id,
+			mt_name,
+			creatorid,
+			createtime,
+			updatorid,
+			updatetime,
+			enabled
+			)   
+		values (
+		    #{id},
+			#{typeName},
+			#{creatorid},
+			#{createtime},
+			#{updatorid},
+			#{updatetime},
+			#{enabled}
+			)  
+	</insert>
+	
+	<!-- 查询数据，验证数据是否存在 -->
+	<select id="findByName" parameterType="String" resultMap="MessageTypeMap" flushCache="true" useCache="true">
+		SELECT * 
+		FROM tb_message_type
+		where mt_name = #{typeName} and enabled = 'Y'
+	</select>
+	
+	<!-- 搜索数据 -->
+	<select id="queryListByPage" parameterType="map" resultMap="MessageTypeMap" flushCache="true" useCache="true">
+		SELECT *
+		FROM tb_message_type
+		<where>
+			enabled = 'Y' 
+			<if test="typeName != null and typeName != ''">
+			and  mt_name LIKE CONCAT('%','${typeName}','%' ) 
+			</if>
+		</where>
+	</select>
+	
+	<!-- 删除数据（逻辑删除） -->
+	<update id="delMessageType" parameterType="com.dcits.govsbu.sd.taxbankplatform.messageType.model.MessageType"  flushCache="true">
+		update tb_message_type
+		set enabled = 'N'
+		where mt_id = #{id}
+	</update>
+	
+	<!-- 根据ID查找对象  -->
+	<select id="findById" parameterType="String" resultMap="MessageTypeMap" flushCache="true" useCache="true">
+		select * from tb_message_type
+	    where mt_id = #{id}
+	</select>
+</mapper>

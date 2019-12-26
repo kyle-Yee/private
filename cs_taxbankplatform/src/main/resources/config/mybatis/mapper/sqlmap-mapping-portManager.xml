@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.portmager.mapper.PortmagerMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	<resultMap id="regionclassMap" type="com.dcits.govsbu.sd.taxbankplatform.portmager.model.PortmagerEntity" >
+		<id property="id" column="id"/>
+		<result property="yhmc" column="yhmc"/>
+		<result property="xlzt" column="xlzt"/>
+		<result property="yhdm" column="yhdm"/>
+		<result property="zxyys" column="zxyys"/>
+		<result property="zxbh" column="zxbh"/>
+		<result property="yhdkh" column="yhdkh"/>
+		<result property="yhzxlldz" column="yhzxlldz"/>
+		<result property="yhfwqipdz" column="yhfwqipdz"/>
+		<result property="sjdkh" column="sjdkh"/>
+		<result property="sjzxlldz" column="sjzxlldz"/>
+		<result property="sjfwqipdz" column="sjfwqipdz"/>
+		<result property="password" column="password"/><!-- 3.0v 增加password字段  modify by Sigua.Huang 2018/06/19 -->
+		<result property="bz" column="bz"/>
+		<result property="cjr" column="cjr"/>
+		<result property="createtime" column="createtime"/>
+		<result property="updatetime" column="updatetime"/>
+		<result property="callbackurl" column="callbackurl"/>
+	</resultMap>
+	
+	<!-- 插入数据  3.0v 增加bankaccount password字段  modify by Sigua.Huang 2018/06/19-->
+	<insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.portmager.model.PortmagerEntity">
+		insert into tb_bank_port_manage (
+			id,
+			yhmc,
+			xlzt,
+			yhdm,
+			zxyys,
+			zxbh,
+			yhdkh,
+			yhzxlldz,
+			yhfwqipdz,
+			sjdkh,
+			sjzxlldz,
+			sjfwqipdz,
+			bankaccount,
+			password,
+			bz,
+			cjr,
+			createtime,
+			updatetime,
+			callbackurl
+			)   
+		values (
+			#{id},
+			#{yhmc},
+			'xlzt01',
+			#{yhdm},
+			#{zxyys},
+			#{zxbh},
+			#{yhdkh},
+			#{yhzxlldz},
+			#{yhfwqipdz},
+			#{sjdkh},
+			#{sjzxlldz},
+			#{sjfwqipdz},
+			#{bankaccount},
+			#{password},
+			#{bz},
+			#{cjr},
+			now(),
+			now(),
+			#{callbackurl}
+			)  
+	</insert>
+	
+	<!-- 搜索数据 -->
+	<select id="queryListByPage" parameterType="map" resultMap="regionclassMap" flushCache="true" useCache="true">
+		SELECT
+			tm.id,
+			tm.yhmc,
+			dm.xlzt_mc as xlzt,
+			tm.yhdm,
+			tm.zxyys,
+			tm.zxbh,
+			tm.yhdkh,
+			tm.yhzxlldz,
+			tm.yhfwqipdz,
+			tm.sjdkh,
+			tm.sjzxlldz,
+			tm.sjfwqipdz,
+			tm.bz,
+			tm.cjr,
+			tm.createtime,
+			tm.updatetime,bankaccount,password
+		FROM tb_bank_port_manage tm, tb_organizations org,
+		dm_xlzt  dm 
+		<where>
+		tm.xlzt = dm.xlzt_dm and tm.yhdm = org.org_code
+		<if test="regionId != null and regionId != ''">
+				and org.region_id=#{regionId}
+		</if>
+			<if test="searchKey != null and searchKey != ''">
+				and  yhmc LIKE CONCAT('%','${searchKey}','%' )
+			</if>
+		</where>
+	</select>
+	
+	<!-- 点击编辑按钮时候查询单条数据  3.0v 增加password字段  modify by Sigua.Huang 2018/06/19 -->
+	<select id="findById" parameterType="String" resultMap="regionclassMap" flushCache="true" useCache="true">
+		SELECT
+			id,
+			yhmc,
+			xlzt,
+			yhdm,
+			zxyys,
+			zxbh,
+			yhdkh,
+			yhzxlldz,
+			yhfwqipdz,
+			sjdkh,
+			sjzxlldz,
+			sjfwqipdz,
+			password,
+			bz,
+			cjr,
+			createtime,
+			updatetime,bankaccount,password,callbackurl
+		FROM tb_bank_port_manage
+		where id = #{id}
+	</select>
+	
+	<!-- 更新数据 -->
+	<update id="update" parameterType="java.util.Map" flushCache="true">
+		update tb_bank_port_manage set 
+		<if test="xlzt != null and xlzt != ''">
+				xlzt = #{xlzt},
+		</if>
+		updatetime = now()
+		where id in
+	<foreach collection="bankCodelist" item="bankCode" index="index" open="(" close=")" separator=",">
+            #{bankCode}
+    </foreach>
+	</update>
+	
+    <!-- 更新数据 -->
+	<update id="updateRecord" parameterType="com.dcits.govsbu.sd.taxbankplatform.portmager.model.PortmagerEntity" flushCache="true">
+		update tb_bank_port_manage set 
+		<if test="yhmc != null and yhmc != ''">
+				yhmc = #{yhmc},
+		</if>
+		<if test="xlzt != null and xlzt != ''">
+				xlzt = #{xlzt},
+		</if>
+				<if test="yhdm != null and yhdm != ''">
+				yhdm = #{yhdm},
+		</if>
+		<if test="zxyys != null and zxyys != ''">
+				zxyys = #{zxyys},
+		</if>
+		<if test="zxbh != null and zxbh != ''">
+				zxbh = #{zxbh},
+		</if>
+		<if test="yhdkh != null and yhdkh != ''">
+				yhdkh = #{yhdkh},
+		</if>
+		<if test="yhzxlldz != null and yhzxlldz != ''">
+				yhzxlldz = #{yhzxlldz},
+		</if>
+		<if test="yhfwqipdz != null and yhfwqipdz != ''">
+				yhfwqipdz = #{yhfwqipdz},
+		</if>
+		<if test="sjdkh != null and sjdkh != ''">
+				sjdkh = #{sjdkh},
+		</if>
+		<if test="sjzxlldz != null and sjzxlldz != ''">
+				sjzxlldz = #{sjzxlldz},
+		</if>
+		<if test="sjfwqipdz != null and sjfwqipdz != ''">
+				sjfwqipdz = #{sjfwqipdz},
+		</if>
+		<if test="bz != null and bz != ''">
+				bz = #{bz},
+		</if>
+		<if test="bankaccount != null and bankaccount != ''">
+				bankaccount = #{bankaccount},
+		</if>
+		<if test="password != null and password != ''">
+				password = #{password},
+		</if>
+		updatetime = now()
+		where id = #{id}
+	</update>
+	
+	<!-- 获取组织列表 -->
+	<select id="findOrgNameList" parameterType="String" resultType="com.dcits.govsbu.sd.taxbankplatform.organization.model.OrganizationEntity" flushCache="true" useCache="true">
+		select * from tb_organizations where ot_id = 'ZZLX002' and region_id = #{regionId};
+	</select>
+	
+		<!-- 获取选取组织对应的组织编码 -->
+	<select id="findOrgCodeByOrgName" parameterType="String" resultType="String" flushCache="true" useCache="true">
+		select org_code from tb_organizations where org_name = #{rgName};
+	</select>
+	
+		<!-- 获取银行端口接入管理线路状态码表列表 -->
+	<select id="findXlztList" resultType="com.dcits.govsbu.sd.taxbankplatform.portmager.model.XlztEntity" flushCache="true" useCache="true">
+		select * from dm_xlzt;
+	</select>
+	
+		<!-- 新增银行端口时判断银行是否存在 -->
+	<select id="findByYhmc" parameterType="String" resultMap="regionclassMap" flushCache="true" useCache="true">
+		SELECT
+			id,
+			yhmc,
+			xlzt,
+			yhdm,
+			zxyys,
+			zxbh,
+			yhdkh,
+			yhzxlldz,
+			yhfwqipdz,
+			sjdkh,
+			sjzxlldz,
+			sjfwqipdz,
+			bz,
+			cjr,
+			createtime,
+			updatetime
+		FROM tb_bank_port_manage
+		WHERE yhmc = #{yhmc} <!-- and xlzt = 'xlzt02' --> ORDER BY createtime DESC
+	</select>
+	<select id="queryBank" resultMap="regionclassMap" flushCache="true" useCache="true">
+		SELECT
+			id,
+			yhmc,
+			xlzt,
+			yhdm,
+			zxyys,
+			zxbh,
+			yhdkh,
+			yhzxlldz,
+			yhfwqipdz,
+			sjdkh,
+			sjzxlldz,
+			sjfwqipdz,
+			bz,
+			cjr,
+			createtime,
+			updatetime
+		FROM tb_bank_port_manage
+	    ORDER BY createtime DESC
+	</select>
+</mapper>

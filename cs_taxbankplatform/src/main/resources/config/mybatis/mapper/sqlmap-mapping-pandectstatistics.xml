@@ -1,0 +1,1310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.regulatorstatistics.mapper.PandectstatisticsMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志  -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	
+	<resultMap id="userstatisticsMap" type="com.dcits.govsbu.sd.taxbankplatform.count.model.DataCountEntity">
+		<result property="dataName" column="name" />
+		<result property="dataCount" column="count" />
+	</resultMap>
+	<resultMap id="monthstatisticsMap" type="com.dcits.govsbu.sd.taxbankplatform.count.model.PandectEntity">
+		<result property="countName" column="name" />
+		<result property="month" column="month" />
+		<result property="count" column="count" />
+	</resultMap>
+	<resultMap id="banklistInfoMap" type="com.dcits.govsbu.sd.taxbankplatform.regulatorstatistics.model.BanklistInfoEntity">
+		<result property="bankName" column="bankname"/>
+		<result property="pdName" column="pdname"/>
+		<result property="applyCount" column="applycount"/>
+	    <result property="rateOfCredit" column="rateofcredit"/>
+	    <result property="approveDay" column="approveday"/>
+	    <result property="avgAmount" column="avgamount"/>
+	</resultMap>
+	
+	<select id="userstatistics_bef" parameterType="map" resultMap="userstatisticsMap" flushCache="true" useCache="true">
+		<!-- <if test="province !=null and province !='' and city==null">
+			select 'zcyh' name,count(nsryh_id) count 
+			from tb_nsryh 
+			join tb_regions on tb_regions.region_id=tb_nsryh.region_id 
+			join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+			<where>
+			<if test="pcId != null and pcId != '' ">
+				tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+				or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId})
+			</if>
+			</where> 
+		</if>
+		<if test="city !=null and city !=''">
+		select 'zcyh' name,IFNULL(COUNT(DISTINCT tx.nsryhxx_id),0) count
+		from tb_nsryh t
+		join tb_nsryhxx tx on t.nsryhxx_id= tx.nsryhxx_id
+		<if test="area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  where substring(tx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  where substring(tx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="area !=null and area !='' ">
+			where substring(tx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		</if> -->
+		
+		select 'zcyh' name,IFNULL(COUNT(DISTINCT tx.nsryhxx_id),0) count
+		from tb_nsryh t
+		join tb_nsryhxx tx on t.nsryhxx_id= tx.nsryhxx_id 
+		<if test="province !=null and province !='' and city==null">
+			where substring(tx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  where substring(tx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  where substring(tx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			where substring(tx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		union all
+		<!-- select 'rzyh', count(nsryh_id) 
+		from tb_nsryh 
+		join tb_regions on tb_regions.region_id=tb_nsryh.region_id 
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			tb_nsryh.enabled='Y'
+			<if test="pcId != null and pcId != ''">
+				and (tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+				or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId} ))
+			</if>
+		</where> -->
+		select 'rzyh',IFNULL(COUNT(DISTINCT nsr.nsryh_id),0) from tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and nsr.enabled = 'Y' 
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		union all
+		<!-- modify by xiecui 2018/4/2 begin -->
+		
+		<!-- select 'sqdkyh',count(distinct nsrsbh) from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id 
+		and ((ta.nsrsbh=nsrxx.nsryhxx_nsrsbh and ta.nsrsbh!='') or (nsrxx.nsryhxx_shtyxydm = ta.nsrsbh and ta.nsrsbh!='')) and nsr.enabled='Y'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if> -->
+		select 'sqdkyh' , aa.cou1+bb.cou2 from (
+		select 'sqdkyh',count(distinct nsrsbh) cou1 from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id 
+		and ta.nsrsbh=nsrxx.nsryhxx_nsrsbh 
+		and nsr.enabled='Y'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>)aa,
+		(select 'sqdkyh',count(distinct nsrsbh) cou2 from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id 
+		and nsrxx.nsryhxx_shtyxydm = ta.nsrsbh 
+		and nsr.enabled='Y'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>)bb
+		
+		<!-- modify by xiecui 2018/4/2 end -->
+		
+		
+		<!-- select 'sqdkyh',count(distinct nsrsbh) from tb_loan_apply 
+		join tb_regions on tb_regions.region_id=tb_loan_apply.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			<if test="pcId != null and pcId != ''">
+				tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+				or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId} )
+			</if>
+		</where> -->
+		union all
+		
+		<!-- modify by xiecui 2018/04/02 begin -->
+		
+		<!-- select 'sxyh',count(distinct ta.nsrsbh) from tb_loan_apply ta,tb_loan_apply_final laf,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and ta.la_id=laf.la_id 
+		and ((ta.nsrsbh=nsrxx.nsryhxx_nsrsbh and ta.nsrsbh!='') or (nsrxx.nsryhxx_shtyxydm = ta.nsrsbh and ta.nsrsbh!='')) and nsr.enabled='Y'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if> -->
+		
+		select 'sxyh' , aa.cou1+bb.cou2 from (
+		select 'sxyh',count(distinct ta.nsrsbh) cou1 from tb_loan_apply ta,tb_loan_apply_final laf,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and ta.la_id=laf.la_id 
+		and ta.nsrsbh=nsrxx.nsryhxx_nsrsbh 
+		and nsr.enabled='Y'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>)aa,
+		(select 'sxyh',count(distinct ta.nsrsbh) cou2 from tb_loan_apply ta,tb_loan_apply_final laf,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and ta.la_id=laf.la_id 
+		and nsrxx.nsryhxx_shtyxydm = ta.nsrsbh
+		and nsr.enabled='Y'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>)bb
+		
+		<!-- modify by xiecui begin 2018/04/02 end -->
+		
+		<!-- select 'sxyh',count(distinct la.nsrsbh) from tb_loan_apply la
+		join tb_loan_apply_final laf on laf.la_id=la.la_id
+		join tb_regions on tb_regions.region_id=la.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			<if test="pcId != null and pcId != ''">
+				tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+				or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId})
+			</if>
+		</where> -->
+		union all
+		
+		<!-- modify by xiecui 2018/04/02 begin -->
+		<!-- select 'bqhzyh',count(org_id) from tb_organizations 
+		join tb_regions on tb_regions.region_id=tb_organizations.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			tb_organizations.ot_id='ZZLX002'
+			<if test="pcId != null and pcId != ''">
+				and (tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+				or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId} ))
+			</if>
+		</where> -->
+		select 'bqhzyh' , aa.cou1+bb.cou2+cc.cou3 from (
+		select 'bqhzyh',count(org_id) cou1 from tb_organizations 
+		join tb_regions on tb_regions.region_id=tb_organizations.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			tb_organizations.ot_id='ZZLX002'
+			<if test="pcId != null and pcId != ''">
+				and tb_province_cities.pc_id = #{pcId}
+			</if>
+		</where>)aa,
+		(select 'bqhzyh',count(org_id) cou2 from tb_organizations 
+		join tb_regions on tb_regions.region_id=tb_organizations.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			tb_organizations.ot_id='ZZLX002'
+			<if test="pcId != null and pcId != ''">
+				and tb_province_cities.pc_pid = #{pcId}
+			</if>
+		</where>)bb,
+		(select 'bqhzyh',count(org_id) cou3 from tb_organizations 
+		join tb_regions on tb_regions.region_id=tb_organizations.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			tb_organizations.ot_id='ZZLX002'
+			<if test="pcId != null and pcId != ''">
+				and tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId} )
+			</if>
+		</where>)cc
+		<!-- modify by xiecui 2018/04/02 end -->
+		union all
+		
+		<!-- modify by xiecui 2018/04/02 begin -->
+		<!-- select 'yshdjrcp',count(fp_id) from tb_financial_product
+		join tb_regions on tb_regions.region_id=tb_financial_product.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			<if test="pcId != null and pcId != ''">
+				tb_financial_product.enabled='Y' and
+				tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+				or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId})
+			</if>
+		</where> -->
+		select 'yshdjrcp' , aa.cou1+bb.cou2+cc.cou3 from (
+		select 'yshdjrcp',count(fp_id) cou1 from tb_financial_product
+		join tb_regions on tb_regions.region_id=tb_financial_product.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			<if test="pcId != null and pcId != ''">
+				tb_financial_product.enabled='Y' 
+				and tb_province_cities.pc_id = #{pcId} 
+			</if>
+		</where>)aa,
+		(select 'yshdjrcp',count(fp_id) cou2 from tb_financial_product
+		join tb_regions on tb_regions.region_id=tb_financial_product.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			<if test="pcId != null and pcId != ''">
+				tb_financial_product.enabled='Y' 
+				and tb_province_cities.pc_pid = #{pcId}
+			</if>
+		</where>)bb,
+		(select 'yshdjrcp',count(fp_id) cou3 from tb_financial_product
+		join tb_regions on tb_regions.region_id=tb_financial_product.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			<if test="pcId != null and pcId != ''">
+				tb_financial_product.enabled='Y' 
+				and tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId})
+			</if>
+		</where>) cc
+		<!-- modify by xiecui 2018/04/02 end -->	
+		union all
+		<!-- select 'sqdkbs',count(la_id) from tb_loan_apply 
+		join tb_regions on tb_regions.region_id=tb_loan_apply.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			<if test="pcId != null and pcId != ''">
+				tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+				or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId} )
+			</if>
+		</where> -->
+		
+		<!-- modify by xiecui 2018/04/02 begin -->
+		<!-- select 'sqdkbs',count(distinct la_id) from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id 
+		and ((ta.nsrsbh=nsrxx.nsryhxx_nsrsbh and ta.nsrsbh!='') or (nsrxx.nsryhxx_shtyxydm = ta.nsrsbh and ta.nsrsbh!='')) and nsr.enabled='Y'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if> -->
+		select 'sqdkbs' , aa.cou1+bb.cou2 from (
+		select 'sqdkbs',count(distinct la_id) cou1 from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id 
+		and ta.nsrsbh=nsrxx.nsryhxx_nsrsbh 
+		and nsr.enabled='Y'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>)aa,
+		(select 'sqdkbs',count(distinct la_id) cou2 from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id 
+		and nsrxx.nsryhxx_shtyxydm = ta.nsrsbh
+		and nsr.enabled='Y'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>) bb
+		<!-- modify by xiecui 2018/04/02 end -->	
+		union all
+		<!-- select 
+			'sdze',
+			ROUND(ifnull(sum(tb_loan_apply.la_amount),0) , 2)	 
+		from tb_loan_apply  
+		join tb_regions on tb_regions.region_id=tb_loan_apply.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			<if test="pcId != null and pcId != ''">
+				tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+				or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId} )
+			</if>
+		</where> -->
+		<!-- modify by xiecui 2018/04/02 begin -->
+		<!-- select 'sdze',ROUND(ifnull(sum(ta.la_amount),0) , 2) from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id 
+		and ((ta.nsrsbh=nsrxx.nsryhxx_nsrsbh and ta.nsrsbh!='') or (nsrxx.nsryhxx_shtyxydm = ta.nsrsbh and ta.nsrsbh!='')) and nsr.enabled='Y'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if> -->
+		select 'sqdkbs' , aa.cou1+bb.cou2 from (
+		select 'sdze',ROUND(ifnull(sum(ta.la_amount),0) , 2) cou1 from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id 
+		and ta.nsrsbh=nsrxx.nsryhxx_nsrsbh
+		and nsr.enabled='Y'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>)aa,
+		(select 'sdze',ROUND(ifnull(sum(ta.la_amount),0) , 2) cou2 from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id 
+		and nsrxx.nsryhxx_shtyxydm = ta.nsrsbh 
+		and nsr.enabled='Y'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>) bb
+		<!-- modify by xiecui 2018/04/02 end -->
+		union all
+		<!-- select 
+			'sxbs',
+			count(tb_loan_approve_rec.la_id) 
+		from 
+			tb_loan_approve_rec
+			join tb_loan_apply on tb_loan_approve_rec.la_id=tb_loan_apply.la_id		
+		join tb_regions on tb_regions.region_id=tb_loan_apply.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			tb_loan_approve_rec.las_id =3
+			temp2.las_id in (3,7)
+			<if test="pcId != null and pcId != ''">
+				and	(tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+				or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId} ))
+			</if>
+		</where> -->
+		<!-- modify by xiecui 2018/04/02 begin -->
+		<!-- select 'sxbs',count(distinct tar.la_id) 
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_loan_apply_final taf,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and taf.la_id=ta.la_id
+		and ((ta.nsrsbh=nsrxx.nsryhxx_nsrsbh and ta.nsrsbh!='') or (nsrxx.nsryhxx_shtyxydm = ta.nsrsbh and ta.nsrsbh!=''))	
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if> -->
+		select 'sxbs', aa.cou1+bb.cou2 from (
+		select 'sxbs',count(distinct tar.la_id) cou1
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_loan_apply_final taf,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and taf.la_id=ta.la_id
+		and ta.nsrsbh=nsrxx.nsryhxx_nsrsbh 
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>)aa,
+		(select 'sxbs',count(distinct tar.la_id) cou2
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_loan_apply_final taf,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and taf.la_id=ta.la_id
+		and nsrxx.nsryhxx_shtyxydm = ta.nsrsbh 
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>) bb
+		<!-- modify by xiecui 2018/04/02 end -->
+		union all
+		<!-- select 
+			'sxze',
+			ROUND(ifnull(sum(tb_loan_approve_rec.lar_credit_quota) ,0) , 2)
+			
+		from 
+			tb_loan_approve_rec
+			join tb_loan_apply on tb_loan_approve_rec.la_id=tb_loan_apply.la_id	
+		join tb_regions on tb_regions.region_id=tb_loan_apply.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			tb_loan_approve_rec.las_id =3
+			temp2.las_id in (3,7)
+			<if test="pcId != null and pcId != ''">
+				and (tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+					or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId} ))
+			</if>
+		</where> -->
+		<!-- modify by xiecui 2018/04/02 begin -->
+		<!-- select 'sxze',ROUND(ifnull(sum(tar.lar_credit_quota) ,0),2) 
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_nsryhxx nsrxx,tb_loan_apply_final taf,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and ta.la_id=taf.la_id
+		and ((ta.nsrsbh=nsrxx.nsryhxx_nsrsbh and ta.nsrsbh!='') or (nsrxx.nsryhxx_shtyxydm = ta.nsrsbh and ta.nsrsbh!=''))
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if> -->
+		
+		select 'sxze', aa.cou1+bb.cou2 from (
+		select 'sxze',ROUND(ifnull(sum(tar.lar_credit_quota) ,0),2) cou1
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_nsryhxx nsrxx,tb_loan_apply_final taf,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and ta.la_id=taf.la_id
+		and ta.nsrsbh=nsrxx.nsryhxx_nsrsbh 
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>)aa,
+		(select 'sxze',ROUND(ifnull(sum(tar.lar_credit_quota) ,0),2) cou2
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_nsryhxx nsrxx,tb_loan_apply_final taf,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and ta.la_id=taf.la_id
+		and nsrxx.nsryhxx_shtyxydm = ta.nsrsbh
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>) bb
+		<!-- modify by xiecui 2018/04/02 begin -->
+	</select>
+	<select id="monthstatistics_bef" parameterType="map" resultMap="monthstatisticsMap" flushCache="true" useCache="true">
+		<!-- select * 
+		from ( -->
+		select 'zcyh' name,IFNULL(COUNT(DISTINCT tx.nsryhxx_id),0) count,ifnull(DATE_FORMAT(tx.createtime, '%Y-%m'),'0000-00') month
+		from tb_nsryh t
+		join tb_nsryhxx tx on t.nsryhxx_id= tx.nsryhxx_id
+		where t.createtime between date_sub(now(),interval 12 month) and now()
+		<if test="province !=null and province !='' ">
+			and substring(tx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' ">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(tx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(tx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="area !=null and area !='' ">
+			and substring(tx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		group by month
+		<!-- <if test="province !=null and province !='' and city==null">
+			select 
+			'zcyh' name,
+			ifnull(count(tb_nsryh.nsryh_id),0) count,
+			ifnull(DATE_FORMAT(tb_nsryh.createtime, '%Y-%m'),'0000-00') month
+		from tb_nsryh
+		join tb_regions on tb_regions.region_id=tb_nsryh.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			tb_nsryh.createtime between date_sub(now(),interval 12 month) and now()
+			<if test="pcId != null and pcId != ''">
+				and (tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+				or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId} ))
+			</if>			
+		</where>
+		</if>
+		<if test="city !=null and city !=''">
+		select 'zcyh' name,IFNULL(COUNT(DISTINCT tx.nsryhxx_id),0) count,ifnull(DATE_FORMAT(tx.createtime, '%Y-%m'),'0000-00') month
+		from tb_nsryh t
+		join tb_nsryhxx tx on t.nsryhxx_id= tx.nsryhxx_id
+		where t.createtime between date_sub(now(),interval 12 month) and now()
+		<if test="area==null ">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(tx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(tx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="area !=null and area !='' ">
+			and substring(tx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		</if> -->
+		<!-- ) a		
+		group by a.month -->
+		union all
+		<!-- select *
+		from ( -->
+		select 'rzyh',IFNULL(COUNT(DISTINCT nsr.nsryh_id),0) ,ifnull(DATE_FORMAT(nsr.createtime, '%Y-%m'),'0000-00') dateb
+		from tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and nsr.enabled = 'Y' 
+		and nsr.createtime between date_sub(now(),interval 12 month) and now()
+		<if test="province !=null and province !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' ">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		group by dateb
+		<!-- select 
+			'rzyh',
+			ifnull(DATE_FORMAT(tb_nsryh.createtime, '%Y-%m'),'0000-00') dateb, 
+			ifnull(count(tb_nsryh.nsryh_id),0) 
+		from tb_nsryh 
+		join tb_regions on tb_regions.region_id=tb_nsryh.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			tb_nsryh.enabled='Y' 
+			and (tb_nsryh.createtime between date_sub(now(),interval 12 month) and now()) 
+			<if test="pcId != null and pcId != ''">
+				and (tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+				or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId} ))
+			</if>				
+		</where> --><!-- ) b
+		group by b.dateb -->
+		union all
+		<!-- select *
+		from ( --><!-- select 
+			'sqdkbs',
+			ifnull(count(tb_loan_apply.la_id),0),
+			ifnull(DATE_FORMAT(tb_loan_apply.la_apply_time, '%Y-%m'),'0000-00') datec
+		from tb_loan_apply 
+		join tb_regions on tb_regions.region_id=tb_loan_apply.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			tb_loan_apply.la_apply_time between date_sub(now(),interval 12 month) and now() 
+			<if test="pcId != null and pcId != ''">
+				and (tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+					or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId} ))
+			</if>			
+		</where> -->
+		<!-- modify by xiecui 2018/04/02 begin -->
+		<!-- select 'sqdkbs',ifnull(count(distinct ta.la_id),0),ifnull(DATE_FORMAT(ta.la_apply_time, '%Y-%m'),'0000-00') datec
+		from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id 
+		and ((ta.nsrsbh=nsrxx.nsryhxx_nsrsbh and ta.nsrsbh!='') or (nsrxx.nsryhxx_shtyxydm = ta.nsrsbh and ta.nsrsbh!='')) and nsr.enabled='Y'
+		and ta.la_apply_time between date_sub(now(),interval 12 month) and now()
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		group by datec -->	
+		select 'sqdkbs', sum(t.cou),max(t.datec) from (
+		select 'sqdkbs',ifnull(count(distinct ta.la_id),0) cou ,ifnull(DATE_FORMAT(ta.la_apply_time, '%Y-%m'),'0000-00') datec
+		from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id 
+		and ta.nsrsbh=nsrxx.nsryhxx_nsrsbh 
+		and nsr.enabled='Y'
+		and ta.la_apply_time between date_sub(now(),interval 12 month) and now()
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		group by datec
+		
+		union all
+		
+		select 'sqdkbs',ifnull(count(distinct ta.la_id),0) ,ifnull(DATE_FORMAT(ta.la_apply_time, '%Y-%m'),'0000-00') dateb
+		from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id 
+		and nsrxx.nsryhxx_shtyxydm = ta.nsrsbh 
+		and nsr.enabled='Y'
+		and ta.la_apply_time between date_sub(now(),interval 12 month) and now()
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		group by dateb) t
+		group by t.datec
+		
+		<!-- modify by xiecui 2018/04/02 end -->
+		
+		<!-- ) c
+		group by c.datec -->
+		union all
+		<!-- select *
+		from ( --><!-- select 
+			'sxbs',
+			ifnull(count(tb_loan_approve_rec.la_id) ,0),
+			ifnull(DATE_FORMAT(tb_loan_approve_rec.updatetime, '%Y-%m'),'0000-00') dated
+		from 
+			tb_loan_approve_rec
+			join tb_loan_apply on tb_loan_approve_rec.la_id=tb_loan_apply.la_id	
+		join tb_regions on tb_regions.region_id=tb_loan_apply.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			tb_loan_approve_rec.las_id =3
+			and (tb_loan_approve_rec.updatetime between date_sub(now(),interval 12 month) and now()) 
+			<if test="pcId != null and pcId != ''">
+				and (tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+				or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId}))
+			</if>				
+		</where> -->
+		<!-- modify by xiecui 2018/04/02 begin -->
+		<!-- select 'sxbs',ifnull(count(distinct tar.la_id) ,0),ifnull(DATE_FORMAT(ta.la_apply_time, '%Y-%m'),'0000-00') dated
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_loan_apply_final taf,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and taf.la_id=ta.la_id
+		and ((ta.nsrsbh=nsrxx.nsryhxx_nsrsbh and ta.nsrsbh!='') or (nsrxx.nsryhxx_shtyxydm = ta.nsrsbh and ta.nsrsbh!=''))	
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		and ta.la_apply_time between date_sub(now(),interval 12 month) and now()
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		group by dated -->
+		
+		select 'sxbs', sum(t.cou),max(t.dated) from (
+		select 'sxbs',ifnull(count(distinct tar.la_id) ,0) cou ,ifnull(DATE_FORMAT(ta.la_apply_time, '%Y-%m'),'0000-00') dated
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_loan_apply_final taf,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and taf.la_id=ta.la_id
+		and ta.nsrsbh=nsrxx.nsryhxx_nsrsbh
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		and ta.la_apply_time between date_sub(now(),interval 12 month) and now()
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		group by dated
+		
+		union all
+		
+		select 'sxbs',ifnull(count(distinct tar.la_id) ,0)  ,ifnull(DATE_FORMAT(ta.la_apply_time, '%Y-%m'),'0000-00') datey
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_loan_apply_final taf,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and taf.la_id=ta.la_id
+		and nsrxx.nsryhxx_shtyxydm = ta.nsrsbh 
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		and ta.la_apply_time between date_sub(now(),interval 12 month) and now()
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		group by datey) t
+		group by t.dated
+		
+		<!-- modify by xiecui 2018/04/02 end -->
+		<!-- ) d
+		group by d.dated -->
+		<!-- group by DATE_FORMAT(temp2.updatetime, '%Y-%m') -->
+		union all
+		<!-- select *
+		from ( --><!-- select 
+				'sdze',
+				ifnull(sum(tb_loan_apply.la_amount),0),
+				ifnull(DATE_FORMAT(tb_loan_apply.la_apply_time, '%Y-%m'),'0000-00') datee 
+			from tb_loan_apply 
+		join tb_regions on tb_regions.region_id=tb_loan_apply.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			tb_loan_apply.la_apply_time between date_sub(now(),interval 12 month) and now()
+			<if test="pcId != null and pcId != ''">
+				and (tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+					or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId} ))
+			</if>
+		</where> -->
+		<!-- modify by xiecui 2018/04/02 begin -->
+		<!-- select 'sdze',ifnull(sum(ta.la_amount),0) cou,ifnull(DATE_FORMAT(ta.la_apply_time, '%Y-%m'),'0000-00') datee
+		from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id
+		and ((ta.nsrsbh=nsrxx.nsryhxx_nsrsbh and ta.nsrsbh!='') or (nsrxx.nsryhxx_shtyxydm = ta.nsrsbh and ta.nsrsbh!=''))
+		and nsr.enabled='Y'
+		and ta.la_apply_time between date_sub(now(),interval 12 month) and now()
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		group by datee -->
+		select 'sdze', sum(t.cou),max(t.datee) from (
+		select 'sdze',ifnull(sum(ta.la_amount),0) cou,ifnull(DATE_FORMAT(ta.la_apply_time, '%Y-%m'),'0000-00') datee
+		from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id
+		and ta.nsrsbh=nsrxx.nsryhxx_nsrsbh
+		and nsr.enabled='Y'
+		and ta.la_apply_time between date_sub(now(),interval 12 month) and now()
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		group by datee
+		
+		union all
+		
+		select 'sdze',ifnull(sum(ta.la_amount),0),ifnull(DATE_FORMAT(ta.la_apply_time, '%Y-%m'),'0000-00') datez
+		from tb_loan_apply ta,tb_nsryhxx nsrxx,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id
+		and nsrxx.nsryhxx_shtyxydm = ta.nsrsbh 
+		and nsr.enabled='Y'
+		and ta.la_apply_time between date_sub(now(),interval 12 month) and now()
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		group by datez) t
+		group by t.datee
+		
+		<!-- modify by xiecui 2018/04/02 end -->
+		<!-- ) e	
+		group by e.datee -->
+		union all
+		<!-- select * 
+		from ( --><!-- select 
+			'sxze',
+			ifnull(sum(tb_loan_approve_rec.lar_credit_quota) ,0),
+			ifnull(DATE_FORMAT(tb_loan_approve_rec.updatetime, '%Y-%m'),'0000-00') datef
+		from 
+			tb_loan_approve_rec
+			join tb_loan_apply on tb_loan_approve_rec.la_id=tb_loan_apply.la_id		
+			join tb_regions on tb_regions.region_id=tb_loan_apply.region_id
+		join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		<where>
+			tb_loan_approve_rec.las_id =3
+			and (tb_loan_approve_rec.updatetime between date_sub(now(),interval 12 month) and now()) 
+			<if test="pcId != null and pcId != ''">
+				and (tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+					or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId}))
+			</if>				
+		</where> -->
+		<!-- modify by xiecui 2018/04/02 begin -->
+		<!-- select 'sxze',ifnull(sum(tar.lar_credit_quota) ,0),ifnull(DATE_FORMAT(ta.la_apply_time, '%Y-%m'),'0000-00') datef
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_nsryhxx nsrxx,tb_loan_apply_final taf,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and ta.la_id=taf.la_id
+		and ((ta.nsrsbh=nsrxx.nsryhxx_nsrsbh and ta.nsrsbh!='') or (nsrxx.nsryhxx_shtyxydm = ta.nsrsbh and ta.nsrsbh!=''))
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		and (tar.updatetime between date_sub(now(),interval 12 month) and now()) 
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		group by datef -->
+		select 'sxze', sum(t.cou),max(t.datef) from (
+		select 'sxze',ifnull(sum(tar.lar_credit_quota) ,0) cou,ifnull(DATE_FORMAT(ta.la_apply_time, '%Y-%m'),'0000-00') datef
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_nsryhxx nsrxx,tb_loan_apply_final taf,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and ta.la_id=taf.la_id
+		and ta.nsrsbh=nsrxx.nsryhxx_nsrsbh
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		and (tar.updatetime between date_sub(now(),interval 12 month) and now()) 
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		group by datef
+		
+		union all
+		
+		select 'sxze',ifnull(sum(tar.lar_credit_quota) ,0),ifnull(DATE_FORMAT(ta.la_apply_time, '%Y-%m'),'0000-00') daten
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_nsryhxx nsrxx,tb_loan_apply_final taf,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and ta.la_id=taf.la_id
+		and nsrxx.nsryhxx_shtyxydm = ta.nsrsbh 
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		and (tar.updatetime between date_sub(now(),interval 12 month) and now()) 
+		<if test="province !=null and province !='' and city==null">
+			and substring(nsrxx.nsryhxx_swjgdm,2,2) in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  and substring(nsrxx.nsryhxx_swjgdm,2,4) in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			and substring(nsrxx.nsryhxx_swjgdm,2,6) in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		group by daten) t
+		group by t.datef
+		<!-- modify by xiecui 2018/04/02 end -->
+		<!-- ) f
+		group by DATE_FORMAT(temp2.updatetime, '%Y-%m')	
+		group by f.datef -->
+	</select>
+	
+	<select id="banklistinfo_bef" parameterType="map" resultMap="banklistInfoMap" flushCache="true" useCache="true">
+		select org.org_name bankname,fp.fp_name pdname ,
+		 ra.lr_name as lrName,
+         am.la_name as laName,
+         de.ld_name as ldName,
+        count(la.la_id) as applycount, format((sum(lar.lar_rate)) / count(lar.lar_id), 2) as rateofcredit,
+	    format((sum(lar.lar_loan_deadline)) / count(lar.lar_id), 1) as approveday,
+	    format((sum(lar.lar_credit_quota)) / count(lar.lar_id), 1) as avgamount
+		from tb_financial_product fp 
+	  left join tb_loan_rates ra on fp.lr_id=ra.lr_id
+	  left  join tb_loan_amount am on fp.la_id=am.la_id
+	  left   join tb_loan_deadline de on fp.ld_id=de.ld_id
+     left  join tb_loan_apply la on fp.fp_id = la.fp_id 
+     left join (select * from tb_loan_approve_rec a where a.las_id='DKZT03') lar on la.la_id = lar.la_id 
+	  left	join tb_organizations org on  fp.org_id=org.org_id
+	  left	join tb_regions on tb_regions.region_id=fp.region_id
+	  left	join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+		where fp.enabled ='Y' AND (tb_province_cities.pc_id = #{pcId} or tb_province_cities.pc_pid = #{pcId}
+					or tb_province_cities.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId} ))
+	 	group by fp.fp_id
+	</select>
+	
+	<!-- ***********************统计功能优化****************************** -->
+	
+	<select id="userstatistics" parameterType="map" resultType="map" flushCache="true" useCache="true">
+		SELECT CAST(SUM(yh.`zcyh`) AS CHAR) zcyh,CAST(SUM(yh.`rzyh`) AS CHAR) rzyh FROM tb_statistics_yh yh
+		<if test="province !=null and province !='' and city==null">
+			where yh.`swjgdm_p` in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  where yh.`swjgdm_a` in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  where yh.`swjgdm_c` in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			where yh.`swjgdm_a` in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+	</select>
+	
+	<select id="loanstatistics" parameterType="map" resultType="map" flushCache="true" useCache="true">
+		SELECT CAST(COUNT(DISTINCT dk.`nsrsbh`) AS CHAR) sqyh, CAST(COUNT(DISTINCT (CASE WHEN dk.sxbs > 0 THEN dk.nsrsbh ELSE NULL END)) AS CHAR) sxyh, CAST(SUM(dk.`sdbs`) AS CHAR) sqdkbs, CAST(SUM(dk.`sdze`) AS CHAR) sdze, CAST(SUM(dk.`sxbs`) AS CHAR) sxbs, CAST(SUM(dk.`sxze`) AS CHAR) sxze FROM tb_statistics_dk dk
+		<if test="province !=null and province !='' and city==null">
+			where dk.`swjgdm_p` in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  where dk.`swjgdm_a` in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  where dk.`swjgdm_c` in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			where dk.`swjgdm_a` in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+	</select>
+	
+	<select id="bankstatistics" parameterType="map" resultType="map" flushCache="true" useCache="true">
+		SELECT hzyh.`bqhzyh` bqhzyh, hzyh.`yshdjrcp` yshdjrcp FROM `tb_statistics_hzyh` hzyh 
+		<where>
+			<if test="pcId != null and pcId != ''">
+				hzyh.`pc_id` = #{pcId}
+				or hzyh.`pc_pid`= #{pcId}
+				or hzyh.`pc_ppid`= #{pcId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="usermonthstatistics" parameterType="map" resultType="map" flushCache="true" useCache="true">
+		SELECT CAST(SUM(yh.`zcyh`) AS CHAR) zcyh, CAST(SUM(yh.`rzyh`) AS CHAR) rzyh,yh.`zcrq` zcrq FROM tb_statistics_yh yh  
+		<if test="province !=null and province !='' and city==null">
+			where yh.`swjgdm_p` in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  where yh.`swjgdm_a` in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  where yh.`swjgdm_c` in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			where yh.`swjgdm_a` in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		GROUP BY zcrq
+	</select>
+	
+	<select id="loanmonthstatistics" parameterType="map" resultType="map" flushCache="true" useCache="true">
+		SELECT CAST(COUNT(DISTINCT dk.`nsrsbh`) AS CHAR) sqyh, CAST(COUNT(DISTINCT (CASE WHEN dk.sxbs > 0 THEN dk.nsrsbh ELSE NULL END)) AS CHAR) sxyh, CAST(SUM(dk.`sdbs`) AS CHAR) sqdkbs, CAST(SUM(dk.`sdze`) AS CHAR) sdze, CAST(SUM(dk.`sxbs`) AS CHAR) sxbs, CAST(SUM(dk.`sxze`) AS CHAR) sxze, dk.`sdrq` sdrq FROM tb_statistics_dk dk
+		<if test="province !=null and province !='' and city==null">
+			where dk.`swjgdm_p` in(select substring(pc.pc_code,1,2) from  tb_province_cities pc where pc.pc_id = #{province})
+		</if>
+		<if test="city !=null and city !='' and area==null">
+			<if test="isChongQing != null and isChongQing == 'yes'">
+                  where dk.`swjgdm_a` in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+            <if test="isChongQing != null and isChongQing == 'no'">
+                  where dk.`swjgdm_c` in(select substring(pc.pc_code,1,4) from  tb_province_cities pc where pc.pc_id = #{city})
+            </if>
+		</if>
+		<if test="province!=null and city!= null and area !=null and area !='' ">
+			where dk.`swjgdm_a` in(select substring(pc.pc_code,1,6) from  tb_province_cities pc where pc.pc_id = #{area})
+		</if>
+		GROUP BY sdrq
+	</select>
+	
+	<select id="banklistinfo" parameterType="map" resultMap="banklistInfoMap" flushCache="true" useCache="true">
+		SELECT sbi.`bankname` bankname , sbi.`pdname` pdname, sbi.`lrname` lrName, sbi.`laname` laName, sbi.`ldname` ldName, SUM(sbi.`sdbs`) applycount, FORMAT((SUM(sbi.`rate`)) / SUM(sbi.`sxbs`), 2) rateofcredit, FORMAT((SUM(sbi.`deadline`)) / SUM(sbi.`sxbs`), 1) approveday, FORMAT((SUM(sbi.`sxze`)) / SUM(sbi.`sxbs`), 1) avgamount 
+		FROM `tb_statistics_bankinfo` AS sbi
+		<where>
+			sbi.`pcid`=#{pcId} OR sbi.`pcpid`=#{pcId} OR sbi.`pcppid`=#{pcId}
+		</where>
+		GROUP BY sbi.`fpid`
+	</select>
+
+	<!-- ***********************new 统计功能****************************** -->
+	<select id="statisticsinfo" parameterType="map" resultType="map" flushCache="true" useCache="true">
+		  SELECT COUNT(distinct sq.ENTCREDITID) sqdkyh,
+				   COUNT(DISTINCT IF(sq.ADMITTANCE = '0', sq.ENTCREDITID, NULL)) sxyh,
+				 COUNT(1) sqdkbs,
+				 SUM(IF(sq.ADMITTANCE='0',1,0)) cgsxbs,
+
+				 COUNT(DISTINCT sq.TBPCODE) bqhzyh,
+				 COUNT(DISTINCT sq.BUSINESSTYPE) yshdjrcp,
+
+				 ROUND(SUM(sq.LOANAPPLYAMOUNT+0)/10000) sqdkze,
+				 ROUND(SUM(sq.LOANAPPLYAMOUNT + 0) / 10000)/COUNT(1) pjsdje,
+				 ROUND(SUM(sq.LOANAMOUNT+0)/10000) sxze,
+				 ROUND(SUM(sq.LOANAMOUNT + 0) / 10000)/SUM(IF(sq.ADMITTANCE='0',1,0)) pjsxze
+		  FROM fact_dkxx sq
+		  where 1 = 1
+		<if test="pcId != null and pcId != '' ">
+			and sq.xzqhszdm like concat(#{pcId}, '%')
+		</if>
+	</select>
+	<!-- 贷款信息分析（金额） -->
+	<select id="loanamountstatisticsinfo" parameterType="map" resultType="java.util.LinkedHashMap" flushCache="true" useCache="true">
+		SELECT t1.tjny, IFNULL(t2.sdze, 0) sdze, IFNULL(t2.sxze, 0) sxze
+			FROM
+			(
+			SELECT DATE_FORMAT(CURDATE(), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 1 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 2 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 3 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 4 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 5 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 6 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 7 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 8 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 9 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 10 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 11 MONTH), '%Y%m') AS `tjny`
+			) t1
+			LEFT JOIN
+			(
+			SELECT DATE_FORMAT(sq.APPLYTIME, '%Y%m') tjny,
+				   IFNULL(round(sum(sq.LOANAPPLYAMOUNT+0)/10000), 0) sdze,
+				   IFNULL(round(sum(sq.LOANAMOUNT+0)/10000), 0) sxze
+			  FROM tb_loan_dksq sq
+			 WHERE 1 = 1
+			   and sq.APPLYTIME >=
+				   DATE_ADD(DATE_SUB(CURDATE(), INTERVAL 11 MONTH),
+							INTERVAL - DAY(DATE_SUB(CURDATE(), INTERVAL 11 MONTH)) + 1 DAY)
+			   AND sq.APPLYTIME <![CDATA[ < ]]> LAST_DAY(CURDATE()) + INTERVAL 1 DAY
+			<if test="pcId != null and pcId != '' ">
+				and sq.xzqhszdm like concat(#{pcId}, '%')
+			</if>
+			 GROUP BY DATE_FORMAT(sq.APPLYTIME, '%Y%m')
+			) t2
+			 ON t1.tjny = t2.tjny
+			 ORDER BY t1.tjny
+	</select>
+	<!-- 贷款信息分析（笔数） -->
+	<select id="loancountstatisticsinfo" parameterType="map" resultType="java.util.LinkedHashMap" flushCache="true" useCache="true">
+		SELECT t1.tjny, IFNULL(t2.sqdkbs, 0) sqdkbs, IFNULL(t2.cgsxbs, 0) cgsxbs
+			FROM
+			(
+			SELECT DATE_FORMAT(CURDATE(), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 1 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 2 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 3 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 4 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 5 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 6 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 7 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 8 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 9 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 10 MONTH), '%Y%m') AS `tjny`
+			UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 11 MONTH), '%Y%m') AS `tjny`
+			) t1
+			LEFT JOIN
+			(
+			SELECT DATE_FORMAT(sq.APPLYTIME, '%Y%m') tjny,
+				   IFNULL(COUNT(DISTINCT sq.BUSINESSID), 0) sqdkbs,
+				   IFNULL(COUNT(DISTINCT dh.BUSINESSID), 0) cgsxbs
+			  FROM tb_loan_dksq sq
+			  LEFT JOIN v_tb_loan_dhsx dh
+			  ON sq.BUSINESSID = dh.BUSINESSID
+			 WHERE 1 = 1
+			   and sq.APPLYTIME >=
+				   DATE_ADD(DATE_SUB(CURDATE(), INTERVAL 11 MONTH),
+							INTERVAL - DAY(DATE_SUB(CURDATE(), INTERVAL 11 MONTH)) + 1 DAY)
+			   AND sq.APPLYTIME <![CDATA[ < ]]> LAST_DAY(CURDATE()) + INTERVAL 1 DAY
+			<if test="pcId != null and pcId != '' ">
+				and sq.xzqhszdm like concat(#{pcId}, '%')
+			</if>
+			 GROUP BY DATE_FORMAT(sq.APPLYTIME, '%Y%m')
+			) t2
+			 ON t1.tjny = t2.tjny
+			 ORDER BY t1.tjny
+	</select>
+	<select id="bankproduckstatisticsinfo" parameterType="map" resultType="map" flushCache="true" useCache="true">
+		SELECT sq.TBPCODE tbpcode,
+			   sq.TBPNAME tbpname,
+			   sq.BUSINESSTYPE businesstype,
+			   COUNT(1) sdbs,
+			   SUM(sq.LOANAPPLYAMOUNT) sdje,
+			   SUM(IF(sq.ADMITTANCE='0',1,0)) sxbs,
+			   SUM(sq.LOANAMOUNT) sxje
+		  FROM tb_loan_dksq sq
+		 where 1 = 1
+		<if test="pcId != null and pcId != '' ">
+			and sq.xzqhszdm like concat(#{pcId}, '%')
+		</if>
+		 GROUP BY sq.TBPCODE, sq.TBPNAME, sq.BUSINESSTYPE
+	</select>
+</mapper>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.links.mapper.LinksMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	
+	<resultMap id="linksMap" type="com.dcits.govsbu.sd.taxbankplatform.links.model.LinksEntity">
+		<id property="id" column="l_id"/>
+		<result property="linksName" column="l_name" />
+		<result property="linksCity" column="region_name" />
+		<result property="linksUrl" column="l_url"/>
+		<result property="linksPrint" column="l_img_url"/>
+		<result property="displayOrder" column="l_display_order"/>
+		<result property="linksRanking" column="l_ranking"/>
+		<result property="enabled" column="enabled"/>
+		<result property="creatorid" column="creatorid"/>
+		<result property="createtime" column="createtime"/>
+		<result property="updatorid" column="updatorid"/>
+		<result property="updatetime" column="updatetime"/>
+	</resultMap>
+	
+	
+	<!-- 搜索数据 -->
+	<select id="queryListByPage" parameterType="map" resultMap="linksMap" flushCache="true" useCache="true">
+		SELECT 
+		l.l_id,
+		l.l_name,
+		l.l_url,
+		l.l_img_url,
+		l.l_display_order,
+		l.enabled,
+		r.region_name
+		FROM tb_links l LEFT JOIN tb_regions r ON l.region_id = r.region_id
+		<where>
+			<if test="linksName != null and linksName != ''">
+			l.l_name LIKE CONCAT('%','${linksName}','%' ) 
+			</if>
+			and l.region_id = #{cityId}
+		</where>
+	</select>
+		
+	<!-- 检查数据是否存在 -->
+	<select id="ckLinksName" parameterType="com.dcits.govsbu.sd.taxbankplatform.links.model.LinksEntity" resultMap="linksMap" flushCache="true" useCache="true">
+		SELECT l_id
+		FROM tb_links where l_name = #{linksName} and region_id = #{cityId} and enabled = 'Y'
+	</select>
+	
+	<!-- 根据排序搜索ID -->
+	<select id="findByOrder" parameterType="com.dcits.govsbu.sd.taxbankplatform.links.model.LinksEntity" resultMap="linksMap" flushCache="true" useCache="true">
+		SELECT l_id
+		FROM tb_links where l_display_order = #{displayOrder} and enabled = 'Y' and region_id = #{cityId}
+	</select>
+	
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.links.model.LinksEntity">
+		insert into tb_links (
+			l_id,
+			region_id,
+			l_name,
+			l_url,
+			l_img_url,
+			l_display_order,
+			enabled,
+			creatorid,
+			createtime,
+			updatorid,
+			updatetime
+			)   
+		values (
+			#{id},
+			#{cityId},
+			#{linksName},
+			#{linksUrl},
+			#{linksPrint},
+			#{displayOrder},
+			#{enabled},
+			#{creatorid},
+			#{createtime},
+			#{updatorid},
+			#{updatetime}
+			
+			)  
+	</insert>
+	
+	<!-- 更新数据 -->
+	<update id="update" parameterType="com.dcits.govsbu.sd.taxbankplatform.links.model.LinksEntity" flushCache="true">
+		update tb_links
+		<set>
+			<if test="linksName != null and linksName != ''">
+				l_name = #{linksName},
+			</if>
+			<if test="linksUrl != null and linksUrl != ''">
+				l_url = #{linksUrl},
+			</if>
+			<if test="linksPrint != null and linksPrint != ''">
+				l_img_url = #{linksPrint},
+			</if>
+			<if test="displayOrder != null and displayOrder != ''">
+				l_display_order = #{displayOrder},
+			</if>
+			<if test="enabled != null and enabled != ''">
+				enabled = #{enabled},
+			</if>
+			updatorid = #{updatorid},
+			updatetime = now()
+		</set>
+		where l_id = #{id}
+	</update>
+	
+	<!-- 根据ID查找数据 -->
+	<select id="findById" parameterType="String" resultMap="linksMap" flushCache="true" useCache="true">
+		SELECT *
+		FROM tb_links
+		where l_id = #{id}
+	</select>
+</mapper>

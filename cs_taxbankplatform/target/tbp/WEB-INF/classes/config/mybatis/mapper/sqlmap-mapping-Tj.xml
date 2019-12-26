@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.tj.mapper.TjMapper" >
+<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+  <resultMap id="BaseResultMap" type="com.dcits.govsbu.sd.taxbankplatform.tj.model.TjBean" >
+    <id column="zid" property="zid" />
+    <result column="sqje" property="sqje"  />
+    <result column="sxje" property="sxje" />
+    <result column="dkye" property="dkye" />
+    <result column="hpsl" property="hpsl" />
+    <result column="whpsl" property="whpsl" />
+    <result column="dkrq" property="dkrq" />
+    <result column="yhdm" property="yhdm" />
+    <result column="yhmc" property="yhmc" />
+  </resultMap>
+	<!-- 查询数据 -->
+	<select id="getDyMapper" parameterType="java.lang.String" resultType="com.dcits.govsbu.sd.taxbankplatform.tj.model.TjBean" flushCache="true" useCache="true">
+        select COUNT(1) as ssql , sum(case when dksq.ADMITTANCE = '0' then 1 else null end) as hpsl,
+           sum(case when dksq.ADMITTANCE != '0' then 1 else null end) as whpsl,
+           COUNT(DISTINCT dksq.ENTNAME) as sqzs, 
+           sum(dksq.LOANAMOUNT) as sxje ,  
+           sum(dhsx.LOANBALANCE) as dkye , sum(dksq.LOANAPPLYAMOUNT) as sqje,DATE_FORMAT(APPLYTIME,'%Y%m') dqrq,DATE_FORMAT(APPLYTIME,'%Y%m') yf,
+           IFNULL(dhsx.TBPCODE,dksq.TBPCODE) yhdm, IFNULL(dhsx.TBPNAME,dksq.TBPNAME) yhmc,
+           concat( IFNULL(dhsx.TBPCODE,dksq.TBPCODE),DATE_FORMAT(APPLYTIME,'%Y%m')) zid
+         from tb_loan_dksq dksq left join v_tb_loan_dhsx dhsx on dksq.GRANTCODE = dhsx.GRANTCODE
+           left join v_data_request request on dksq.GRANTCODE = request.grantCode 
+         WHERE  request.nsrzgswj like '143%'  and DATE_FORMAT(APPLYTIME,'%Y%m')=#{yymm}
+         group by yf,yhdm,yhmc,zid,dqrq
+	</select>
+	<select id="getTjAndMmMapper" parameterType="java.lang.String" resultType="com.dcits.govsbu.sd.taxbankplatform.tj.model.TjBean" flushCache="true" useCache="true">
+        select  * from tb_loan_tj where zid = #{zid} 
+	</select>
+	<!-- 查询统计主-->
+	<select id="getTjYf" parameterType="java.lang.String" resultType="com.dcits.govsbu.sd.taxbankplatform.tj.model.TjBean" flushCache="true" useCache="false">
+      	<!-- select   zid,sqje,sxje,dkye,hpsl,whpsl,dkrq,yhdm,yhmc from tb_loan_tj where dkrq>=#{yymm}   group by zid,sqje,sxje,dkye,hpsl,whpsl,dkrq,yhdm,yhmc order by  dkrq -->
+		<!-- select   sum(sqje) sqje,sum(sxje) sxje,sum(dkye) dkye,sum(hpsl) hpsl, sum(whpsl) whpsl,dkrq from tb_loan_tj where dkrq>=#{yymm}   group by dkrq order by  dkrq  -->
+		SELECT t1.tjny dkrq,
+		       IFNULL(SUM(t2.sqje), 0) sqje,
+		       IFNULL(SUM(t2.sxje), 0) sxje,
+		       IFNULL(SUM(t2.dkye), 0) dkye,
+		       IFNULL(SUM(t2.hpsl), 0) hpsl,
+		       IFNULL(SUM(t2.whpsl), 0) whpsl
+		  FROM (SELECT DATE_FORMAT(CURDATE(), '%Y%m') AS tjny
+		        UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 1 MONTH), '%Y%m') AS `tjny`
+		        UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 2 MONTH), '%Y%m') AS `tjny`
+		        UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 3 MONTH), '%Y%m') AS `tjny`
+		        UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 4 MONTH), '%Y%m') AS `tjny`
+		        UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 5 MONTH), '%Y%m') AS `tjny`
+		        UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 6 MONTH), '%Y%m') AS `tjny`
+		        UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 7 MONTH), '%Y%m') AS `tjny`
+		        UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 8 MONTH), '%Y%m') AS `tjny`
+		        UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 9 MONTH), '%Y%m') AS `tjny`
+		        UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 10 MONTH), '%Y%m') AS `tjny`
+		        UNION ALL SELECT DATE_FORMAT((CURDATE() - INTERVAL 11 MONTH), '%Y%m') AS `tjny`
+		        ) t1
+		  LEFT JOIN tb_loan_tj t2
+		    ON t1.tjny = t2.dkrq
+		 GROUP BY t1.tjny
+		 ORDER BY t1.tjny
+	</select>
+	<select id="getTjSYf" parameterType="java.lang.String" resultType="com.dcits.govsbu.sd.taxbankplatform.tj.model.TjBean" flushCache="true" useCache="false"> 
+        select   zid,sqje,sxje,dkye,hpsl,whpsl,dkrq,yhdm,yhmc from tb_loan_tj where dkrq= #{1}  and zid= #{0} group by zid,sqje,sxje,dkye,hpsl,whpsl,dkrq,yhdm,yhmc
+	</select>
+	<!-- 查询统计副-->
+	<select id="getTjJd" parameterType="java.lang.String" resultType="com.dcits.govsbu.sd.taxbankplatform.tj.model.TjBean" flushCache="true" useCache="false">
+     <!--   select   (case when substring(dkrq,5) in (01,02,03) then 1
+  when substring(dkrq,5) in (04,05,06) then 2
+  when substring(dkrq,5) in (07,08,09) then 3
+  when substring(dkrq,5) in (10,11,12) then 4
+  end  )  jd,sum(sqje) sqje,sum(sxje) sxje,sum(dkye) dkye, sum(hpsl) hpsl,sum(whpsl) whpsl  from tb_loan_tj where dkrq>=#{yymm}    group by jd  order by jd
+     -->
+select jdtj.* from (
+select sum(sqje) sqje,sum(sxje) sxje,sum(dkye) dkye,sum(hpsl) hpsl,sum(whpsl)whpsl,dkrq,1 jd from tb_loan_tj a1 where substring(dkrq,5) in(01,02,03) 
+and dkrq=(select max(dkrq) from  tb_loan_tj where substring(dkrq,5) in(01,02,03)) and dkrq>=#{yymm} group by dkrq  
+UNION ALL
+select sum(sqje) sqje,sum(sxje) sxje,sum(dkye) dkye,sum(hpsl) hpsl,sum(whpsl)whpsl,dkrq,2 jd from tb_loan_tj a1 where substring(dkrq,5) in(04,05,06) 
+and dkrq=(select max(dkrq) from  tb_loan_tj where substring(dkrq,5) in(04,05,06)) and dkrq>=#{yymm} group by dkrq 
+UNION ALL
+select sum(sqje) sqje,sum(sxje) sxje,sum(dkye) dkye,sum(hpsl) hpsl,sum(whpsl)whpsl,dkrq,3 jd from tb_loan_tj a1 where substring(dkrq,5) in(07,08,09) 
+and dkrq=(select max(dkrq) from  tb_loan_tj where substring(dkrq,5) in(07,08,09)) and dkrq>=#{yymm}group by dkrq 
+UNION ALL
+select sum(sqje) sqje,sum(sxje) sxje,sum(dkye) dkye,sum(hpsl) hpsl,sum(whpsl)whpsl,dkrq,4 jd from tb_loan_tj a1 where substring(dkrq,5) in(10,11,12) 
+and dkrq=(select max(dkrq) from  tb_loan_tj where substring(dkrq,5) in(10,11,12)) and dkrq>=#{yymm}group by dkrq ) jdtj order by jd 
+
+
+	</select>
+	 <insert id="insertTj" parameterType="java.util.List" >
+         insert into tb_loan_tj(zid,sqje,sxje,dkye,hpsl,whpsl,dkrq,yhdm,yhmc) values
+           <foreach collection="list" item="item" index="index" separator=",">
+               (#{item.zid,jdbcType=VARCHAR},#{item.sqje,jdbcType=VARCHAR},
+               #{item.sxje,jdbcType=VARCHAR},#{item.dkye,jdbcType=VARCHAR},
+               #{item.hpsl,jdbcType=VARCHAR},#{item.whpsl,jdbcType=VARCHAR},
+               #{item.dkrq,jdbcType=VARCHAR},#{item.yhdm,jdbcType=VARCHAR},
+               #{item.yhmc,jdbcType=VARCHAR})
+           </foreach>
+     </insert>
+     <update id="updateTj" parameterType="java.util.List" >
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+        UPDATE tb_loan_tj
+        <set>
+         sqje = #{item.sqje,jdbcType=VARCHAR},sxje = #{item.sxje,jdbcType=VARCHAR},dkye = #{item.dkye,jdbcType=VARCHAR},
+         hpsl = #{item.hpsl,jdbcType=VARCHAR},whpsl = #{item.whpsl,jdbcType=VARCHAR}
+        </set>
+          WHERE zid=#{item.zid,jdbcType=VARCHAR}
+    </foreach>   
+     </update>
+     
+</mapper>

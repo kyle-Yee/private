@@ -1,0 +1,136 @@
+	#formTable td{
+		width : 250px;
+		
+	}
+	#u3971_div {
+	    background-color: rgba(255, 255, 255, 1);
+	    border-color: 	#dce8f1;
+	    border-radius: 0;
+	    border-style: solid;
+	    border-width: 1px;
+	    box-shadow: none;
+	    box-sizing: border-box;
+	    margin-top : 59px;
+	}
+
+	.tdFont {
+	  width:72px;
+	  white-space:nowrap;
+	  text-align:right;
+	   padding-right:15px;
+	}
+	#u4262,#u4263,#u4264,#u4266,#u4267,#u4268,#u4269,#u3956,#u3957,#u3958 {
+	  width:180px;
+	  height:30px;
+	}
+	#province,#city,#area,#industries,#enterprisename,#corporate,
+	#approve,#bank,#phonenumber,#loanproduct,#subbranch {
+	  width:180px;
+	  height:30px;
+	  font-family:'微软雅黑';
+	  font-weight:400;
+	  font-style:normal;
+	  font-size:13px;
+	  text-decoration:none;
+	  color:#000000;
+	}
+
+	#u4262_input:disabled {
+	  color:grayText;
+	}
+	
+	#u4265 {
+	  width:180px;
+	  height:30px;
+	}
+	#starttime ,#endtime {
+	  width:180px;
+	  height:30px;
+	  font-family:'微软雅黑';
+	  font-weight:400;
+	  font-style:normal;
+	  font-size:13px;
+	  text-decoration:none;
+	  color:#000000;
+	  text-align:left;
+	}
+	.buttonStyle {
+	  width:112px;
+	  height:30px;
+	  background:inherit;
+	  background-color:#428bca;
+	  border:none;
+	  border-radius:6.20000076293945px;
+	  -moz-box-shadow:none;
+	  -webkit-box-shadow:none;
+	  box-shadow:none;
+	  color:#FFFFFF;
+	}
+	#u4270 {
+	  width:112px;
+	  color:#FFFFFF;
+	}
+	#btnReset,#btnSearch,#btnExport {
+	  background-color:transparent;
+	  border:none;
+	  margin-top:6px;
+	  width:108px;
+	  word-wrap:break-word;
+	}
+	#detailslist {
+	  margin:30px auto;
+	  	  
+	}
+	#title td{
+	  height:42px;
+	  font-size: 13px;
+	  font-weight:bold;
+	  font-style:normal;
+	  color:white;
+	  text-align:center;
+	  background-color:#00A2CA;
+	  border-width:1px;
+	  border-style:solid;
+	  border-color:rgba(204, 204, 204, 1);
+	  border-radius:0px;
+	  white-space: nowrap;
+	}
+	.tabletext {
+	  word-wrap:break-word;
+	} 
+	 #table tbody .border1,#table tfoot .border1,.table tbody .border1,.table tfoot .border1,
+	 #title1 td {
+	    font-family: "微软雅黑";
+	    font-style: normal;
+	    font-weight: 400;
+	    height: 30px;
+	    text-align: center;
+	    top: 42px;
+	    
+		border-width:1px;
+	    border-style:solid;
+		border-color:rgba(204, 204, 204, 1);
+		border-radius:0px;
+		white-space: nowrap;
+	}
+	#table tbody .border2 {
+		border-width:2px;
+	    border-style:solid;
+		border-color:rgba(204, 204, 204, 1);
+		border-radius:0px;
+	}
+	.forwad {
+		color : #337ab7;
+	}
+
+	#u228,#u230,#u232,#u234 {
+	    color: #ae8535;
+	    font-family: "微软雅黑";
+	    font-size: 16px;
+	    font-style: normal;
+	    font-weight: 400;
+	    text-align: left;
+	}
+	#u229,#u231,#u233,#u235 {
+	    white-space: nowrap;
+	}

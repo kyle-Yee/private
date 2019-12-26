@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.financialProduct.mapper.FinancialProductMapper">
+  <!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+  <!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	
+  <resultMap id="financialProductMap" type="com.dcits.govsbu.sd.taxbankplatform.financialProduct.model.FinancialProduct">
+    <id column="fp_id"  property="id" />
+    <result column="fp_name" property="fpName" />
+    <result column="org_id" property="orgId" />
+    <result column="fp_issue_time" property="fpIssueTime" />
+    <result column="fp_remove_time"  property="fpRemoveTime" />
+    <result column="fp_ishot"  property="fpIshot" />
+    <result column="fp_need_info" property="fpNeedInfo" />
+    <result column="fp_prd_img_url"  property="fpPrdImgUrl" />
+    <result column="fp_delete_status" property="fpDeleteStatus" />
+    <result column="fp_remark" property="fpRemark" />
+    <result column="fp_many_credit" property="fpmanyCredit" />
+    <result column="pt_dm"  property="ptDm" />
+    <result column="ptname"  property="ptname" />
+    <result column="creatorid" property="creatorid" />
+    <result column="createtime"  property="createtime" />
+    <result column="updatorid"  property="updatorid" />
+    <result column="updatetime"  property="updatetime" />
+    <result column="rw_ids"  property="rwIds" />
+    <result column="gs_ids"  property="gsIds" />
+    <result column="ps_id"  property="pstatusId" />
+    <result column="fp_overlay_pc_ids"  property="fpOverlayPcIds" />
+    <result column="region_id" property="regionId" />
+	<!--<result column="la_id" jdbcType="INTEGER" property="laId" /> -->
+    <association property="amountEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.amount.model.AmountEntity">
+		<id property="id" column="la_id"/>
+		<result property="amountName" column="la_name" />
+		<result property="code" column="la_code" />
+		<result property="enabled" column="enabled"/>
+	</association>
+	<!--<result column="ld_id" jdbcType="INTEGER" property="ldId" /> -->
+    <association property="deadlineEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.deadline.model.DeadlineEntity">
+		<id property="id" column="ld_id"/>
+		<result property="deadlineName" column="ld_name" />
+		<result property="code" column="ld_code" />
+		<result property="enabled" column="enabled"/>
+	</association>
+	<!--<result column="lr_id" jdbcType="INTEGER" property="lrId" /> -->
+    <association property="ratesEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.rates.model.RatesEntity">
+		<id property="id" column="lr_id"/>
+		<result property="ratesName" column="lr_name" />
+		<result property="code" column="lr_code" />
+		<result property="enabled" column="enabled"/>
+	</association>
+	<!-- <result column="ps_id" jdbcType="INTEGER" property="psId" /> -->
+	<association property="productStatusEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.productstatus.model.ProductStatusEntity">
+		<id property="id" column="ps_id"/>
+		<result property="productStatusName" column="ps_name" />
+		<result property="code" column="ps_code" />
+		<result property="enabled" column="enabled"/>
+	</association>
+  </resultMap>
+  
+  <resultMap extends="financialProductMap" id="financialProductAllMap" type="com.dcits.govsbu.sd.taxbankplatform.financialProduct.model.FinancialProduct">
+    <result column="f_content" jdbcType="LONGVARCHAR" property="content" />
+    <collection property="attachments" ofType="com.dcits.govsbu.sd.taxbankplatform.attachment.model.Attachment">
+	<id column="id" property="id" />
+    <result column="name" property="name" />
+    <result column="type" property="type" />
+    <result column="size" property="size" />
+    <result column="path" property="path" />
+    <result column="url" property="url" />
+    <result column="fk_table" property="fkTable" />
+    <result column="fk_id_name" property="fkIdName" />
+    <result column="fk_id" property="fkId" />
+    <result column="status" property="status" />
+    <result column="creator_id" property="creatorId" />
+    <result column="creator_name" property="creatorName" />
+    <result column="createtime" property="createtime" />
+	</collection>
+  </resultMap>
+  <sql id="Base_Column_List">
+    fp_id, fp_name, org_id, region_id, fp_issue_time,fp_many_credit, fp_remove_time, la_id, ld_id, lr_id, 
+    rw_ids, gs_ids, ps_id, fp_overlay_pc_ids, fp_ishot, fp_need_info, fp_prd_img_url, 
+    fp_remark, creatorid, createtime, updatorid, updatetime,fp_details
+  </sql>
+  <!--分页查询列表 -->
+  <select id="queryListByPage" parameterType="map" resultMap="financialProductMap" flushCache="true" useCache="true">
+		SELECT 	fp.fp_id,
+		        dm.pt_name as ptname,
+				fp.fp_name, 
+				fp.org_id, 
+				fp.region_id, 
+				fp.fp_issue_time, 
+				fp.fp_remove_time, 
+				fp.fp_many_credit,
+				fp.la_id,
+				la.la_name, 
+				fp.ld_id,
+				ld.ld_name, 
+				fp.lr_id, 
+				lr.lr_name,
+    			fp.rw_ids, 
+    			fp.gs_ids, 
+    			fp.ps_id, 
+    			fp.fp_overlay_pc_ids, 
+    			fp.fp_ishot, 
+    			fp.fp_need_info, 
+    			fp.fp_prd_img_url, 
+    			fp.fp_remark, 
+    			fp.creatorid, 
+    			fp.createtime, 
+    			fp.updatorid, 
+    			fp.updatetime,
+    			fp.fp_details,
+    			fp.pt_dm
+		FROM tb_financial_product fp LEFT JOIN tb_loan_amount la ON fp.la_id = la.la_id
+		LEFT JOIN tb_loan_deadline ld ON fp.ld_id = ld.ld_id
+		LEFT JOIN tb_loan_rates lr ON fp.lr_id = lr.lr_id
+		LEFT JOIN pt_dm dm ON dm.id=fp.pt_dm
+		<where>
+			fp.enabled = 'Y' 
+			<if test="fpName != null and fpName != ''">
+				and fp.fp_name like CONCAT('%','${fpName}','%' )  
+			</if>
+			<if test="ps_id != null and ps_id != ''">
+				and fp.ps_id = '${ps_id}' 
+			</if>
+			<if test="regionId != null and regionId != ''">
+				and fp.region_id = '${regionId}' 
+			</if>
+			<if test="orgId != null and orgId != ''">
+				and fp.org_id = '${orgId}' 
+			</if>
+			<if test="orglist != null and orglist != ''">
+				and FIND_IN_SET(fp.org_id,'${orglist}')
+			</if>
+			<if test="regionlist != null and regionlist != ''">
+				and FIND_IN_SET(fp.region_id,'${regionlist}')
+			</if>
+		</where>
+	</select>
+  <!--校验此产品名称是否存在 -->
+  <select id="checkName" parameterType="map" resultMap="financialProductMap" flushCache="true" useCache="true">
+		SELECT <include refid="Base_Column_List" />
+		FROM tb_financial_product
+		<where>
+			enabled = 'Y' 
+			<if test="fpName != null and fpName != ''">
+				and fp_name = '${fpName}'
+			</if>
+			<if test="ps_id != null and ps_id != ''">
+				and ps_id = '${ps_id}' 
+			</if>
+			<if test="regionId != null and regionId != ''">
+				and region_id = '${regionId}' 
+			</if>
+			<if test="orgId != null and orgId != ''">
+				and org_id = '${orgId}' 
+			</if>
+		</where>
+	</select>
+ 	<select id="findById" parameterType="String" resultMap="financialProductAllMap" flushCache="true" useCache="true">
+	    select 
+	    f.fp_id, f.fp_name, f.org_id, f.region_id, f.fp_issue_time,f.fp_many_credit, f.fp_remove_time, f.la_id, f.ld_id, f.lr_id, 
+	    f.rw_ids, f.gs_ids, f.ps_id, f.fp_overlay_pc_ids, f.fp_ishot, f.fp_need_info, f.fp_prd_img_url, 
+	    f.fp_remark, f.creatorid, f.createtime, f.updatorid, f.updatetime,f.fp_details,f.pt_dm,
+	    d.ld_id,d.ld_code,
+	    a.id, a.name, a.type, a.size, a.path, a.url, a.fk_table, a.fk_id_name, a.fk_id, a.status, a.creator_id, 
+	    a.creator_name, a.createtime
+	    from tb_financial_product f 
+	    LEFT JOIN  tb_loan_deadline d ON f.ld_id =d.ld_id
+	    LEFT JOIN tb_attachment a ON a.fk_table='tb_financial_product'
+	    and a.fk_id_name='fP_id' and a.fk_id=f.fP_id
+	    where fP_id = #{id} and f.enabled = 'Y'
+  </select>
+  <insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.financialProduct.model.FinancialProduct">
+    insert into tb_financial_product (fp_id, fp_name, org_id, 
+      region_id, fp_issue_time, fp_remove_time,fp_many_credit, 
+      la_id, ld_id, lr_id, 
+      rw_ids,gs_ids, ps_id, fp_overlay_pc_ids, 
+      fp_ishot, fp_need_info, fp_prd_img_url, 
+      fp_remark, creatorid, 
+      createtime, updatorid, updatetime, 
+      fp_details,pt_dm)
+    values (#{id},#{fpName,jdbcType=VARCHAR}, #{orgId}, 
+      #{regionId}, #{fpIssueTime,jdbcType=TIMESTAMP}, #{fpRemoveTime,jdbcType=TIMESTAMP}, #{fpmanyCredit,jdbcType=VARCHAR},
+      #{amountEntity.id}, #{deadlineEntity.id}, #{ratesEntity.id},
+      #{rwIds,jdbcType=VARCHAR},#{gsIds,jdbcType=VARCHAR},
+      #{productStatusEntity.id},#{fpOverlayPcIds,jdbcType=VARCHAR}, 
+      #{fpIshot,jdbcType=VARCHAR}, #{fpNeedInfo,jdbcType=VARCHAR}, #{fpPrdImgUrl,jdbcType=VARCHAR}, 
+      #{fpRemark,jdbcType=VARCHAR}, #{creatorid}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatorid}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{fpDetails,jdbcType=LONGVARCHAR},#{ptDm})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dcits.govsbu.sd.taxbankplatform.financialProduct.model.FinancialProduct">
+    insert into tb_financial_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id !='' ">
+        fp_id,
+      </if>
+      <if test="fpName != null and fpName !=''">
+        fp_name,
+      </if>
+      <if test="orgId != null and orgId != ''">
+        org_id,
+      </if>
+      <if test="regionId != null and regionId != ''">
+        regionId,
+      </if>
+      <if test="fpIssueTime != null ">
+        fp_issue_time,
+      </if>
+      <if test="fpRemoveTime != null ">
+        fp_remove_time,
+      </if>
+      <if test="fpmanyCredit != null  and fpmanyCredit != ''">
+        fp_many_credit,
+      </if>
+      <if test="amountEntity.id != null and amountEntity.id != ''">
+        amountEntity.id,
+      </if>
+      <if test="deadlineEntity.id != null and deadlineEntity.id != ''">
+        deadlineEntity.id,
+      </if>
+      <if test="ratesEntity.id != null and ratesEntity.id != ''">
+        ratesEntity.id,
+      </if>
+      <if test="rwIds != null and rwIds !='' ">
+        rwIds,
+      </if>
+      <if test="gsIds != null and gsIds != ''">
+        gsIds,
+      </if>
+      <if test="productStatusEntity.id != null and productStatusEntity.id != ''">
+        productStatusEntity.id,
+      </if>
+      <if test="regionId != null and regionId != ''">
+        regionId,
+      </if>
+      <if test="fpIshot != null and fpIshot !=''">
+        fp_ishot,
+      </if>
+      <if test="fpNeedInfo != null and fpNeedInfo !=''">
+        fp_need_info,
+      </if>
+      <if test="fpPrdImgUrl != null and fpPrdImgUrl != ''">
+        fp_prd_img_url,
+      </if>
+      <if test="fpRemark != null and fpRemark !=''">
+        fp_remark,
+      </if>
+      <if test="creatorid != null and creatorid != ''">
+        creatorid ,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="updatorid != null and updatorid!=''">
+        updatorid,
+      </if>
+      <if test="updatetime != null ">
+        updatetime,
+      </if>
+      <if test="fpDetails != null and fpDetails !=''">
+        fp_details,
+      </if>
+      <if test="enabled != null and enabled != ''">
+        enabled ,
+      </if>
+    </trim>
+  </insert>
+  <!-- 扩大产品覆盖区域 -->
+  <update id="updateFpOverlayPcIds" parameterType="com.dcits.govsbu.sd.taxbankplatform.financialProduct.model.FinancialProduct">
+		update tb_financial_product
+		set 
+	 	<if test="fp_overlay_pc_ids != null and fp_overlay_pc_ids !='' ">
+	    	fp_overlay_pc_ids = #{fp_overlay_pc_ids},
+	    </if>
+	 	<if test="creatorid != null and creatorid !=''">
+        	creatorid = #{creatorid,},
+     	</if>
+      	<if test="createtime != null ">
+       		createtime = #{createtime},
+		</if>
+		<if test="updatorid != null and updatorid !=''">
+      		updatorid = #{updatorid},
+		</if>
+		<if test="updatetime != null  ">
+			updatetime = now(),
+		</if>
+		where fP_id = #{id}
+  </update>
+  
+  <update id="update" parameterType="com.dcits.govsbu.sd.taxbankplatform.financialProduct.model.FinancialProduct">
+  	update tb_financial_product
+    <set>
+      <if test="fpName != null and fpName !=''">
+        fp_name = #{fpName},
+      </if>
+      <if test="orgId != null and orgId != ''">
+        org_id = #{orgId},
+      </if>
+      <if test="regionId != null and  regionId !=''">
+        region_id = #{regionId},
+      </if>
+      <if test="fpIssueTime != null ">
+        fp_issue_time = #{fpIssueTime},
+      </if>
+      <if test="fpRemoveTime != null">
+        fp_remove_time = #{fpRemoveTime},
+      </if>
+      <if test="fpmanyCredit != null and fpmanyCredit != ''">
+        fp_many_credit = #{fpmanyCredit},
+      </if>
+      <if test="amountEntity.id != null and amountEntity.id !=''">
+        la_id = #{amountEntity.id},
+      </if>
+      <if test="deadlineEntity.id != null and deadlineEntity.id !=''">
+        ld_id = #{deadlineEntity.id},
+      </if>
+      <if test="ratesEntity.id != null and ratesEntity.id != ''">
+        lr_id = #{ratesEntity.id},
+      </if>
+      <if test="rwIds != null and rwIds !=''">
+        rw_ids = #{rwIds},
+      </if>
+      <if test="gsIds != null and gsIds !=''">
+        gs_ids = #{gsIds},
+      </if>
+      <if test="productStatusEntity.id != null and productStatusEntity.id !=''">
+        ps_id = #{productStatusEntity.id},
+      </if>
+      <if test="fpOverlayPcIds != null and fpOverlayPcIds !=''">
+        fp_overlay_pc_ids = #{fpOverlayPcIds},
+      </if>
+      <if test="fpIshot != null and fpIshot !=''">
+        fp_ishot = #{fpIshot},
+      </if>
+      <if test="fpNeedInfo != null and fpNeedInfo != ''">
+        fp_need_info = #{fpNeedInfo},
+      </if>
+      <if test="fpPrdImgUrl != null and fpPrdImgUrl !=''">
+        fp_prd_img_url = #{fpPrdImgUrl},
+      </if>
+      <if test="fpRemark != null and fpRemark !=''">
+        fp_remark = #{fpRemark},
+      </if>
+      <if test="creatorid != null and creatorid != ''">
+        creatorid = #{creatorid},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime},
+      </if>
+      <if test="updatorid != null and updatorid!=''">
+        updatorid = #{updatorid},
+      </if>
+      <if test="updatetime != null ">
+        updatetime = now(),
+      </if>
+      <if test="fpDetails != null and fpDetails !=''">
+        fp_details = #{fpDetails},
+      </if>
+      <if test="enabled != null and enabled != ''">
+        enabled = #{enabled},
+      </if>
+    </set>
+    where fp_id = #{id}
+  </update>
+   <!-- 根据产品ID查询产品常见问题 -->
+  <select id="selectfaqByfpId" parameterType="String" resultMap="financialProductAllMap" flushCache="true" useCache="true">
+     select tfp.fp_id ,tfp.fp_name ,tpf.pf_content,tpf.pf_remark from tb_financial_product tfp,
+      tb_product_faq tpf  where tpf.fp_id=#{id}
+  </select>
+  <!-- 查询所有已发布并且有效的产品名称 -->
+  <select id="selectAllName" parameterType="String" resultMap="financialProductAllMap" flushCache="true" useCache="true" >
+    select fp_id,fp_name from tb_financial_product where ps_id='CPZT02' and enabled = 'Y'
+    <if test="regionId != null and regionId != ''">
+				and region_id = '${regionId}' 
+			</if>
+			<if test="orgId != null and orgId != ''">
+				and org_id = '${orgId}' 
+			</if>
+  </select>
+ </mapper>

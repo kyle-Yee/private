@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="true" default-autowire="default"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:sca="http://www.springframework.org/schema/sca"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="SpringQtzJob" class="com.dcits.govsbu.sd.taxbankplatform.dkxx.controller.GLLoanBankApproveController" />
+	<bean id="LoanBankJob" class="com.dcits.govsbu.sd.taxbankplatform.dkxx.controller.LoanBankTask" />
+	<bean id="SpringQtzJobMethod"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="SpringQtzJob" />
+		</property>
+		<property name="targetMethod">  <!-- 要执行的方法名称 -->
+			<!-- <value>automaticEnd</value>  -->
+			 <value>invoking</value>
+		</property>
+	</bean>
+
+	<bean id="LoanBankJobMethod"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="LoanBankJob" />
+		</property>
+		<property name="targetMethod">  <!-- 要执行的方法名称 -->
+			<value>hnResolve</value> 
+		</property>
+	</bean>
+	
+	<!-- ======================== 调度触发器 ======================== -->
+	<bean id="CronTriggerFactoryBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="SpringQtzJobMethod"></property>
+		<!-- <property name="cronExpression" value="0 0/5 * * * ?"></property>  --><!--  每五秒触发一次  0/5 * * * * ? -->
+	    <property name="cronExpression" value="0 0 9 * * ?"></property>   <!-- 每日九点触发 -->
+    </bean>
+    <!-- ****************解析贷后数据****************** -->
+   	<bean id="LoanBankFactoryBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="LoanBankJobMethod"></property>
+		<!-- <property name="cronExpression" value="0/5 * * * * ?"></property> -->   <!-- 每五秒触发一次  0/5 * * * * ? -->
+		<property name="cronExpression" value="0 30 23 * * ?"></property> <!-- 每日23点0分触发 -->
+	</bean>
+	<!-- 简单的触发器 -->
+	<bean id="simpleTimingJobTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="SpringQtzJobMethod" />
+		</property>
+		<!-- 以毫秒为单位，启动三秒钟后触发 -->
+		<property name="startDelay">
+			<value>3000</value>
+		</property>
+		<!-- 每间隔500毫秒触发一次 -->
+		<property name="repeatInterval">
+			 <value>10000</value> 
+		</property>
+		<property name="repeatCount"> <value>0</value> </property>
+	</bean>
+	
+	<!-- ****************数据统计定时任务************************* -->
+	<bean id="StasticsJob" class="com.dcits.govsbu.sd.taxbankplatform.task.controller.DataStasticsTask" />
+	<bean id="StasticsJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="StasticsJob" />
+		</property>
+		<property name="targetMethod">  <!-- 要执行的方法名称 -->
+			<value>executeDataStasticsTask</value> 
+		</property>
+	</bean>
+	<bean id="StasticsJobFactoryBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="StasticsJobMethod"></property>
+		<property name="cronExpression" value="0 */5 * * * ?"></property> <!-- 每一小时执行一次 0 * */1 * * ?  每分钟0 */5 * * * ? -->
+	</bean>
+	<!-- ****************数据统计定时任务************************* -->
+	<!-- ======================== 调度工厂 ======================== -->
+	<bean id="SpringJobSchedulerFactoryBean"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="CronTriggerFactoryBean" />
+				<ref bean="LoanBankFactoryBean"/>
+			</list>
+		</property>
+		<property name="quartzProperties">   
+            <props>   
+                <prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool</prop>   
+                <prop key="org.quartz.threadPool.threadCount">1</prop>   
+                <prop key="org.quartz.threadPool.threadPriority">5</prop>           
+            </props>   
+        </property>   
+	</bean>
+</beans>

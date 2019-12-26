@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.loanapprove.mapper.LoanApproveBatchMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	
+	<!-- 根据银行申请序号获取该用户可授信的贷款申请id(申请状态是1，2的为可授信的状态)  -->
+	<select id="getLaIdByNsrsbh" parameterType="java.util.Map" resultType="java.util.Map" flushCache="true" useCache="true">
+		SELECT sba.sypt_laId la_id,app.la_status
+		FROM 
+		sypt_bank_apply sba 
+		LEFT JOIN tb_loan_apply app ON app.la_id=sba.sypt_laId
+		LEFT JOIN tb_financial_product fp ON fp.fp_id=app.fp_id
+		WHERE sba.bank_laid=#{yhsqxh} AND fp.org_id=#{org_id} AND app.la_status in(1,2)
+		<!-- 渠道id，暂时没有使用 -->
+		<if test="channelid != null and channelid !=''">
+			AND sba.channelid=#{channelid}
+		</if>
+	</select>
+	
+	<!-- 获取所有的还款方式 -->
+	<select id="getHkfsList" resultType="java.util.Map">
+		SELECT * FROM tb_repayment_way;
+	</select>
+	
+	
+	<!-- 获取平台和银行端 还款方式映射表  -->
+	<select id="getTbpRwId" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT rm.tbp_rw_id tbp_id,rm.bank_rw_id bank_id FROM tb_repayway_mapping rm WHERE rm.org_id=#{org_id};
+	</select>
+	  
+</mapper>

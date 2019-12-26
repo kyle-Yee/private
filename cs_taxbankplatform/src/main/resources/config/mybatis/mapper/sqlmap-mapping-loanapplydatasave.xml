@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.dkxx.mapper.LoanApplyDataSaveMapper" >
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	
+	<resultMap id="BaseResultMap" type="com.dcits.govsbu.sd.taxbankplatform.dkxx.model.Dksqxx">
+	  <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="SQXH" property="sqxh" jdbcType="VARCHAR" />
+    <result column="nsryhxx_qymc" property="nsryhxxQymc" jdbcType="VARCHAR" />
+    <result column="nsryhxx_nsrsbh" property="nsryhxxNsrsbh" jdbcType="VARCHAR" />
+    <result column="ISNSRSBH" property="isnsrsbh" jdbcType="CHAR" />
+    <result column="sqrxx_sffr" property="sqrxxSffr" jdbcType="VARCHAR" />
+    <result column="sqrxx_sfrmc" property="sqrxxSfrmc" jdbcType="VARCHAR" />
+    <result column="sqrxx_zjmc" property="sqrxxZjmc" jdbcType="VARCHAR" />
+    <result column="sqrxx_zjhm" property="sqrxxZjhm" jdbcType="VARCHAR" />
+    <result column="sqrxx_sjh" property="sqrxxSjh" jdbcType="VARCHAR" />
+    <result column="nsryhxx_frmc" property="nsryhxxFrmc" jdbcType="VARCHAR" />
+    <result column="nsryhxx_zjmc" property="nsryhxxZjmc" jdbcType="VARCHAR" />
+    <result column="nsryhxx_zjhm" property="nsryhxxZjhm" jdbcType="VARCHAR" />
+    <result column="nsryhxx_frsjh" property="nsryhxxFrsjh" jdbcType="VARCHAR" />
+    <result column="fp_name" property="fpName" jdbcType="VARCHAR" />
+    <result column="fp_id" property="fpId" jdbcType="VARCHAR" />
+    <result column="la_amount" property="laAmount" jdbcType="DECIMAL" />
+    <result column="la_apply_time" property="laApplyTime" jdbcType="TIMESTAMP" />
+    <result column="gs_ids" property="gsIds" jdbcType="VARCHAR" />
+    <result column="lf_id" property="lfId" jdbcType="VARCHAR" />
+    <result column="channelid" property="channelid" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+		
+	<resultMap id="resultMap" type="com.dcits.govsbu.sd.taxbankplatform.dkxx.model.Dksqxx">
+     <id column="dksqdId" property="id"  />
+     <result column="dksqdId" property="dksqdId"  /> 
+    <result column="SQXH" property="sqxh"  />
+    <result column="nsryhxx_qymc" property="nsryhxxQymc"  />
+    <result column="nsryhxx_nsrsbh" property="nsryhxxNsrsbh" />
+    <result column="ISNSRSBH" property="isnsrsbh" />
+    <result column="sqrxx_sffr" property="sqrxxSffr" />
+    <result column="sqrxx_sfrmc" property="sqrxxSfrmc"  />
+    <result column="sqrxx_zjmc" property="sqrxxZjmc"  />
+    <result column="sqrxx_zjhm" property="sqrxxZjhm" />
+    <result column="sqrxx_sjh" property="sqrxxSjh" />
+    <result column="nsryhxx_frmc" property="nsryhxxFrmc"  />
+    <result column="nsryhxx_zjmc" property="nsryhxxZjmc" />
+    <result column="nsryhxx_zjhm" property="nsryhxxZjhm"  />
+    <result column="nsryhxx_frsjh" property="nsryhxxFrsjh"  />
+    <result column="fp_name" property="fpName" />
+    <result column="fp_id" property="fpId"  />
+    <result column="la_amount" property="laAmount" />
+    <result column="la_apply_time" property="laApplyTime"  />
+    <result column="gs_ids" property="gsIds"  />
+    <result column="lf_id" property="lfId"  />
+    <result column="channelid" property="channelid" />
+    <result column="create_time" property="createTime"  />
+    <result column="enabled" property="enabled"/>
+    <association property="bankfinal" column="finalid" javaType="com.dcits.govsbu.sd.taxbankplatform.dkxx.model.Bankfinal" >
+    <id column="finalid" property="finalid" />
+    <id column="finalid" property="id" />
+    
+    <result column="SQXH" property="sqxh" />
+    <result column="nsrsbhfinal" property="nsrsbh"  />
+    <result column="lf_id" property="lfId"  />
+    <result column="lar_pdjg" property="larPdjg" />
+    <result column="lar_credit_quota" property="larCreditQuota" />
+    <result column="lar_loan_deadline" property="larLoanDeadline" />
+    <result column="lar_rate" property="larRate"  />
+    <result column="rw_id" property="rwId" />
+    <result column="create_time" property="createTime"  />
+    <result column="enabledfinal" property="enabled"/>
+    
+    </association>
+     <association property="bankfinalend" column="endssid" javaType="com.dcits.govsbu.sd.taxbankplatform.dkxx.model.Bankfinalend" >
+    <id column="endssid" property="endssid" />
+    <id column="endssid" property="id" />
+    <result column="SQXH" property="sqxh" />
+    <result column="nsrsbhend" property="nsrsbh" />
+    <result column="lf_id" property="lfId"/>
+    <result column="lae_zzbz" property="laeZzbz"/>
+    <result column="lae_ebddate" property="laeEbddate" />
+    <result column="lae_credit_quota" property="laeCreditQuota" />
+    <result column="lae_overdue_count" property="laeOverdueCount"  />
+    <result column="bankloan_type" property="bankloanType"  />
+    <result column="create_time" property="createTime" />
+    <result column="enabledend" property="enabled"/>
+    </association>
+	</resultMap>
+	<sql id="Base_Column_List" >
+		 id, SQXH, nsryhxx_qymc, nsryhxx_nsrsbh, ISNSRSBH, sqrxx_sffr, sqrxx_sfrmc, sqrxx_zjmc, 
+    sqrxx_zjhm, sqrxx_sjh, nsryhxx_frmc, nsryhxx_zjmc, nsryhxx_zjhm, nsryhxx_frsjh, fp_name, 
+    fp_id, la_amount, la_apply_time, gs_ids, lf_id, channelid, create_time
+ 	 </sql>
+ 	 
+ 	 
+
+	<select id="findAll" resultMap="BaseResultMap" flushCache="true" useCache="true">
+		select * 
+		from t_bank_sqdkxx
+	</select>
+		<select id="findAllbylfId"    resultMap="resultMap"  flushCache="true" useCache="true">
+select 
+		 xx.id as dksqdId,
+         xx.nsryhxx_nsrsbh,
+         xx.ISNSRSBH,
+         xx.nsryhxx_qymc,
+         xx.sqrxx_sfrmc,xx.sqrxx_zjmc,xx.sqrxx_zjhm,
+         xx.sqrxx_sjh,xx.fp_id,xx.la_amount,xx.la_apply_time,xx.gs_ids,
+         xx.lf_id,
+         xx.channelid,
+         xx.create_time,
+         xx.enabled,
+         final.id as finalid,
+         final.nsrsbh as nsrsbhfinal,final.lf_id,final.lar_pdjg,
+	     final.lar_credit_quota,final.lar_rate,
+		 final.lar_loan_deadline,final.rw_id,final.create_time
+          ,
+          final.enabled as enabledfinal,
+          endss.id as endssid,
+          endss.nsrsbh as nsrsbhend,
+          
+          endss.lf_id,endss.lf_id,endss.lae_zzbz,endss.lae_ebddate,
+          endss.lae_credit_quota,endss.lae_overdue_count,
+          endss.enabled as enabledend
+          
+          ,endss.bankloan_type
+          from t_bank_sqdkxx xx 
+          left join    t_bank_final final  on xx.lf_id=final.lf_id  
+           left join   t_bank_finalend   endss on xx.lf_id=endss.lf_id 
+           
+          where xx.enabled='N'   or final.enabled='N' or endss.enabled='N'   order by xx.create_time desc
+         
+	</select>
+	<!-- 修改enabled -->
+		<update id="changesqdkxx" parameterType="com.dcits.govsbu.sd.taxbankplatform.dkxx.model.Dksqxx"  flushCache="true">
+		update t_bank_sqdkxx
+		   set enabled='Y'
+		where lf_id = #{lfId} 
+	</update>
+		<!-- 修改enabled -->
+		<update id="changefinal" parameterType="com.dcits.govsbu.sd.taxbankplatform.dkxx.model.Bankfinal"  flushCache="true">
+		update t_bank_final
+		   set enabled='Y'
+		where lf_id = #{lfId}
+	</update>
+		<!-- 修改enabled -->
+		<update id="changeend" parameterType="com.dcits.govsbu.sd.taxbankplatform.dkxx.model.Bankfinalend"  flushCache="true">
+		update t_bank_finalend
+		   set enabled='Y'
+		where lf_id = #{lfId}
+	</update>
+</mapper>

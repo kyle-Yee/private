@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.guaranteestyle.mapper.GuaranteeStyleMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+	<sql id="guaranteestyleAttributes">
+		gs_id,
+		gs_name,
+		gs_code,
+		enabled
+	</sql>
+
+	<resultMap id="guaranteestyleMap" type="com.dcits.govsbu.sd.taxbankplatform.guaranteestyle.model.GuaranteeStyleEntity">
+		<id property="id" column="gs_id"/>
+		<result property="gsname" column="gs_name"/>
+		<result property="gscode" column="gs_code"/>
+		<result property="enabled" column="enabled"/>
+	</resultMap>
+	
+	<select id="queryListByPage" parameterType="map" resultMap="guaranteestyleMap" flushCache="true" useCache="true">
+		SELECT <include refid="guaranteestyleAttributes" /> FROM tb_guarantee_style  where enabled='Y'
+		<if test="gsname != null and gsname != ''">
+				and gs_name like CONCAT('%',#{gsname},'%')
+		</if>
+	</select>
+	
+	<select id="findById" parameterType="String" resultMap="guaranteestyleMap" flushCache="true" useCache="true">
+		select 
+	    <include refid="guaranteestyleAttributes" />
+	    from tb_guarantee_style
+	    where gs_id = #{id}
+	</select>
+	
+	<select id="queryListAll" parameterType="map" resultMap="guaranteestyleMap" flushCache="true" useCache="true" >
+		select <include refid="guaranteestyleAttributes" /> from tb_guarantee_style where enabled='Y'
+	</select>
+	
+	
+	<insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.guaranteestyle.model.GuaranteeStyleEntity">
+		insert ignore into tb_guarantee_style (
+				gs_id,
+				gs_name,
+				gs_code,
+				enabled
+			)   
+		values (
+				#{id},
+				#{gsname},
+				#{gscode},
+				#{enabled}
+			)  
+	</insert>
+	
+	<update id="update" parameterType="com.dcits.govsbu.sd.taxbankplatform.guaranteestyle.model.GuaranteeStyleEntity" flushCache="true">
+		update tb_guarantee_style
+	    <set >
+	      <if test="gsname != null" >
+	        gs_name = #{gsname},
+	      </if>
+	      <if test="gscode != null" >
+	        gs_code = #{gscode},
+	      </if>
+	       <if test="enabled != null" >
+	        enabled = #{enabled}
+	      </if>
+	    </set>
+	    where gs_id = #{id}
+	</update>
+	
+	<delete id="deleteBatchById" parameterType="list">
+		<![CDATA[  
+       delete from tb_guarantee_style where gs_id in  
+    	]]>  
+	    <foreach collection="list" item = "id" open="(" separator="," close=")">
+	    #{id}  
+	    </foreach>  
+	</delete>
+	
+</mapper>

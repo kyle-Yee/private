@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.tbpStatic.mapper.NewsMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	
+	<resultMap id="newsMap" type="com.dcits.govsbu.sd.taxbankplatform.tbpStatic.model.NewsEntity">
+		<id property="id" column="n_id"/>
+		<result property="title" column="n_title" />
+		<result property="date" column="n_published_date" />
+		<!-- <result property="dept" column="org_name" /> -->
+		<result property="dept" column="n_published_dept" />
+		<result property="content" column="n_content" />
+		<result property="cityId" column="region_id" />
+		<result property="cityName" column="region_name" />
+		<result property="newId" column="nt_id" />
+		<result property="newName" column="nt_name" />
+		<result property="code" column="nt_code" />
+		<result property="deptCode" column="org_code" />
+		<result property="enabled" column="enabled"/>
+		<result property="creatorid" column="creatorid"/>
+		<result property="createtime" column="createtime"/>
+		<result property="updatorid" column="updatorid"/>
+		<result property="updatetime" column="updatetime"/>
+	</resultMap>
+	
+	<resultMap type="com.dcits.govsbu.sd.taxbankplatform.tbpStatic.model.NewsEntity" id="deptMap">
+		<result property="dept" column="org_name" />
+		<result property="deptCode" column="org_code" />
+	</resultMap>
+	
+	<!-- 搜索数据 -->
+	<select id="queryListByPage" parameterType="map" resultMap="newsMap" flushCache="true" useCache="true">
+		SELECT
+		n.n_id,
+		n.n_title,
+		n.n_published_date,
+		n.n_published_dept,
+		n.n_content,
+		n.enabled,
+		r.region_name,
+		nt.nt_name,
+		nt.nt_code,
+		o.org_name
+		FROM tb_news n LEFT JOIN tb_regions r ON n.region_id = r.region_id LEFT JOIN tb_news_type nt ON n.nt_id = nt.nt_id LEFT JOIN tb_organizations o ON n.org_id = o.org_id
+		<where>
+			<if test="name != null and name != ''">
+			n.n_title LIKE CONCAT('%','${name}','%' )
+			</if>
+			and nt.nt_code = #{code} and n.region_id = #{cityId}
+		</where>
+	</select>
+	
+	<!-- 点击编辑按钮时候查询单条数据 -->
+	<select id="findById" parameterType="String" resultMap="newsMap" flushCache="true" useCache="true">
+		SELECT 
+		n.n_id,
+		n.n_title,
+		n.n_published_date,
+		n.n_published_dept,
+		n.n_content,
+		n.enabled,
+		r.region_name,
+		nt.nt_name,
+		nt.nt_code,
+		o.org_code
+		FROM tb_news n LEFT JOIN tb_regions r ON n.region_id = r.region_id LEFT JOIN tb_news_type nt ON n.nt_id = nt.nt_id LEFT JOIN tb_organizations o ON n.org_id = o.org_id
+		where n.n_id = #{id}
+	</select>
+	
+	<!-- 根据code查询codeID -->
+	<select id="searchByCode" parameterType="map" resultMap="newsMap" flushCache="true" useCache="true">
+		SELECT nt_id FROM tb_news_type where nt_code = #{code}
+	</select>
+	
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.tbpStatic.model.NewsEntity" useGeneratedKeys="true" keyProperty="n_id">
+		insert into tb_news (
+			n_id,region_id,org_id,nt_id,n_title,n_published_date,n_published_dept,n_content,enabled,creatorid,createtime,updatorid,updatetime
+			)   
+		values (
+			#{id},
+			#{cityId},
+			#{orgId},
+			#{newId},
+			#{title},
+			date_format(#{date}, '%Y-%m-%d'),
+			#{dept},
+			#{content},
+			#{enabled},
+			#{creatorid},
+			#{createtime},
+			#{updatorid},
+			#{updatetime}
+			) 
+	</insert>
+	
+	<!-- 更新数据 -->
+	<update id="update" parameterType="com.dcits.govsbu.sd.taxbankplatform.tbpStatic.model.NewsEntity" flushCache="true">
+		update tb_news
+		<set>
+			<if test="title != null and title != ''">
+				n_title = #{title},
+			</if>
+			<if test="date != null and date != ''">
+				n_published_date = #{date},
+			</if>
+			<if test="dept != null and dept != ''">
+				n_published_dept = #{dept},
+			</if>
+			<if test="content != null and content != ''">
+				n_content = #{content},
+			</if>
+			<if test="enabled != null and enabled != ''">
+				enabled = #{enabled},
+			</if>
+			updatorid = #{updatorid},
+			updatetime =now()
+		</set>
+		where n_id = #{id}
+	</update>
+	
+	<!-- 初始化下拉框 -->
+	<select id="findDeptCode" parameterType="com.dcits.govsbu.sd.taxbankplatform.tbpStatic.model.NewsEntity" resultMap="deptMap" flushCache="true" useCache="true">
+		SELECT o.org_name, o.org_code
+		FROM tb_organizations o LEFT JOIN tb_organizations_type ot ON o.ot_id = ot.ot_id
+		where ot.ot_type_code = #{deptCode} and o.region_id = #{cityId}
+	</select>
+</mapper>

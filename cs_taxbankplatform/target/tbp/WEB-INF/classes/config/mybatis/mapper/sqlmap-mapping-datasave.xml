@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.datastorage.mapper.TaxDataSaveMapper" >
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+	
+	<!-- 保存企业基础信息 -->
+	<insert id="insertTaxNsrjcxx" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_qyjcxx 
+		(id,djxh, tth_lbpm, tth_djjg_dm, tth_djrq, tth_djzclx_dm, tth_dwlsgx_dm, tth_fddbrsfzjhm, tth_fddbrsfzjlx_dm, tth_fddbrxm, tth_fjmqybz, tth_gdghlx_dm, tth_gdslx_dm, tth_hy_dm, tth_jdxz_dm, tth_kqccsztdjbz, tth_lrr_dm, tth_lrrq, tth_nsrmc, tth_nsrsbh, tth_nsrzt_dm, tth_scjydz, tth_scjydzxzqhsz_dm, tth_sjgsdq, tth_sjtb_sj, tth_ssdabh, tth_ssgly_dm, tth_swdjblbz, tth_xgr_dm, tth_xgrq, tth_zcdz, tth_zcdzxzqhsz_dm, tth_zgswj_dm, tth_zgswskfj_dm, tth_zzjg_dm, creatorid, createtime, updatorid, updatetime, sqxh) 
+		values 
+		(#{id},#{djxh}, #{lpbm}, #{djjgDm}, #{djrq}, #{djzclxDm}, #{dwlsgxDm}, #{fddbrsfzjhm}, #{fddbrsfzjlxDm}, #{fddbrxm}, #{fjmqybz}, #{gdghlxDm}, #{gdslxDm}, #{hyDm}, #{jdxzDm}, #{kqccsztdjbz}, #{lrrDm}, #{lrrq}, #{nsrmc}, #{nsrsbh}, #{nsrztDm}, #{scjydz}, #{scjydzxzqhszDm}, #{sjgsdq}, #{sjtbSj}, #{ssdabh}, #{ssglyDm}, #{swdjblbz}, #{xgrDm}, #{xgrq}, #{zcdz}, #{zcdzxzqhszDm}, #{zgswjDm}, #{zgswskfjDm}, #{zzjgDm}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存纳税人基础信息扩展 -->
+	<insert id="insertTaxNsrxxKz" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_qyjcxx_kz 
+		(id,djxh, tthk_lbpm,tthk_bsrdzxx, tthk_bsrgddh, tthk_bsrsfzjhm, tthk_bsrsfzjzl_dm, tthk_bsrxm, tthk_bsryddh, tthk_bzfs_dm, tthk_cwfzrdxx, tthk_cwfzrgddh, tthk_cwfzrsfzjhm, tthk_cwfzrsfzjzl_dm, tthk_cwfzrxm, tthk_cwfzryddh, tthk_cyrs, tthk_fddbrbzxx, tthk_fddbrgddh, tthk_fddbryddh, tthk_gdgrs, tthk_ggrs, tthk_gjhdqsz_dm, tthk_gykglx_dm, tthk_gytzbl, tthk_hhrs, tthk_hjszd, tthk_hsfs_dm, tthk_jyfw, tthk_kjzdzz_dm, tthk_lsswdjyxqq, tthk_lsswdjyxqz, tthk_scjydlxdh, tthk_scjydyzbm, tthk_swdlrdzxx, tthk_swdlrlxdh, tthk_swdlrmc, tthk_swdlrnsrsbh, tthk_tzze, tthk_wjcyrs, tthk_wz, tthk_wztzbl, tthk_ygznsrlx_dm, tthk_yhsjnfs_dm, tthk_zcdlxdh, tthk_zcdyzbm, tthk_zczb, tthk_zzrtzbl, tthk_zsxmcxbz_dm, tthk_zzjgkx_dm, tthk_zzsjylb, tthk_zzsqylx_dm, creatorid, createtime, updatorid, updatetime, sqxh)
+		values 
+		(#{id},#{djxh}, #{lpbm}, #{bsrdzxx}, #{bsrgddh}, #{bsrsfzjhm}, #{bsrsfzjzlDm}, #{bsrxm}, #{bsryddh}, #{bzfsDm}, #{cwfzrdzxx}, #{cwfzrgddh}, #{cwfzrsfzjhm}, #{cwfzrsfzjzlDm}, #{cwfzrxm}, #{cwfzryddh}, #{cyrs}, #{fddbrdzxx}, #{fddbrgddh}, #{fddbryddh}, #{gdgrs}, #{ggrs}, #{gjhdqszDm}, #{gykglxDm}, #{gytzbl}, #{hhrs}, #{hjszd}, #{hsfsDm}, #{jyfw}, #{kjzdzzDm}, #{lsswdjyxqq}, #{lsswdjyxqz}, #{scjydlxdh}, #{scjydyzbm}, #{swdlrdzxx}, #{swdlrlxdh}, #{swdlrmc}, #{swdlrnsrsbh}, #{tzze}, #{wjcyrs}, #{wz}, #{wztzbl}, #{ygznsrlxDm}, #{yhsjnfsDm}, #{zcdlxdh}, #{zcdyzbm}, #{zczb}, #{zrrtzbl}, #{zsxmcxbzDm}, #{zzjglxDm}, #{zzsjylb}, #{zzsqylxDm}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业批准机构信息 -->
+	<insert id="insertTaxPzjgxx" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_qypzjg 
+		(id,djxh, tthq_lbpm, tthq_kyslrq, tthq_lcslid, tthq_lrr_dm, tthq_lrrq, tthq_pzjguuid, tthq_pzsljg_dm, tthq_pzsljglx_dm, tthq_pzsljgmc, tthq_pzzmhwjh, tthq_scjyqxq, tthq_scjyqxz, tthq_sjgsdq, tthq_sjtbsj, tthq_xgr_dm, tthq_xgrq, tthq_zzhm, tthq_zzlx_dm, creatorid, createtime, updatorid, updatetime, sqxh) 
+		values 
+		(#{id},#{djxh}, #{lpbm}, #{kyslrq}, #{lcslid}, #{lrrDm}, #{lrrq}, #{pzjguuid}, #{pzsljgDm}, #{pzsljglxDm}, #{pzsljgmc}, #{pzzmhwjh}, #{scjyqxq}, #{scjyqxz}, #{sjgsdq}, #{sjtbSj}, #{xgrDm}, #{xgrq}, #{zzhm}, #{zzlxDm}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+		<!-- 保存企业变更信息 -->
+	<insert id="insertTaxBgdjmx" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_qybgxx
+			(id,djxh, tthb_lbpm, tthb_bgxm_dm, tthb_bgqnr, tthb_bghnr, tthb_bgdjmxuuid, tthb_xgrq, tthb_sjtbsj, tthb_pzjgmc, tthb_pzwj, tthb_lrr_dm, tthb_lrrq, tthb_gluuid, tthb_xgr_dm, creatorid, createtime, updatorid, updatetime, sqxh)
+			values
+			(#{id},#{djxh}, #{lpbm}, #{bgxmdm}, #{bgqnr}, #{bghnr}, #{bgdjmxuuid}, #{xgrq}, #{sjtbSj}, #{pzjgmc}, #{pzwj}, #{lrrDm}, #{lrrq}, #{gluuid}, #{xgrDm}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业投资方信息 -->
+	<insert id="insertTaxTzfxx" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_qytzf 
+		(id,djxh, tthy_lbpm, tthy_dz, tthy_fpbl, tthy_gjhdqsz_dm, tthy_lrr_dm, tthy_lrrq, tthy_sjgsdq, tthy_sjtbsj, tthy_tzbl, tthy_tzfhhhrmc, tthy_tzfhhhrzjhm, tthy_tzfhhhrzjzl_dm, tthy_tzfjjxz_dm, tthy_tzje, tthy_uuid, tthy_xgr_dm, tthy_xgrq, tthy_yxqq, tthy_yxqz, creatorid, createtime, updatorid, updatetime, sqxh)
+		values 
+		(#{id},#{djxh}, #{lpbm}, #{dz}, #{fpbl}, #{gjhdqszDm}, #{lrrDm}, #{lrrq}, #{sjgsdq}, #{sjtbSj}, #{tzbl}, #{tzfhhhrmc}, #{tzfhhhrzjhm}, #{tzfhhhrzjzlDm}, #{tzfjjxzDm}, #{tzje}, #{uuid}, #{xgrDm}, #{xgrq}, #{yxqq}, #{yxqz}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业分支机构信息 -->
+	<insert id="insertTaxFzjgxx" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_qyfzjg
+		(id,djxh, tthf_lbpm, tthf_yxqq, tthf_yxqz, tthf_xgr_dm, tthf_xgrq, tthf_sjgsdq, tthf_lrr_dm, tthf_lrrq, tthf_sjtbsj, tthf_fzjghfdlxdh, tthf_fzjghfddz, tthf_fzjghfdmc, tthf_fzjghfdnsrsbh, tthf_fzjghfddjxh, tthf_fzjgfduuid, creatorid, createtime, updatorid, updatetime, sqxh)
+		values
+		(#{id},#{djxh}, #{lpbm}, #{yxqq}, #{yxqz}, #{xgrDm}, #{xgrq}, #{sjgsdq}, #{lrrDm}, #{lrrq}, #{sjtbSj}, #{fzjghfdlxdh}, #{fzjghfddz}, #{fzjghfdmc}, #{fzjghfdnsrsbh}, #{fzjghfddjxh}, #{fzjgfduuid}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业总分机构信息 -->
+	<insert id="insertTaxZzjgxx" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_qyzfjgxx
+		(id,djxh, tthzf_sjtbsj, tthzf_yxqq, tthzf_yxqz, tthzf_zjglxdh, tthzf_zjgfddbrxm, tthzf_zjgzcdzyzbm, tthzf_zjgzcdz, tthzf_zjgmc, tthzf_zjgdjxh, tthzf_zjgnsrsbh, tthzf_xgr_dm, tthzf_xgrq, tthzf_sjgsdq, tthzf_lrr_dm, tthzf_lrrq, tthzf_yxbz, tthzf_zjguuid, tthzf_zjgjyfw, creatorid, createtime, updatorid, updatetime, sqxh)
+		values
+		(#{id},#{djxh}, #{sjtbSj}, #{yxqq}, #{yxqz}, #{zjglxdh}, #{zjgfddbrxm}, #{zjgzcdzyzbm}, #{zjgzcdz}, #{zjgmc}, #{zjgdjxh}, #{zjgnsrsbh}, #{xgrDm}, #{xgrq}, #{sjgsdq}, #{lrrDm}, #{lrrq}, #{yxbz}, #{zjguuid}, #{zjgjyfw}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业违法违章信息 -->
+	<insert id="insertTaxSswfxwdj" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_sswfxwdj 
+		(id,djxh, tts_ajly, tts_djjg_dm, tts_djr_dm, tts_djrq, tts_fzczjyy, tts_hdslid, tts_jcajbz, tts_lcslid, tts_lrr_dm, tts_lrrq, tts_nsrmc, tts_nsrsbh, tts_rgdjbz, tts_sfsbfwf, tts_sjgsdq, tts_sjslid, tts_sjtbsj, tts_ssqjq, tts_ssqjz, tts_sswflx_dm, tts_sswfsd_dm, tts_sswfxwclzt_dm, tts_sswfxwdjuuid, tts_wfsx, tts_wfxwbh, tts_wfxwmc, tts_xgr_dm, tts_xgrq, tts_zfbz, tts_zfr_dm, tts_zfrq, tts_zjlxdm, tts_zjshrq, tts_zjshry_dm, creatorid, createtime, updatorid, updatetime, sqxh)
+		values 
+		(#{id},#{djxh}, #{ajly}, #{djjgDm}, #{djrDm}, #{djrq}, #{fzczjyy}, #{hdslid}, #{jcajbz}, #{lcslid}, #{lrrDm}, #{lrrq}, #{nsrmc}, #{nsrsbh}, #{rgdjbz}, #{sfsbfwf}, #{sjgsdq}, #{sjslid}, #{sjtbSj}, #{ssqjq_1}, #{ssqjz_1}, #{sswflxDm}, #{sswfsdDm}, #{sswfxwclztDm}, #{sswfxwdjuuid}, #{wfss}, #{wfxwbh}, #{wfxwmc}, #{xgrDm}, #{xgrq}, #{zfbz_1}, #{zfrDm}, #{zfrq_1}, #{zjlxDm1}, #{zjshrq}, #{zjshryDm}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业稽查案件信息 -->
+	<insert id="insertTaxAjxx" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_ajxx
+		(id,djxh, tta_dbajbz, tta_zgswjg_dm, tta_ajszjg_dm, tta_jcssqjq, tta_jcssqjz, tta_lasqrq, tta_larq, tta_zxdjrq, tta_zxwbrq, tta_yjskze, tta_yjfkze, tta_yjznjze, tta_sjskze, tta_sjznjze, tta_sjfkze, tta_djzclx_dm, tta_hy_dm, tta_swjg_dm, tta_jarq, tta_dyabz, tta_nsrsbh, tta_nsrmc, tta_jcrqq, tta_slyj, tta_clwbbz, tta_jcjzrq, tta_sljzrq, tta_jcajxxuuid, tta_wfxxuuid, tta_jcajbh, tta_ajmc, tta_ajlx_dm, tta_ajjczt_dm, tta_jcxm, tta_rwxdrq, tta_jcdjrq, tta_swjctzsrq, tta_jcjsrq, tta_sldjrq, tta_sljsrq, tta_tzsj, tta_jcry, tta_slry, tta_zxry, tta_labm_dm, tta_jcbm_dm, tta_slbm_dm, tta_zxbm_dm, tta_lrr_dm, tta_lrrq, tta_xgr_dm, tta_xgrq, tta_sjgsdq, tta_zfbz, tta_zfr_dm, tta_zfrq, tta_lcslid, tta_wtajbz, tta_zdajbz, tta_sjtbsj, tta_ydsfbz, creatorid, createtime, updatorid, updatetime, sqxh)
+		values
+		(#{id},#{djxh}, #{dbajbz}, #{zgswjgDm}, #{ajszjgDm}, #{jcssqjq}, #{jcssqjz}, #{lasqrq}, #{larq}, #{zxdjrq}, #{zxwbrq}, #{yjskze}, #{yjfkze}, #{yjznjze}, #{sjskze}, #{sjznjze}, #{sjfkze}, #{djzclxDm}, #{hyDm}, #{swjgDm}, #{jarq}, #{dyabz}, #{nsrsbh}, #{nsrmc}, #{jcrqq}, #{slyj2}, #{clwbbz}, #{jcjzrq}, #{sljzrq}, #{jcajxxuuid}, #{wfxxuuid}, #{jcajbh}, #{ajmc}, #{ajlxDm}, #{ajjcztDm}, #{jcxm}, #{rwxdrq}, #{jcdjrq}, #{swjctzssdrq}, #{jcjsrq}, #{sldjrq}, #{sljsrq}, #{tzsj}, #{jcry}, #{slry}, #{zxry}, #{labmDm}, #{jcbmDm}, #{slbmDm}, #{zxbmDm}, #{lrrDm}, #{lrrq}, #{xgrDm}, #{xgrq}, #{sjgsdq}, #{zfbz1}, #{zfrDm}, #{zfrq1}, #{lcslid}, #{wtajbz}, #{zdajbz}, #{sjtbSj}, #{yssfbz}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业申报信息 -->
+	<insert id="insertTaxSbxx" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_sbxx
+		(id,djxh, tts_sssq_q, tts_sssq_z, tts_lpbm, tts_jsyj, tts_pzxh, tts_skssqz, tts_skssqq, tts_nssbrq, tts_sbqx, tts_zspm_dm, tts_zsxm_dm, tts_pzmxxh, tts_sbfss_dm, tts_zsfs_dm, tts_ynse, tts_yjse, tts_jmse, tts_ybtse, tts_sbuuid, tts_ysx, tts_ysbqx, tts_yzpzzl_dm, tts_hy_dm, tts_zsdlfs_dm, tts_jdxz_dm, tts_zfrq_1, tts_zfbz_1, tts_zfr_dm, tts_ssgly_dm, tts_zgswskfj_dm, tts_lrr_dm, tts_lrrq, tts_xgr_dm, tts_xgrq, tts_sjtb_sj, tts_sl_1, tts_zszm_dm, tts_sbxxuuid, tts_zspzmxxh, tts_rdpzuuid, tts_sjgsdq, tts_djzclx_dm, tts_gzlx_dm_1, tts_sbsx_dm_1, creatorid, createtime, updatorid, updatetime, sqxh)
+		values
+		(#{id},#{djxh}, #{sssqq}, #{sssqz}, #{lpbm}, #{jsyj}, #{pzxh}, #{skssqz}, #{skssqq}, #{nssbrq}, #{sbqx}, #{zspmDm}, #{zsxmDm}, #{pzmxxh}, #{sbfsDm}, #{zsfsDm}, #{ynse}, #{yjse}, #{jmse}, #{ybtse}, #{sbuuid}, #{ysx}, #{ysbqx}, #{yzpzzlDm}, #{hyDm}, #{zsdlfsDm}, #{jdxzDm}, #{zfrq1}, #{zfbz1}, #{zfrDm}, #{ssglyDm}, #{zgswskfjDm}, #{lrrDm}, #{lrrq}, #{xgrDm}, #{xgrq}, #{sjtbSj}, #{sl1}, #{zszmDm}, #{sbxxuuid}, #{zspzmxxh}, #{rdpzuuid}, #{sjgsdq}, #{djzclxDm}, #{gzlxDm1}, #{sbsxDm1}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业征收信息 -->
+	<insert id="insertTaxYjsf" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_yjsf
+		(id,djxh, tty_sssq_q, tty_sssq_z, tts_lpbm, tty_bz, tty_cbsx_dm, tty_czlx_dm, tty_djzclx_dm, tty_dwlsgx_dm, tty_glyzpzmxxh, tty_hy_dm, tty_jdxz_dm, tty_jkqx, tty_jmse, tty_jsyj, tty_kjdjxh, tty_kjjzrq, tty_kmblgktsgz_dm, tty_kssl, tty_lrr_dm, tty_lrrq, tty_nssbrq, tty_qrmxuuid, tty_rkrq, tty_sbfs_dm, tty_sbsx_dm_1, tty_sjgsdq, tty_sjtb_sj, tty_skcllx_dm, tty_skssqq, tty_skssqz, tty_skssswjg_dm, tty_sksx_dm, tty_skzl_dm, tty_sl_1, tty_ssgly_dm, tty_sybh_1, tty_tzlx_dm, tty_xgr_dm, tty_xgrq, tty_ybtse, tty_yjkqx, tty_yjse, tty_yjskzt_dm, tty_ynse, tty_yyzpzmxxh, tty_yzclrq, tty_yzfsrq, tty_yzgsrq, tty_yzpzmxxh, tty_yzpzxh, tty_yzpzzl_dm, tty_zgswskfj_dm, tty_zsdlfs_dm, tty_zsfs_dm, tty_zspm_dm, tty_zsswjg_dm, tty_zsuuid, tty_zsxm_dm, tty_zszm_dm, creatorid, createtime, updatorid, updatetime, sqxh)
+		values
+		(#{id},#{djxh}, #{sssqq}, #{sssqz}, #{lpbm}, #{bz}, #{cbsxDm}, #{czlxDm}, #{djzclxDm}, #{dwlsgxDm}, #{glyzpzmxxh}, #{hyDm}, #{jdxzDm}, #{jkqx}, #{jmse}, #{jsyj}, #{kjdjxh}, #{kjjzrq}, #{kmblgktsgzDm}, #{kssl}, '', #{lrrq}, #{nssbrq}, #{qrmxuuid}, #{rkrq}, #{sbfsDm}, #{sbsxDm1}, #{sjgsdq}, #{sjtbSj}, #{skcllxDm}, #{skssqq}, #{skssqz}, #{skssswjgDm}, #{sksxDm}, #{skzlDm}, #{sl1}, #{ssglyDm}, #{sybh1}, #{tzlxDm}, #{xgrDm}, #{xgrq}, #{ybtse}, #{yjkqx}, #{yjse}, #{yjskztDm}, #{ynse}, #{yyzpzmxxh}, #{yzclrq}, #{yzfsrq}, #{yzgsrq}, #{yzpzmxxh}, #{yzpzxh}, #{yzpzzlDm}, #{zgswskfjDm}, #{zsdlfsDm}, #{zsfsDm}, #{zspmDm}, #{zsswjgDm}, #{zsuuid}, #{zsxmDm}, #{zszmDm}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业资产负债表(小企业会计制度) -->
+	<insert id="insertTaxXqyzcfzb" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_qyzcfzb_xqykjzd
+		(id,djxh, ttqx_sssq_q, ttqx_sssq_z, ttqx_lpbm, ttqx_qmye_qy, ttqx_qyxmmc, ttqx_ncye_zc, ttqx_qmye_zc, ttqx_zcxmmc, ttqx_ewbxh, ttqx_zlbscjuuid, ttqx_ncye_qy, ttqx_lrr_dm, ttqx_xgrq, ttqx_uuid, ttqx_sjgsdq, ttqx_sjtb_sj, ttqx_xgr_dm, ttqx_lrrq, creatorid, createtime, updatorid, updatetime, sqxh) 
+		values 
+		(#{id},#{djxh}, #{sssqq}, #{sssqz}, #{lpbm}, #{qmyeQy}, #{qyxmmc}, #{ncyeZc}, #{qmyeZc}, #{zcxmmc}, #{ewbhxh}, #{zlbscjuuid}, #{ncyeQy}, #{lrrDm}, #{xgrq}, #{uuid}, '', #{sjtbSj}, #{xgrDm}, #{lrrq}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业利润表(小企业会计制度) -->
+	<insert id="insertTaxXqylrb" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_lrb_xqykjzd
+		(id,djxh, ttlx_sssq_q, ttlx_sssq_z, ttlx_lpbm, ttlx_bnljje, ttlx_byje, ttlx_ewbhxh, ttlx_hmc, ttlx_zlbscjuuid, ttlx_lrr_dm, ttlx_xgrq, ttlx_uuid, ttlx_sjgsdq, ttlx_sjtb_sj, ttlx_xgr_dm, ttlx_lrrq, creatorid, createtime, updatorid, updatetime, sqxh)
+		values 
+		(#{id},#{djxh}, #{sssqq}, #{sssqz}, #{lpbm}, #{bnljje}, #{byje}, #{ewbhxh}, #{hmc}, #{zlbscjuuid}, #{lrrDm}, #{xgrq}, #{uuid}, #{sjgsdq}, #{sjtbSj}, #{xgrDm}, #{lrrq}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业发票开具 -->
+	<insert id="insertTaxFpkj" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_fp_kjxx
+		(id,ttf_fpdm, ttf_fphm, ttf_gf_nsrsbh, ttfk_xf_nsrsbh, ttfk_je, ttfk_se, ttfk_sl, ttfk_fp_kprq, ttfk_zfbz, ttfk_bdbz, ttfk_qy_mc, sqxh)
+		values
+		(#{id},#{fpdm}, #{fphm}, #{gfnsrsbh}, #{xfnsrsbh}, #{je}, #{se}, #{sl}, #{fpKprq}, #{zfbz}, #{bdbz}, #{qymc}, #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业认证发票 -->
+	<insert id="insertTaxRzfp" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_fp_rzxx
+		(id,ttfz_fpdm, ttfz_fphm, ttfz_gf_nsrsbh, ttfr_xf_nsrsbh, ttfr_je, ttfr_se, ttfr_sl, ttfr_fp_kprq, ttfr_rz_sj, ttr_rz_jq, ttfr_qy_mc, sqxh)
+		values
+		(#{id},#{fpdm}, #{fphm}, #{gfnsrsbh}, #{xfnsrsbh}, #{je}, #{se}, #{sl}, #{fpKprq}, #{rzsj}, #{rzjg}, #{qymc}, #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存一般纳税人申报明细主表 -->
+	<insert id="insertTaxYnbsr" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_ybnsrsbmxzb
+		(id,djxh, ttyb_sssq_q, ttyb_sssq_z, ttyb_lpbm, ttyb_sbuuid, ttyb_sjtb_sj, ttyb_lrr_dm, ttyb_lrrq, ttyb_xgr_dm, ttyb_xgrq, ttyb_sjgsdq, ttyb_qmwjse, ttyb_qmwjse_qjse, ttyb_bqybtse, ttyb_jzjtsjtse, ttyb_qcwjcbse, ttyb_bqrkcbtse, ttyb_qmwjkbse, ttyb_sysl_nsjcybjse, ttyb_ydksehj, ttyb_sjdkse, ttyb_ynse, ttyb_qmldse, ttyb_jybf_ynse, ttyb_mdtytse, ttyb_jybf_nsjcybtse, ttyb_ynsejze, ttyb_ynsehj, ttyb_qcsehj, ttyb_shckkjzyjkstse, ttyb_bqyjse, ttyb_fcyjse, ttyb_ckkjzyjksyjse, ttyb_bqjnsqynse, ttyb_bqjnqjse, ttyb_ewblxh, ttyb_lmc, ttyb_asysljsxse, ttyb_yshwxse, ttyb_yslwxse, ttyb_sysl_nsjctzxse, ttyb_ajybfjsxse, ttyb_jybf_nsjctzxse, ttyb_mdtbfckxse, ttyb_msxse, ttyb_mshwxse, ttyb_mslwxse, ttyb_xxse, ttyb_jxse, ttyb_sqldse, ttyb_jxsezc, ttyb_uuid, ttyb_pzxh, creatorid, createtime, updatorid, updatetime, sqxh)
+		values
+		(#{id},#{djxh}, #{sssqq}, #{sssqz}, #{lpbm}, #{sbuuid}, #{sjtbSj}, '', #{lrrq}, #{xgrDm}, #{xgrq}, #{sjgsdq}, #{qmwjse}, #{qmwjseQjse}, #{bqybtse}, #{jzjtsjtse}, #{qcwjcbse}, #{bqrkcbse}, #{qmwjcbse}, #{syslNsjcybjse}, #{ydksehj}, #{sjdkse}, #{ynse}, #{qmldse}, #{jybfYnse}, #{mdtytse}, #{jybfNsjcybjse}, #{ynsejze}, #{ynsehj}, #{qcwjse}, #{ssckkjzyjkstse}, #{bqyjse}, #{fcyjse}, #{ckkjzyjksyjse}, #{bqjnsqynse}, #{bqjnqjse}, #{ewblxh}, #{lmc}, #{asysljsxse}, #{yshwxse}, #{yslwxse}, #{syslNsjctzxse}, #{ajybfjsxse}, #{jybfNsjctzxse}, #{mdtbfckxse}, #{msxse}, #{mshwxse}, #{mslwxse}, #{xxse}, #{jxse}, #{sqldse}, #{jxsezc}, #{uuid}, #{pzxh}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存小规模纳税人申报明细主表 -->
+	<insert id="insertTaxXgmnsr" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_xgmnsrsbmx
+		(id,djxh, ttx_sssq_q, ttx_sssq_z, ttx_lpbm, ttx_sbuuid, ttx_sjtb_sj, ttx_xwqymse, ttx_xwqymsxse, ttx_wdqzdmse, ttx_wdqzdxse, ttx_qtmsxse, ttx_bqmse, ttx_hdxse, ttx_hdynse, ttyb_uuid, ttyb_pzxh, ttx_yzzzsbhsxse, ttx_swjgdkdzzszyfpbhsxse, ttx_skqjkjdptfpbhsxse_1, ttx_xssygdysgdzcbhsxse, ttx_skqjkjdptfpbhsxse, ttx_msxse, ttx_ckmsxse, ttx_skqjkjdptfpxse_1, ttx_skqjkjdptfpxse, ttx_bqynsejze, ttyb_ynsehj, ttx_bqyjse_1, ttx_lrr_dm, ttx_lrrq, ttx_xgr_dm, ttx_xgrq, ttx_sjgsdq, ttyb_ewblxh, ttyb_lmc, ttx_bqybtse, ttx_bqynse, creatorid, createtime, updatorid, updatetime, sqxh)
+		values 
+		(#{id},#{djxh}, #{sssqq}, #{sssqz}, #{lpbm}, #{sbuuid}, #{sjtbSj}, #{xwqymse}, #{xwqymsxse}, #{wdqzdmse}, #{wdqzdxse}, #{qtmsxse}, #{bqmse}, #{hdxse}, #{hdynse}, #{uuid}, #{pzxh}, #{yzzzsbhsxse}, #{swjgdkdzzszyfpbhsxse}, #{skqjkjdptfpbhsxse1}, #{xssygdysgdzcbhsxse}, #{skqjkjdptfpbhsxse}, #{msxse}, #{ckmsxse}, #{skqjkjdptfpxse1}, #{skqjkjdptfpxse}, #{bqynsejze}, #{ynsehj}, #{bqyjse1}, '', #{lrrq}, #{xgrDm}, #{xgrq}, #{sjgsdq}, #{ewblxh}, #{lmc}, #{bqybtse}, #{bqynse}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存纳税人资格信息结果表 -->
+	<insert id="insertTaxNsrzgxxjgb" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_nsrzgxxjgb 
+		(id,djxh, ttn_sjtbsj, ttn_xgrq, ttn_zfbz, ttn_zfr_dm, ttn_zfrq, ttn_rdpzuuid, ttn_lcslid, ttn_nsrzglx_dm, ttn_yxqq, ttn_yxqz, ttn_sjzzrq, ttn_qxbz, ttn_sjgsdq, ttn_lrr_dm, ttn_lrrq, ttn_xgr_dm, ttn_wszg, creatorid, createtime, updatorid, updatetime, sqxh) 
+		values 
+		(#{id},#{djxh}, #{sjtbSj}, #{xgrq}, #{zfbz1}, #{zfrDm}, #{zfrq1}, #{rdpzuuid}, #{lcslid}, #{nsrzglxDm}, #{yxqq}, #{yxqz}, #{sjzzrq}, #{qxbz}, #{sjgsdq}, #{lrrDm}, #{lrrq}, #{xgrDm}, #{wszg}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存稽查案源信息 -->
+	<insert id="insertTaxAyxx" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_ayxx
+		(id,djxh, ttay_zcajmc, ttay_ayszbm_dm, ttay_swjcayzt_dm, ttay_jcayxxuuid, ttay_jcaybh, ttay_zcajbh, ttay_ayszjg_dm, ttay_babz, ttay_qdsx, ttay_ajclyj_dm, ttay_wfwzlx_dm, ttay_qdtj, ttay_jcajxxuuid, ttay_ajlx_dm, ttay_zgswjg_dm, ttay_djzclx_dm, ttay_hy_dm, ttay_nsrmc, ttay_nsrsbh, ttay_sswflx_dm, ttay_xgcl, ttay_zynr, ttay_jlr_dm, ttay_jlrq, ttay_nclcbdw, ttay_nclcbrq, ttay_nclyhfrq, ttay_aynclyjsm, ttay_wsbh, ttay_sjgsdq, ttay_lcslid, ttay_lrr_dm, ttay_lrrq, ttay_xgr_dm, ttay_xgrq, ttay_sjtbsj, ttay_zfr_dm, ttay_zfrq1, ttay_zfbz1, creatorid, createtime, updatorid, updatetime, sqxh)
+		values
+		(#{id},#{djxh}, #{zcajmc}, #{ayszbmDm}, #{swjcayztDm}, #{jcayxxuuid}, #{jcaybh}, #{zcajbh}, #{ayszjgDm}, #{babz}, #{qdsx}, #{ajclyjDm}, #{wfwzlxDm}, #{qdtj}, #{jcajxxuuid}, #{ajlxDm}, #{zgswjgDm}, #{djzclxDm}, #{hyDm}, #{nsrmc}, #{nsrsbh}, #{sswflxDm}, #{xgcl}, #{zynr}, #{jlrDm}, #{jlrq}, #{nclcbdw}, #{nclcbrq}, #{nclyhfrq}, #{aynclyjsm}, #{wsbh}, #{sjgsdq}, #{lcslid}, #{lrrDm}, #{lrrq}, #{xgrDm}, #{xgrq}, #{sjtbSj}, #{zfrDm}, #{zfrq1}, #{zfbz1}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存欠税信息 -->
+	<insert id="insertTaxQsclxx" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_qsclxx
+		(id,djxh, ttq_sssq_q, ttq_sssq_z, ttq_bz, ttq_cbsx_dm, ttq_czlx_dm, ttq_djzclx_dm, ttq_dwlsgx_dm, ttq_glyzpzmxxh, ttq_hy_dm, ttq_jdxz_dm, ttq_jkqx, ttq_jmse, ttq_jsyj, ttq_kces, ttq_kjdjxh, ttq_kjjzrq, ttq_kssl, ttq_lrr_dm, ttq_lrrq, ttq_nssqrq, ttq_qscluuid, ttq_sbfsdm, ttq_sbsxdm, ttq_sjgsdq, ttq_sjtbsj, ttq_skssqq, ttq_skssqz, ttq_skssswjgdm, ttq_sksx_dm, ttq_skzl_dm, ttq_sl, ttq_ssgly_dm, ttq_sybh, ttq_dzlx_dm, ttq_xgr_dm, ttq_xgrq, ttq_ybse, ttq_yjkqx, ttq_yjsezt_dm, ttq_ynse, ttq_yzclrq, ttq_yzfsrq, ttq_yzpzmxxh, ttq_yzpzzl_dm, ttq_zgsws_dm, ttq_zsdlfs_dm, ttq_zsfs_dm, ttq_zspm_dm, ttq_zsswjg_dm, ttq_zsuuid, ttq_zsxm_dm, ttq_zszm_dm, creatorid, createtime, updatorid, updatetime, sqxh)
+		values
+		(#{id},#{djxh}, #{sssqq}, #{sssqz}, #{bz}, #{cbsxDm}, #{czlxDm}, #{djzclxDm}, #{dwlsgxDm}, #{glyzpzmxxh}, #{hyDm}, #{jdxzDm}, #{jkqx}, #{jmse}, #{jsyj}, #{kcse}, #{kjdjxh}, #{kjjzrq}, #{kssl}, #{lrrDm}, #{lrrq}, #{nssbrq}, #{qscluuid}, #{sbfsDm}, #{sbsxDm1}, #{sjgsdq}, #{sjtbSj}, #{skssqq}, #{skssqz}, #{skssswjgDm}, #{sksxDm}, #{skzlDm}, #{sl1}, #{ssglyDm}, #{sybh1}, '', #{xgrDm}, #{xgrq}, #{ybtse}, #{yjkqx}, #{yjskztDm}, #{ynse}, #{yzclrq}, #{yzfsrq}, #{yzpzmxxh}, #{yzpzzlDm}, #{zgswskfjDm}, #{zsdlfsDm}, #{zsfsDm}, #{zspmDm}, #{zsswjgDm}, #{zsuuid}, #{zsxmDm}, #{zszmDm}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存财报申报主表 -->
+	<insert id="insertTaxZlbscjb" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_zlbscjb
+		(id,djxh, ttz_sssq_q, ttz_sssq_z, ttz_zlbscjuuid, ttz_sjtbsj, ttz_bszl_dm, ttz_zfbz, ttz_zfrq, ttz_zfr_dm, ttz_lrrq, ttz_xgr_dm, ttz_xgrq, ttz_sjgsdq, ttz_zlbsuuid, ttz_bbh, ttz_lrr_dm, creatorid, createtime, updatorid, updatetime, sqxh)
+		values 
+		(#{id},#{djxh}, #{ssqq}, #{ssqz}, #{zlbscjuuid}, #{sjtbSj}, #{bszlDm}, #{zfbz1}, #{zfrq1}, #{zfrDm}, #{lrrq}, #{xgrDm}, #{xgrq}, #{sjgsdq}, #{zlbsuuid}, #{bbh}, #{lrrDm}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业资产负债表(企业会计制度) -->
+	<insert id="insertTaxQyzcfzb" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_zcfzb_qykjzd
+		(id,djxh, ttzq_sssq_q, ttzq_sssq_z, ttzq_lpbm, ttzq_zcxmmc, ttzq_qmszc, ttzq_ncszc, ttzq_qmsqy, ttzq_ncsqy, ttzq_ewbhxh, ttzq_qyxmmc, ttzq_lrrDm, ttzq_lrrq, ttzq_sjgsdq, ttzq_sjtbSj, ttzq_uuid, ttzq_xgrDm, ttzq_xgrq, ttzq_zlbscjuuid, creatorid, createtime, updatorid, updatetime, sqxh)
+		values
+		(#{id},#{djxh}, #{sssqq}, #{sssqz}, #{lpbm}, #{zcxmmc}, #{qmszc}, #{ncszc}, #{qmsqy}, #{ncsqy}, #{ewbhxh}, #{qyxmmc}, #{lrrDm}, #{lrrq}, #{sjgsdq}, #{sjtbSj}, #{uuid}, #{xgrDm}, #{xgrq}, #{zlbscjuuid}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业利润表(企业会计制度) -->
+	<insert id="insertTaxQylrb" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_lrb_qykjzd
+		(id,djxh, ttlq_sssq_q, ttlq_sssq_z, ttlq_lpbm, ttlq_bnljs, ttlq_bys, ttlq_ewbhxh, ttlq_hmc, ttlq_lrr_dm, ttlq_lrrq, ttlq_sjgsdq, ttlq_sjtb_sj, ttlq_uuid, ttlq_xgr_dm, ttlq_xgrq, ttlq_zlbscjuuid, creatorid, createtime, updatorid, updatetime, sqxh)
+		values
+		(#{id},#{djxh}, #{sssqq}, #{sssqz}, #{lpbm}, #{bnljs}, #{bys}, #{ewbhxh}, #{hmc}, #{lrrDm}, #{lrrq}, #{sjgsdq}, #{sjtbSj}, #{uuid}, #{xgrDm}, #{xgrq}, #{zlbscjuuid}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业资产负债表(一般企业会计) -->
+	<insert id="insertTaxYbqyzcfzb" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_zcfzb_ybqykj
+		(id,djxh, ttzy_sssq_q, ttzy_sssq_z, ttzy_lpbm, ttzy_ewbhxh, ttzy_lrr_dm, ttzy_lrrq, ttzy_ncye_qy, ttzy_ncye_zc, ttzy_qmye_qy, ttzy_qmye_zc, ttzy_qyxmmc, ttzy_sjgsdq, ttzy_sjtb_sj, ttzy_uuid, ttzy_xgr_dm, ttzy_xgrq, ttzy_zcxmmc, ttzy_zlbscjuuid, creatorid, createtime, updatorid, updatetime, sqxh)
+		values
+		(#{id},#{djxh}, #{sssqq}, #{sssqz}, #{lpbm}, #{ewbhxh}, #{lrrDm}, #{lrrq}, #{ncyeQy}, #{ncyeZc}, #{qmyeQy}, #{qmyeZc}, #{qyxmmc}, #{sjgsdq}, #{sjtbSj}, #{uuid}, #{xgrDm}, #{xgrq}, #{zcxmmc}, #{zlbscjuuid}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存企业利润表(一般企业会计制度) -->
+	<insert id="insertTaxYbqylrb" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_lrb_ybqykj
+		(id,djxh, ttly_sssq_q, ttly_sssq_z, ttly_lpbm, ttly_bqye, ttly_ewbhxh, ttly_hmc, ttly_lrr_dm, ttly_lrrq, ttly_sjgsdq, ttly_sjtb_sj, ttly_sqye_1, ttly_uuid, ttly_xgr_dm, ttly_xgrq, ttly_zlbscjuuid, creatorid, createtime, updatorid, updatetime, sqxh)
+		values
+		(#{id},#{djxh}, #{sssqq}, #{sssqz}, #{lpbm}, #{bqje}, #{ewbhxh}, #{hmc}, #{lrrDm}, #{lrrq}, #{sjgsdq}, #{sjtbSj}, #{sqje}, #{uuid}, #{xgrDm}, #{xgrq}, #{zlbscjuuid}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存利润表(小企业会计制度)_年报 -->
+	<insert id="insertTaxXqylrbnb" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_lrb_xqykj
+		(id,djxh, ttlx_sssq_q, ttlx_sssq_z, ttlx_lpbm, ttlx_bnljje, ttlx_ewbhxh, ttlx_hmc, ttlx_lrr_dm, ttlx_lrrq, ttlx_sjgsdq, ttlx_sjtb_sj, ttlx_snje, ttlx_uuid, ttlx_xgr_dm, ttlx_xgrq, ttlx_zlbscjuuid, creatorid, createtime, updatorid, updatetime, sqxh)
+		values
+		(#{id},#{djxh}, #{sssqq}, #{sssqz}, #{lpbm}, #{bnljje}, #{ewbhxh}, #{hmc}, #{lrrDm}, #{lrrq}, #{sjgsdq}, #{sjtbSj}, #{snje}, #{uuid}, #{xgrDm}, #{xgrq}, #{zlbscjuuid}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存编码有效期 -->
+	<insert id="insertTaxLpbmcx" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_bmyxcx 
+		(id,djxh, ttb_lpbm, ttb_sssq_q, ttb_sssq_z, creatorid, createtime, updatorid, updatetime, sqxh) 
+		values 
+		(#{id},#{djxh}, #{lpbm}, #{sssqq}, #{sssqz}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	
+	
+	<!-- 保存纳税信用级别 -->
+	<insert id="insertTaxNsxyjb" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into t_tax_nsrxydj
+		(id,djxh, ttn_lpbm, ttn_dj, ttn_year, creatorid, createtime, updatorid, updatetime, sqxh)
+		values
+		(#{id},#{djxh}, #{lpbm}, #{ndxyjb}, #{pjnd}, #{userId}, now(), #{userId}, now(), #{sqxh})
+	</insert>
+	<!-- 修改纳税人用户信息表-->
+	<update id="updataNsryhxx" parameterType="String" flushCache="true">
+		update tb_nsryhxx set nsryhxx_flag = "Y" where nsryhxx_id = #{id}
+	</update>
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.swsjcxtj.mapper.SwsjcxtjMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<sql id="swsjcxtj">
+		xh,
+		gsbdm,
+		gsbmc,
+		bzddm,
+		bzdmc,
+		sqxh,
+		nd,
+		qsnd,
+		exchangetype
+	</sql>
+
+	<resultMap id="swsjcxtjMap" type="com.dcits.govsbu.sd.taxbankplatform.swsjcxtj.model.Swsjcxtj">
+		<result property="xh" column="xh"/>
+		<result property="gsbdm" column="gsbdm"/>
+		<result property="gsbmc" column="gsbmc"/>
+		<result property="bzddm" column="bzddm"/>
+		<result property="bzdmc" column="bzdmc"/>
+		<result property="sqxh" column="sqxh"/>
+		<result property="nd" column="nd"/>
+		<result property="qsnd" column="qsnd"/>
+		<result property="exchangetype" column="exchangetype"/> 
+	</resultMap>
+	
+	<select id="queryListByPage" parameterType="map" resultType="map"  >
+			SELECT
+		f.at_qymc,
+		t.tbpName,
+		t.nsrsbh,
+		(
+			SELECT
+				h.fp_name
+			FROM
+				tb_financial_product h
+			WHERE
+				h.fp_id = t.businessType
+		) AS cp_name,
+		t.createtime,
+		(
+			SELECT
+				count(1)
+			FROM
+				tb_data_record k
+			WHERE
+				k.sqxh = t.sqxh and  k.sign = '1'
+		) AS sjx,
+		t.nd,t.exchangetype,t.grantCode,f.at_sqjssj,t.sqxh
+	
+	FROM
+		tb_data_request t
+	RIGHT JOIN tb_bank_port_manage p ON p.yhmc=t.tbpName
+	LEFT JOIN tb_authorization_record f ON t.grantCode = f.grantcode
+		 <where>
+		 	<if test="bankCode != null and bankCode != ''">
+				and t.bankCode = #{bankCode}
+			</if>
+			<if test="fpId != null and fpId != ''">
+				and t.businessType = #{fpId}
+			</if>
+			<if test="nsrsbh != null and nsrsbh != ''">
+				 and t.nsrsbh = #{nsrsbh}
+			</if>		
+			<if test="jhsj != null and jhsj != ''">
+				 and date_format(t.createtime, '%Y-%m-%d') = #{jhsj}
+			</if>		
+			<if test="qymc != null and qymc != ''">
+				and f.at_qymc =  #{qymc}
+			</if>
+			<if test="nsrzgswj != null and nsrzgswj != ''">
+				and  t.nsrzgswj like  '${nsrzgswj}%'
+			</if>		
+		</where>
+	</select>
+	
+ 
+	 <select id="getDataRecord"  parameterType="map" resultType="map">
+	 	SELECT * from tb_data_record t
+	 	 where 
+	 	t.sqxh = #{sqxh}
+	 	<if test="bdm != null and bdm != ''">
+			and t.gsbdm =  #{bdm}
+		</if>	
+	 </select>
+	 
+	
+	
+	 <select id="getBData"  parameterType="java.lang.String" resultType="map">
+	 	  ${sql}
+	 </select>
+</mapper>

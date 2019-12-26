@@ -1,0 +1,242 @@
+.ax_default {
+  font-family:'Arial Normal', 'Arial';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  color:#333333;
+  text-align:center;
+  line-height:normal;
+}
+._һ������ {
+  font-family:'΢���ź�';
+  font-weight:bold;
+  font-style:normal;
+  font-size:32px;
+  text-align:left;
+}
+._�������� {
+  font-family:'΢���ź�';
+  font-weight:bold;
+  font-style:normal;
+  font-size:24px;
+  text-align:left;
+}
+._�������� {
+  font-family:'΢���ź�';
+  font-weight:bold;
+  font-style:normal;
+  font-size:18px;
+  text-align:left;
+}
+._�ļ����� {
+  font-family:'΢���ź�';
+  font-weight:bold;
+  font-style:normal;
+  font-size:14px;
+  text-align:left;
+}
+._�弶���� {
+  font-family:'΢���ź�';
+  font-weight:bold;
+  font-style:normal;
+  text-align:left;
+}
+._�������� {
+  font-family:'΢���ź�';
+  font-weight:bold;
+  font-style:normal;
+  font-size:10px;
+  text-align:left;
+}
+._�ı����� {
+  font-family:'΢���ź�';
+  font-weight:400;
+  font-style:normal;
+  text-align:left;
+}
+._ͼƬ {
+}
+._������״ {
+}
+._��״ {
+  font-family:'΢���ź�';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  color:#000000;
+}
+._ˮƽ�� {
+}
+._�ı��� {
+  font-size:13px;
+  color:#000000;
+  text-align:left;
+}
+._��ֱ�� {
+}
+._ˮƽ��1 {
+}
+._��״1 {
+  font-family:'΢���ź�';
+  font-weight:normal;
+  font-style:normal;
+}
+._��ֱ��1 {
+}
+._ͼƬ1 {
+  font-size:13px;
+  color:#000000;
+}
+._��Ԫ�� {
+  font-size:13px;
+  color:#000000;
+}
+._��� {
+  font-size:13px;
+  color:#000000;
+  text-align:left;
+}
+._���ڵ� {
+  font-size:13px;
+  color:#000000;
+  text-align:left;
+}
+._������״1 {
+  font-size:13px;
+  color:#000000;
+}
+._�����б�� {
+  font-size:13px;
+  color:#000000;
+  text-align:left;
+}
+._��ѡ�� {
+  font-size:13px;
+  color:#000000;
+  text-align:left;
+}
+.box_1 {
+}
+._�����б��1 {
+  color:#000000;
+  text-align:left;
+}
+._�ύ��ť {
+  color:#000000;
+}
+._���1 {
+}
+._��Ԫ��1 {
+}
+.label {
+  font-size:14px;
+  text-align:left;
+}
+._�ı���1 {
+  color:#000000;
+  text-align:left;
+}
+._��ѡ��ť {
+  text-align:left;
+}
+._��ѡ��1 {
+  text-align:left;
+}
+._�����ı��� {
+  color:#000000;
+  text-align:left;
+}
+._��ѡ��ť1 {
+  font-size:13px;
+  color:#000000;
+  text-align:left;
+}
+/* ��������˰���������� */
+.pad0{
+	padding:0px !important;
+}
+.padTd{
+	height:24px;
+	width:20%;
+	border-right:1px solid #eee;
+}
+.fl{
+	float:left;
+}
+.newAddTax .newAddTax_text{
+	margin:0px;
+}
+.newAddTax .form-group{
+	padding-left:112px;
+}
+.newAddTax .form-group:first-child{
+	padding-left:50px;
+	margin-bottom:20px;
+}
+.newAddTax .form-group input,.newAddTax .form-group select{
+	background:#f8f8f8;
+	border:1px solid #eee;
+}
+.newAddTax .taxDataTable {
+    border-collapse: inherit;
+    /* padding:24px 0px; */
+    border:1px solid #eee;
+}
+.newAddTax .taxDataTable td:not(.tdLine){
+	width:20%;
+	padding:0px 30px;
+}
+.newAddTax .taxTableTitle{
+	padding:30px 0px;
+	box-sizing:border-box;
+	border-right:1px solid #eee;
+}
+.newAddTax .titleTd{
+	box-sizing:border-box;
+	padding:30px 0px 30px 30px;
+	border-right:1px solid #eee;
+}
+/* .newAddTax .titleTd:after{
+	content:"";
+	width:1px;
+	height:100%;
+	background:#eee;
+	display:inline-block;
+} */
+.newAddTax td.titleTd span{
+	font-weight:700;
+}
+.newAddTax .taxDataTable .numText{
+	display:-webkit-box;
+}
+/* ��ѡ�� */
+/* input[type="radio"], input[type="checkbox"] {
+    margin: 0px 9px 0px 0px;
+    vertical-align: text-top;
+} */
+input[type="checkbox"]{
+	width:14px;
+}
+/* ���������� */
+.newAddTax .setData{
+	padding-top:15px !important;
+}
+/* ȫѡ�� */
+.newAddTax .checkAllBox{
+	padding:15px 0px 10px 30px;
+}
+/* �����ǰ�����ֲ����� */
+.form-group > label[class*="col-"]{
+	  min-width: max-content;
+}
+
+
+
+
+
+
+
+
+
+
+

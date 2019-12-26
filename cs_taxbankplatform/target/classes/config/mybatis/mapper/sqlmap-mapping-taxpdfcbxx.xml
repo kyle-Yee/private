@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.taxpdf.mapper.TaxPdfCbxxMapper" >
+<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+  <resultMap id="BaseResultMap" type="com.dcits.govsbu.sd.taxbankplatform.taxpdf.model.TaxPdfCbxxEntity" >
+    <collection property="taxCbxxListEntity" ofType="com.dcits.govsbu.sd.taxbankplatform.taxpdf.model.TaxCbxxListEntity">
+			<!--资产负债表 -->
+			<association property="taxZcfzbYbqykjEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.zcfzbybqykj.model.TaxZcfzbYbqykjEntity">
+				<id column="ttzy_id" property="id" />
+				<result property="ttzyQyxmmc" column="ttzy_qyxmmc"/>
+				<result property="ttzyNcyeQy" column="ttzy_ncye_qy"/>
+				<result property="ttzyQmyeQy" column="ttzy_qmye_qy"/>
+				<result property="ttzyZcxmmc" column="ttzy_zcxmmc"/>
+				<result property="ttzyNcyeZc" column="ttzy_ncye_zc"/>
+				<result property="ttzyQmyeZc" column="ttzy_qmye_zc"/>
+			</association>
+			<!-- 利润表 -->
+			<association property="taxLrbXqykjzdEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.lrbxqykjzd.model.TaxLrbXqykjzdEntity">
+			    <id column="ttlx_id" property="id" />
+			    <result column="ttlx_bnljje" property="ttlxBnljje" />
+			    <result column="ttlx_byje" property="ttlxByje" />
+	    	</association>
+	    	<!-- 现金流量表 -->
+	</collection>
+  </resultMap>
+  
+  <!--  八 财报信息 -->
+	<select id="findByDjxh" parameterType="map" resultMap="BaseResultMap" flushCache="true" useCache="true">
+	SELECT
+	 	ttzy.ttzy_qyxmmc,
+		ttzy.ttzy_ncye_qy,
+		ttzy.ttzy_qmye_qy,
+		ttzy.ttzy_zcxmmc,
+		ttzy.ttzy_ncye_zc,
+		ttzy.ttzy_qmye_zc, 
+		ttlx.ttlx_bnljje,
+		ttlx.ttlx_byje
+		FROM tb_nsryhxx tnx
+		LEFT JOIN t_tax_zcfzb_ybqykj ttzy ON tnx.nsryhxx_djxh = ttzy.djxh
+		LEFT JOIN t_tax_lrb_xqykjzd ttlx ON ttzy.djxh = ttlx.djxh
+		AND ttzy.sqxh = ttlx.sqxh
+		WHERE tnx.creatorid = #{userid} AND  ttzy.sqxh = #{sqxh}
+	</select>
+</mapper>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.dkxx.mapper.SyptbankApplyMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<resultMap id="syptbankMap" type="com.dcits.govsbu.sd.taxbankplatform.dkxx.model.Syptbankapply">
+		<id property="id" column="id"/>
+		<result property="laId" column="sypt_laId" />
+		<result property="lfId" column="bank_laid" />
+		<result property="syptfpId" column="sypt_fpid" />
+		<result property="bankfpId" column="bank_fpid" />
+		<result property="templaId" column="temp_laId" />
+		<result property="syptUserId" column="sypt_userId" />
+		<result property="nsrsbh" column="nsrsbh" />
+		<result property="tempfinalId" column="temp_finalId" />
+		<result property="tempendId" column="temp_endId" />
+		<result property="channelid" column="channelid"/>
+	</resultMap>
+	<!-- 同步授权结束时间 -->
+	<update id="updateGrantEndTime" parameterType="map" flushCache="true">
+		UPDATE tb_authorization_record SET at_sqjssj = #{authUpdateTime} ,updatetime = NOW() WHERE grantcode = #{grantCode}
+	</update>
+	<!-- 根据Businessid查出授权编码 -->
+	<select id="queryGrantCodeByBusinessid" parameterType="string" resultType="string">
+		SELECT dksq.grantCode FROM tb_loan_dksq dksq WHERE dksq.BUSINESSID = #{businessid} LIMIT 1;
+	</select>
+	<!-- 贷款申请信息接收入库  -->
+	<insert id="insertLoanApplyInfo" parameterType="com.dcits.govsbu.sd.taxbankplatform.dkxx.model.LoanApplyInfo">
+		INSERT INTO tb_loan_dksq
+     	(dksq_id, businessid, tbpname, tbpcode, businesstype, indname, indcerttype, 
+     	indcertid, entname, entcreditid, enttaxid, applytime, grantfindtimestart, grantfindtimeend, 
+     	loanapplyamount, loanamount, loanterm, admittance, createtime,updatetime,grantCode) VALUES  
+	   	  (#{dksqId},#{businessid},#{tbpName},#{tbpCode},#{businessType},#{indName},#{indCertType},  
+	      #{indCertID},#{entName},#{entCreditID},#{entTaxID},#{applyTime},#{grantFindTimeStart},#{grantFindTimeEnd},
+	      #{loanApplyAmount},#{loanAmount},#{loanTerm},#{admittance},NOW(),NOW(),#{grantCode}) 
+	</insert>
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.dkxx.model.Syptbankapply" useGeneratedKeys="true" keyProperty="id">
+		insert into sypt_bank_apply (
+		    id,
+			sypt_laId,
+			bank_laid,
+			temp_laId,
+			temp_finalId,
+			temp_endId,
+			channelid
+			)   
+		values (
+		    #{id},
+			#{laId},
+			#{lfId},
+			#{templaId},
+			#{tempfinalId},
+			#{tempendId},
+			#{channelid}
+			)  
+	</insert>
+	
+	<!-- 查询数据，验证数据是否存在 -->
+	
+	<select id="findBylaid"  resultMap="syptbankMap" flushCache="true" useCache="true">
+		SELECT * 
+		FROM sypt_bank_apply
+		where bank_laid = #{lfId} and channelid = #{channelid}
+	</select>
+		
+	<select id="findByfpid"  resultMap="syptbankMap" flushCache="true" useCache="true">
+		SELECT * 
+		FROM sypt_bank_apply
+		where bank_fpid = #{bankfpId} and channelid = #{channelid}
+	</select>
+	<!-- 查询对照表里所有数据 -->
+	
+   <select id="findAll"  parameterType="map"  resultMap="syptbankMap" flushCache="true" useCache="true">
+		SELECT * 
+		FROM sypt_bank_apply
+		 <where>
+		  <if test="laId !='' and laId !=null">
+		       sypt_laId=#{laId}
+		   </if>
+		  </where>
+	</select>
+		
+		<!-- 修改对照表状态 -->
+	<update id="changetemp" parameterType="com.dcits.govsbu.sd.taxbankplatform.dkxx.model.Syptbankapply"  flushCache="true">
+		update sypt_bank_apply 
+		<set>
+		   <if test="tempfinalId!='' and tempfinalId!=null">
+		       temp_finalId=#{tempfinalId},updatetime = now()
+		   </if>
+		  <if test="tempendId!='' and tempendId!=null">
+		       temp_endId=#{tempendId},updatetime = now()
+		  </if>
+		</set>
+		
+		<where>
+		  <if test="lfId !='' and lfId !=null">
+		   bank_laid = #{lfId}
+		  </if>
+		   <if test="laId !='' and laId !=null">
+		       sypt_laId=#{laId}
+		   </if>
+		</where>
+		
+	</update>
+	<!-- 搜索数据 -->
+<!-- 	<select id="queryListByPage" parameterType="map" resultMap="amountMap" flushCache="true" useCache="true">
+		SELECT *
+		FROM tb_loan_amount
+		<where>
+			<if test="amountName != null and amountName != ''">
+			la_name LIKE CONCAT('%','${amountName}','%' ) 
+			</if>
+			and enabled = 'Y'
+		</where>
+	</select> -->
+	
+
+	
+	<!-- 根据ID查找对象 add by baolong.hu -->
+<!-- 	<select id="findById" parameterType="long" resultMap="amountMap" flushCache="true" useCache="true">
+		select 
+	    	la_name,
+			la_code,
+			enabled
+	    from tb_loan_amount
+	    where la_id = #{id}
+	</select> -->
+</mapper>

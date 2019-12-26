@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.downreport.mapper.DownloadsReportMapper" >
+  <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+  <resultMap id="BaseResultMap" type="com.dcits.govsbu.sd.taxbankplatform.downreport.model.DownloadsReportEntity" >
+    <id column="dr_id" property="id" />
+    <result column="org_id" property="orgId" />
+    <result column="down_name" property="downName" />
+    <result column="enterprise_name" property="enterpriseName" />
+    <result column="down_status" property="downStatus" />
+    <result column="down_time" property="downTime" />
+     <result column="days" property="days" />
+    <result column="totaldowns" property="totaldowns" />
+    <result column="update_time" property="updateTime" />
+     <result column="filename" property="filename" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    org_id,dr_id, down_name, enterprise_name, down_status,down_time, datediff(NOW(),down_time) as days, totaldowns, update_time,filename
+  </sql>
+  <select id="findByLaId" parameterType="map" resultMap="BaseResultMap" flushCache="true" useCache="true">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_downloads_report
+    where la_id = #{ids} and down_status=${statue}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="String" >
+    delete from tb_downloads_report
+    where dr_id = #{id}
+  </delete>
+  <insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.downreport.model.DownloadsReportEntity" >
+    insert into tb_downloads_report (org_id,region_id,dr_id, down_name, enterprise_name, 
+      down_status, down_time, totaldowns,la_id,
+      update_time,filename)
+    values (#{orgId}, #{regionId},#{id}, #{downName}, #{enterpriseName}, 
+      #{downStatus},  date_format(now(), '%Y-%m-%d %H:%i:%s'), #{totaldowns},#{laid},
+       date_format(now(), '%Y-%m-%d %H:%i:%s'),#{filename})
+  </insert>
+  <update id="update" parameterType="com.dcits.govsbu.sd.taxbankplatform.downreport.model.DownloadsReportEntity" >
+    update tb_downloads_report
+    set 
+      down_time =  date_format(now(), '%Y-%m-%d %H:%i:%s'),
+      totaldowns = #{totaldowns},
+      update_time =  date_format(now(), '%Y-%m-%d %H:%i:%s')
+    where dr_id = #{id}
+  </update>
+  <select id="findDjxhById" parameterType="String" resultType="String">
+	  SELECT
+		<!-- tq.djxh -->
+		tn.nsryhxx_djxh
+		FROM tb_loan_apply la
+		LEFT JOIN 
+		tb_nsryhxx tn ON la.nsrsbh = tn.nsryhxx_nsrsbh
+		<!-- LEFT JOIN t_tax_qyjcxx tq ON tn.nsryhxx_djxh = tq.djxh -->
+	 Where tn.nsryhxx_id = #{id}
+ </select>
+   <delete id="deleteQyjcxxByDjxh" parameterType="String" >
+    delete from t_tax_qyjcxx
+    where djxh = #{djxh}
+  </delete>
+    <delete id="deleteQyjcxxKzByDjxh" parameterType="String" >
+    delete from t_tax_qyjcxx_kz
+    where djxh = #{djxh}
+  </delete>
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.tbpStatic.mapper.FaqMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	
+	<resultMap id="faqMap" type="com.dcits.govsbu.sd.taxbankplatform.tbpStatic.model.FaqEntity">
+		<id property="id" column="pf_id"/>
+		<result property="cityId" column="region_id" />
+		<result property="cityName" column="region_name" />
+		<result property="faqContent" column="pf_content" />
+		<result property="enabled" column="enabled"/>
+		<result property="faqName" column="pf_name"/>
+		<result property="creatorid" column="creatorid"/>
+		<result property="createtime" column="createtime"/>
+		<result property="updatorid" column="updatorid"/>
+		<result property="updatetime" column="updatetime"/>
+	</resultMap>
+
+	<!-- 搜索数据 -->
+	<select id="queryListByPage" parameterType="map" resultMap="faqMap" flushCache="true" useCache="true">
+		SELECT
+		pf.pf_id,
+		pf.pf_content,
+		pf.pf_name,
+		pf.enabled,
+		r.region_name
+		FROM tb_portal_faq pf LEFT JOIN tb_regions r ON pf.region_id = r.region_id
+		<where>
+			<if test="faqName != null and faqName != ''">
+			pf.pf_name LIKE concat('%', concat(#{faqName}, '%'))
+			</if>
+			and pf.region_id = #{cityId}
+		</where>
+	</select>
+
+	<!-- 点击编辑按钮时候查询单条数据 -->
+	<select id="findById" parameterType="String" resultMap="faqMap" flushCache="true" useCache="true">
+		SELECT
+		pf.pf_id,
+		pf.pf_content,
+		pf.pf_name,
+		pf.enabled,
+		r.region_name
+		FROM tb_portal_faq pf LEFT JOIN tb_regions r ON pf.region_id = r.region_id
+		where pf.pf_id = #{id}
+	</select>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.tbpStatic.model.FaqEntity">
+		insert into tb_portal_faq (
+			pf_id,region_id,pf_name,pf_content,enabled,creatorid,createtime,updatorid,updatetime
+			)   
+		values (
+			#{id},
+			#{cityId},
+			#{faqName},
+			#{faqContent},
+			#{enabled},
+			#{creatorid},
+			now(),
+			#{updatorid},
+			#now()
+			)  
+	</insert>
+	
+	<!-- 更新数据 -->
+	<update id="update" parameterType="com.dcits.govsbu.sd.taxbankplatform.tbpStatic.model.FaqEntity" flushCache="true">
+		update tb_portal_faq
+		<set>
+			<if test="faqContent != null and faqContent != ''">
+				pf_content = #{faqContent},
+			</if>
+			<if test="enabled != null and enabled != ''">
+				enabled = #{enabled},
+			</if>
+			updatorid = #{updatorid},
+			updatetime = now()
+		</set>
+		where pf_id = #{id}
+	</update>
+
+</mapper>

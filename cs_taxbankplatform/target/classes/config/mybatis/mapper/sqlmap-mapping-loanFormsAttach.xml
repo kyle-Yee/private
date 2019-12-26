@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.loanformsattach.mapper.LoanFormsAttachMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	
+	<resultMap id="LoanFormsAttachMap" type="com.dcits.govsbu.sd.taxbankplatform.loanformsattach.model.LoanFormsAttach">
+		<id property="id" column="lfa_id"/>
+		<result property="lf_id" column="lf_id" />
+		<result property="pdi_id" column="pdi_id"/>
+		<result property="pdi_code" column="pdi_code"/>
+		<result property="pdi_name" column="pdi_name"/>
+		<result property="pdi_values" column="pdi_values"/>
+		<result property="ht_type" column="ht_type"/>
+		<result column="creatorid" property="creatorid" />
+	    <result column="createtime"  property="createtime" />
+	    <result column="updatorid" property="updatorid" />
+	    <result column="updatetime"  property="updatetime" />
+	    <result column="enabled"  property="enabled" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<!-- <insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.loanformsattach.model.LoanFormsAttach" useGeneratedKeys="true" keyProperty="la_id">
+		<selectKey keyProperty="id" resultType="long" >
+	  		select LAST_INSERT_ID();
+	  	</selectKey> -->
+	<insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.loanformsattach.model.LoanFormsAttach">	
+		insert into tb_loan_forms_attach (
+			lfa_id,
+			lf_id,
+			pdi_id,
+			pdi_code,
+			pdi_name,
+			pdi_values,
+			ht_type,
+			creatorid,
+			createtime,
+			updatorid,
+			updatetime
+			)   
+		values (
+		    #{id},
+			#{lf_id},
+			#{pdi_id},
+			#{pdi_code},
+			#{pdi_name},
+			#{pdi_values},
+			#{ht_type},
+			#{creatorid},
+			#{createtime},
+			#{updatorid},
+			#{updatetime}
+			)  
+	</insert>
+	<select id="findById" parameterType="String" resultMap="LoanFormsAttachMap" flushCache="true" useCache="true">
+		select * from tb_loan_forms_attach
+	    where lfa_id = #{id} and enabled = 'Y'
+	</select>
+	<select id="queryListByPage" parameterType="map" resultMap="LoanFormsAttachMap" flushCache="true" useCache="true">
+		SELECT *
+		FROM tb_loan_forms_attach 
+		<where>
+			<if test="lf_id != null and lf_id != ''">
+			lf_id = #{lf_id}
+			</if>
+			 and enabled = 'Y'
+		</where>
+	</select>
+	<!-- 根据主表ID和pdi_id查询 副表中的数据项是否存在 -->
+	<select id="queryExist" parameterType="String" resultMap="LoanFormsAttachMap" flushCache="true" useCache="true">
+		SELECT *FROM tb_loan_forms_attach 
+		<where>
+			<if test="lf_id != null and lf_id != ''">
+			lf_id = #{lf_id}
+			</if>
+			<if test="pdi_code != null and pdi_code != ''">
+			 and pdi_code = #{pdi_code}
+			</if>
+		</where>
+	</select>
+	<select id="queryListByLfId" parameterType="map" resultMap="LoanFormsAttachMap" flushCache="true" useCache="true">
+		SELECT *
+		FROM tb_loan_forms_attach where lf_id = #{lf_id} and enabled = 'Y'
+	</select>
+	<update id="update" parameterType="com.dcits.govsbu.sd.taxbankplatform.loanformsattach.model.LoanFormsAttach">
+  	update tb_loan_forms_attach
+    <set>
+      <if test="lf_id != null and lf_id != ''">
+        lf_id = #{lf_id},
+      </if>
+      <if test="pdi_id != null and pdi_id != ''">
+        pdi_id = #{pdi_id},
+      </if>
+      <if test="pdi_code != null and pdi_code != ''">
+        pdi_code = #{pdi_code},
+      </if>
+      <if test="pdi_name != null and pdi_name != ''">
+        pdi_name = #{pdi_name},
+      </if>
+      <if test="pdi_values != null and pdi_values != ''" >
+        pdi_values = #{pdi_values},
+      </if>
+      <if test="ht_type != null and ht_type != '' ">
+        ht_type = #{ht_type},
+      </if>
+      <if test="creatorid != null and creatorid != ''">
+        creatorid = #{creatorid},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime},
+      </if>
+      <if test="updatorid != null and updatorid != ''">
+        updatorid = #{updatorid},
+      </if>
+      <if test="updatetime != null">
+        updatetime = now(),
+      </if>
+      <if test="enabled != null and enabled != ''">
+        enabled = #{enabled},
+      </if>
+    </set>
+    where lfa_id = #{id}
+  </update>
+</mapper>

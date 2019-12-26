@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.qypzjg.mapper.TaxQypzjgEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.dcits.govsbu.sd.taxbankplatform.qypzjg.model.TaxQypzjgEntity" >
+    <id column="tthq_id" property="id" />
+    <result column="djxh" property="djxh" />
+    <result column="tthq_lbpm" property="tthqLbpm" />
+    <result column="tthq_kyslrq" property="tthqKyslrq" />
+    <result column="tthq_lcslid" property="tthqLcslid" />
+    <result column="tthq_lrr_dm" property="tthqLrrDm" />
+    <result column="tthq_lrrq" property="tthqLrrq" />
+    <result column="tthq_pzjguuid" property="tthqPzjguuid" />
+    <result column="tthq_pzsljg_dm" property="tthqPzsljgDm" />
+    <result column="tthq_pzsljglx_dm" property="tthqPzsljglxDm" />
+    <result column="tthq_pzsljgmc" property="tthqPzsljgmc" />
+    <result column="tthq_pzzmhwjh" property="tthqPzzmhwjh" />
+    <result column="tthq_scjyqxq" property="tthqScjyqxq" />
+    <result column="tthq_scjyqxz" property="tthqScjyqxz" />
+    <result column="tthq_sjgsdq" property="tthqSjgsdq" />
+    <result column="tthq_sjtbsj" property="tthqSjtbsj" />
+    <result column="tthq_xgr_dm" property="tthqXgrDm" />
+    <result column="tthq_xgrq" property="tthqXgrq" />
+    <result column="tthq_zzhm" property="tthqZzhm" />
+    <result column="tthq_zzlx_dm" property="tthqZzlxDm" />
+    <result column="creatorid" property="creatorid" />
+    <result column="createtime" property="createtime" />
+    <result column="updatorid" property="updatorid" />
+    <result column="updatetime" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tthq_id, djxh, tthq_lbpm, tthq_kyslrq, tthq_lcslid, tthq_lrr_dm, tthq_lrrq, tthq_pzjguuid, 
+    tthq_pzsljg_dm, tthq_pzsljglx_dm, tthq_pzsljgmc, tthq_pzzmhwjh, tthq_scjyqxq, tthq_scjyqxz, 
+    tthq_sjgsdq, tthq_sjtbsj, tthq_xgr_dm, tthq_xgrq, tthq_zzhm, tthq_zzlx_dm, creatorid, 
+    createtime, updatorid, updatetime
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_tax_qypzjg
+    where tthq_id = #{id}
+  </select>
+  <delete id="deleteByDjxh" parameterType="String" >
+    delete from t_tax_qypzjg
+    where djxh = #{djxh}
+  </delete>
+  <insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.qypzjg.model.TaxQypzjgEntity" >
+    insert into t_tax_qypzjg (tthq_id, djxh, tthq_lbpm, 
+      tthq_kyslrq, tthq_lcslid, tthq_lrr_dm, 
+      tthq_lrrq, tthq_pzjguuid, tthq_pzsljg_dm, 
+      tthq_pzsljglx_dm, tthq_pzsljgmc, tthq_pzzmhwjh, 
+      tthq_scjyqxq, tthq_scjyqxz, tthq_sjgsdq, 
+      tthq_sjtbsj, tthq_xgr_dm, tthq_xgrq, 
+      tthq_zzhm, tthq_zzlx_dm, creatorid, 
+      createtime, updatorid, updatetime
+      )
+    values (#{id}, #{djxh}, #{tthqLbpm}, 
+      #{tthqKyslrq}, #{tthqLcslid}, #{tthqLrrDm}, 
+      #{tthqLrrq}, #{tthqPzjguuid}, #{tthqPzsljgDm}, 
+      #{tthqPzsljglxDm}, #{tthqPzsljgmc}, #{tthqPzzmhwjh}, 
+      #{tthqScjyqxq}, #{tthqScjyqxz}, #{tthqSjgsdq}, 
+      #{tthqSjtbsj}, #{tthqXgrDm}, #{tthqXgrq}, 
+      #{tthqZzhm}, #{tthqZzlxDm}, #{creatorid}, 
+      #{createtime}, #{updatorid}, #{updatetime}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.dcits.govsbu.sd.taxbankplatform.qypzjg.model.TaxQypzjgEntity" >
+    update t_tax_qypzjg
+    set djxh = #{djxh},
+      tthq_lbpm = #{tthqLbpm},
+      tthq_kyslrq = #{tthqKyslrq},
+      tthq_lcslid = #{tthqLcslid},
+      tthq_lrr_dm = #{tthqLrrDm},
+      tthq_lrrq = #{tthqLrrq},
+      tthq_pzjguuid = #{tthqPzjguuid},
+      tthq_pzsljg_dm = #{tthqPzsljgDm},
+      tthq_pzsljglx_dm = #{tthqPzsljglxDm},
+      tthq_pzsljgmc = #{tthqPzsljgmc},
+      tthq_pzzmhwjh = #{tthqPzzmhwjh},
+      tthq_scjyqxq = #{tthqScjyqxq},
+      tthq_scjyqxz = #{tthqScjyqxz},
+      tthq_sjgsdq = #{tthqSjgsdq},
+      tthq_sjtbsj = #{tthqSjtbsj},
+      tthq_xgr_dm = #{tthqXgrDm},
+      tthq_xgrq = #{tthqXgrq},
+      tthq_zzhm = #{tthqZzhm},
+      tthq_zzlx_dm = #{tthqZzlxDm},
+      creatorid = #{creatorid},
+      createtime = #{createtime},
+      updatorid = #{updatorid},
+      updatetime =  now()
+    where tthq_id = #{id}
+  </update>
+</mapper>

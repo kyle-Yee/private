@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.loanapplyquery.mapper.LoanApplyQueryMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+	<!-- 贷款申请信息表 -->
+	<resultMap id="loanApplyQueryMap" type="com.dcits.govsbu.sd.taxbankplatform.loanapplyquery.model.LoanApplyQueryEntity">
+		<id property="id" column="la_id"/>
+		<result property="fp_id" column="fp_id" />
+		<result property="region_id" column="region_id"/>
+		<result property="nsrsbh" column="nsrsbh"/>
+		<result property="la_apply_time" column="la_apply_time"/>
+		<result property="la_first_time" column="la_first_time"/>
+		<result property="la_end_time" column="la_end_time"/>
+		<result property="la_status" column="la_status"/>
+		<!-- 金融产品信息表 -->
+		<association property="financialProduct" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.financialProduct.model.FinancialProduct">
+			<id property="id" column="fp_id"/>
+			<result property="fpName" column="fp_name"/>
+			<result property="orgId" column="org_id"/>
+		</association>
+		<!-- 纳税人信息 -->
+		<association property="nsryhxxEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.loanapprove.model.NsryhxxEntity">
+			<result property="nsrmc" column="nsryhxx_nsrmc"/>
+		</association>
+		<!-- 申请状态代码表 -->
+		<association property="loanStatusEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.loanapplyquery.model.LoanStatusEntity">
+			<id property="id" column="las_id"/>
+			<result property="las_name" column="las_name"/>
+			<result property="las_code" column="las_code"/>
+			<result property="enabled" column="enabled"/>
+			<result property="las_remark" column="las_remark"/>
+		</association>
+		<!-- 贷款审批结果表 -->
+		<association property="loanApplyFinalEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.loanapplyquery.model.LoanApplyFinalEntity">
+			<id property="id" column="laf_id"/>
+			<result property="lac_id" column="lac_id"/>
+		</association>
+	</resultMap>
+	
+	
+	<select id="queryListByPage" parameterType="map" resultMap="loanApplyQueryMap" flushCache="true" useCache="true">
+		<!-- 根据银行id、区域id查询贷款申请列表-->
+		select la.la_id, fp.fp_id, fp.fp_name, nsr.nsryhxx_nsrmc, la.nsrsbh, la.la_apply_time, la.la_first_time, la.la_end_time, la.la_status, las.las_name, laf.lac_id from tb_loan_apply la left join tb_financial_product fp on la.fp_id = fp.fp_id left join tb_loan_approve_status las on la.la_status = las.las_id left join tb_loan_apply_final laf on la.la_id = laf.la_id left join tb_nsryhxx nsr on la.nsrsbh = nsr.nsryhxx_nsrsbh
+		<where>
+				fp.org_id = #{orgId}
+			<if test="apply_search_fpname != null and apply_search_fpname != ''">
+				and fp.fp_name = #{apply_search_fpname}
+			</if>		
+			<if test="apply_search_applicant != null and apply_search_applicant != ''">
+				and nsr.nsryhxx_nsrmc = #{apply_search_applicant}
+			</if>
+			<if test="apply_search_applytime1 != null and apply_search_applytime1 != '' and apply_search_applytime2 != null and apply_search_applytime2 != ''">
+				and date_format(la.la_apply_time, '%Y-%c-%d') between date_format(#{apply_search_applytime1}, '%Y-%c-%d') and date_format(#{apply_search_applytime2}, '%Y-%c-%d')
+			</if>
+			<if test="apply_search_firsttime1 != null and apply_search_firsttime1 != '' and apply_search_firsttime2 != null and apply_search_firsttime2 != ''">
+				and date_format(la.la_first_time, '%Y-%c-%d') between date_format(#{apply_search_firsttime1}, '%Y-%c-%d') and date_format(#{apply_search_firsttime2}, '%Y-%c-%d')
+			</if>
+			<if test="apply_search_endtime1 != null and apply_search_endtime1 != '' and apply_search_endtime2 != null and apply_search_endtime2 != ''">
+				and date_format(la.la_end_time, '%Y-%c-%d') between date_format(#{apply_search_endtime1}, '%Y-%c-%d') and date_format(#{apply_search_endtime2}, '%Y-%c-%d')
+			</if>
+		</where>
+	</select>
+	
+	
+	<!-- 贷款申请明细查询 -->
+	<resultMap id="loanApplyQueryDetailsEntity" type="com.dcits.govsbu.sd.taxbankplatform.loanapplyquery.model.LoanApplyQueryEntity">
+		<id property="id" column="la_id"/>
+		<result property="region_id" column="region_id"/>
+		<result property="la_amount" column="la_amount"/>
+		<result property="la_serial_number" column="la_serial_number"/>
+		<result property="la_repay_loan_deadline" column="la_repay_loan_deadline"/>
+		<result property="nsrsbh" column="nsrsbh"/>
+		<!-- 纳税人信息 -->
+		<association property="nsryhxxEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.loanapprove.model.NsryhxxEntity">
+			<id property="id" column="nsryhxx_id"/>
+			<result property="frsjh" column="nsryhxx_frsjh"/>
+			<result property="nsrmc" column="nsryhxx_nsrmc"/>
+			<!-- <result property="nsrcz" column="nsryhxx_nsrcz"/> -->
+			<result property="frmc" column="nsryhxx_frmc"/>
+			<result property="qymc" column="nsryhxx_qymc"/>
+		</association>
+		<!-- 贷款申请关联产品信息表 -->
+		<association property="financialProduct" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.financialProduct.model.FinancialProduct">
+			<id property="id" column="fp_id"/>
+			<result property="fpName" column="fp_name"/>
+			<result property="orgId" column="org_id"/>
+			<result property="fpOverlayPcIds" column="fp_overlay_pc_ids"/>
+		</association>
+		<!-- 贷款申请关联还款方式代码表 -->
+		<association property="repaymentWayEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.repaymentway.model.RepaymentWayEntity">
+			<id property="id" column="la_rw_id"/>
+			<result property="rwname" column="la_rw_name"/>
+		</association>
+		<!-- 贷款申请审批记录表 -->
+		<collection property="loanApproveRecEntity" ofType="com.dcits.govsbu.sd.taxbankplatform.loanapplyquery.model.LoanApproveRecEntity">
+			<id property="id" column="lar_id"/>
+			<result property="las_id" column="las_id"/>
+			<result property="lar_credit_quota" column="lar_credit_quota"/>
+			<result property="lar_loan_deadline" column="lar_loan_deadline"/>
+			<result property="lar_begin" column="lar_begin"/>
+			<result property="lar_end" column="lar_end"/>
+			<result property="lar_rate" column="lar_rate"/>
+			<result property="lar_isoverlay_area" column="lar_isoverlay_area"/>
+			<result property="rw_id" column="rw_id"/>
+			<result property="lar_bank_name" column="lar_bank_name"/>
+			<result property="lar_bank_account" column="lar_bank_account"/>
+			<result property="lar_contract" column="lar_contract"/>
+			<result property="lar_opinion" column="lar_opinion"/>
+			<result property="creatorid" column="creatorid"/>
+			<result property="createtime" column="createtime"/>
+			<result property="la_apply_time" column="la_apply_time"/>
+			<result property="lafs_id" column="lafs_id"/>
+			<result property="la_status" column="la_status"/>
+			
+			<!--审批记录关联用户信息表 -->
+			<association property="userEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.user.model.UserEntity">
+				<id property="id" column="u_id"/>
+				<result property="userName" column="u_name" />
+			</association>
+			<!-- 审批记录关联还款方式代码表 -->
+			<association property="repaymentWayEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.repaymentway.model.RepaymentWayEntity">
+				<id property="id" column="lar_rw_id"/>
+				<result property="rwname" column="lar_rw_name"/>
+			</association>
+			<!-- 审批记录关联审批意见代码表 -->
+			<association property="loanCodeEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.loanapplyquery.model.LoanCodeEntity">
+				<id property="id" column="lac_id"/>
+				<result property="lac_name" column="lac_name"/>
+			</association>
+		</collection>
+	</resultMap>
+	
+	<!-- 根据贷款申请id查询贷款审批记录-->
+	<select id="findById" parameterType="map" resultMap="loanApplyQueryDetailsEntity" flushCache="true" useCache="true">
+		select  
+			la.la_id,
+			la.la_amount,
+			la.la_serial_number,
+			la.la_repay_loan_deadline,
+			la.nsrsbh,
+			la.la_status,
+			la.createtime,
+			la.la_apply_time,
+			nsr.nsryhxx_id,
+			nsr.nsryhxx_nsrmc,
+			nsr.nsryhxx_frmc,
+			nsr.nsryhxx_frsjh,
+			nsr.nsryhxx_qymc,
+			fp.fp_id,
+			fp.fp_name,
+			fp.org_id,
+			fp.fp_overlay_pc_ids,
+			rw1.rw_id as la_rw_id,
+			rw1.rw_name as la_rw_name,
+			lar.lar_credit_quota, 
+			lar.lar_loan_deadline, 
+			lar.lar_begin, 
+			lar.lar_end, 
+			lar.lar_rate, 
+			lar.lar_isoverlay_area,
+			lar.lar_bank_name, 
+			lar.lar_bank_account, 
+			lar.lar_contract, 
+			lar.lar_opinion, 
+			lar.createtime,
+			lar.las_id,
+			lar.lafs_id,
+			u.u_id,
+			u.u_name,
+			lac.lac_id,
+			lac.lac_name, 
+			rw2.rw_id as lar_rw_id,
+			rw2.rw_name as lar_rw_name
+			
+		from tb_loan_apply la 
+			left join tb_nsryhxx nsr on la.creatorid = nsr.creatorid
+			left join tb_financial_product fp on la.fp_id = fp.fp_id
+			left join tb_loan_approve_rec lar on la.la_id = lar.la_id
+			left join tb_user u on lar.creatorid = u.u_id
+			left join tb_loan_approve_code lac on lar.lac_id = lac.lac_id
+			left join tb_repayment_way rw1 on la.rw_id = rw1.rw_id
+			left join tb_repayment_way rw2 on lar.rw_id = rw2.rw_id
+		where la.la_id = #{id}
+	</select>
+	
+	<!-- 贷款申请数据项信息 -->
+	<resultMap id="loanApplyAttachMap" type="com.dcits.govsbu.sd.taxbankplatform.loanapplyquery.model.LoanApplyAttachEntity">
+			<result property="pdiValues" column="pdi_values"/>
+			<association property="loanProductDataEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.loanapplyquery.model.LoanProductDataEntity">
+				<result property="pdiName" column="pdi_name"/>
+			</association>
+	</resultMap>
+	
+	
+		<!-- 贷款审批中跟踪功能中需要显示的组织名称 和贷款受理时间数据项 -->
+	<resultMap id="loanApplyTailafterMap" type="com.dcits.govsbu.sd.taxbankplatform.loanapplyquery.model.LoanApplyTailafterEntity">
+			<result property="total_days" column="tl_total_days"/>
+			<result property="org_name" column="org_name"/>
+	</resultMap>
+	<select id="findDataById" parameterType="String" resultMap="loanApplyTailafterMap" flushCache="true" useCache="true">
+			SELECT s.tl_total_days,tbo.org_name
+			FROM tb_loan_apply tl
+			LEFT JOIN tb_financial_product tf ON tl.fp_id = tf.fp_id
+			LEFT JOIN tb_organizations tbo ON tf.org_id = tbo.org_id
+			LEFT JOIN tb_loan_slsj s ON tf.org_id = s.org_id
+			WHERE tl.la_id = #{id};
+	</select>
+
+	
+	<!-- 查询贷款申请数据项信息 -->
+	<select id="queryListAttach" parameterType="map" resultMap="loanApplyAttachMap" flushCache="true" useCache="true">
+		select pdi.pdi_name, laa.pdi_values from tb_loan_apply_attach laa left join tb_product_data_items pdi on laa.pdi_id = pdi.pdi_id and pdi.ht_id = 4 where laa.la_id = #{id}
+	</select>
+</mapper>

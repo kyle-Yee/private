@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.qyfzjg.mapper.TaxQyfzjgEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.dcits.govsbu.sd.taxbankplatform.qyfzjg.model.TaxQyfzjgEntity" >
+    <id column="tthf_id" property="id" />
+    <result column="tthf_lbpm" property="tthfLbpm" />
+    <result column="djxh" property="djxh" />
+    <result column="tthf_yxqq" property="tthfYxqq" />
+    <result column="tthf_yxqz" property="tthfYxqz" />
+    <result column="tthf_xgr_dm" property="tthfXgrDm" />
+    <result column="tthf_xgrq" property="tthfXgrq" />
+    <result column="tthf_sjgsdq" property="tthfSjgsdq" />
+    <result column="tthf_lrr_dm" property="tthfLrrDm" />
+    <result column="tthf_lrrq" property="tthfLrrq" />
+    <result column="tthf_sjtbsj" property="tthfSjtbsj" />
+    <result column="tthf_fzjghfdlxdh" property="tthfFzjghfdlxdh" />
+    <result column="tthf_fzjghfddz" property="tthfFzjghfddz" />
+    <result column="tthf_fzjghfdmc" property="tthfFzjghfdmc" />
+    <result column="tthf_fzjghfdnsrsbh" property="tthfFzjghfdnsrsbh" />
+    <result column="tthf_fzjghfddjxh" property="tthfFzjghfddjxh" />
+    <result column="tthf_fzjgfduuid" property="tthfFzjgfduuid" />
+    <result column="creatorid" property="creatorid" />
+    <result column="createtime" property="createtime" />
+    <result column="updatorid" property="updatorid" />
+    <result column="updatetime" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tthf_id, tthf_lbpm, djxh, tthf_yxqq, tthf_yxqz, tthf_xgr_dm, tthf_xgrq, tthf_sjgsdq, 
+    tthf_lrr_dm, tthf_lrrq, tthf_sjtbsj, tthf_fzjghfdlxdh, tthf_fzjghfddz, tthf_fzjghfdmc, 
+    tthf_fzjghfdnsrsbh, tthf_fzjghfddjxh, tthf_fzjgfduuid, creatorid, createtime, updatorid, 
+    updatetime
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_tax_qyfzjg
+    where tthf_id = #{id}
+  </select>
+  <delete id="deleteByDjxh" parameterType="String" >
+    delete from t_tax_qyfzjg
+    where djxh = #{djxh}
+  </delete>
+  <insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.qyfzjg.model.TaxQyfzjgEntity" >
+    insert into t_tax_qyfzjg (tthf_id, tthf_lbpm, djxh, 
+      tthf_yxqq, tthf_yxqz, tthf_xgr_dm, 
+      tthf_xgrq, tthf_sjgsdq, tthf_lrr_dm, 
+      tthf_lrrq, tthf_sjtbsj, tthf_fzjghfdlxdh, 
+      tthf_fzjghfddz, tthf_fzjghfdmc, tthf_fzjghfdnsrsbh, 
+      tthf_fzjghfddjxh, tthf_fzjgfduuid, creatorid, 
+      createtime, updatorid, updatetime
+      )
+    values (#{id}, #{tthfLbpm}, #{djxh}, 
+      #{tthfYxqq}, #{tthfYxqz}, #{tthfXgrDm}, 
+      #{tthfXgrq}, #{tthfSjgsdq}, #{tthfLrrDm}, 
+      #{tthfLrrq}, #{tthfSjtbsj}, #{tthfFzjghfdlxdh}, 
+      #{tthfFzjghfddz}, #{tthfFzjghfdmc}, #{tthfFzjghfdnsrsbh}, 
+      #{tthfFzjghfddjxh}, #{tthfFzjgfduuid}, #{creatorid}, 
+      #{createtime}, #{updatorid}, #{updatetime}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.dcits.govsbu.sd.taxbankplatform.qyfzjg.model.TaxQyfzjgEntity" >
+    update t_tax_qyfzjg
+    set tthf_lbpm = #{tthfLbpm},
+      djxh = #{djxh},
+      tthf_yxqq = #{tthfYxqq},
+      tthf_yxqz = #{tthfYxqz},
+      tthf_xgr_dm = #{tthfXgrDm},
+      tthf_xgrq = #{tthfXgrq},
+      tthf_sjgsdq = #{tthfSjgsdq},
+      tthf_lrr_dm = #{tthfLrrDm},
+      tthf_lrrq = #{tthfLrrq},
+      tthf_sjtbsj = #{tthfSjtbsj},
+      tthf_fzjghfdlxdh = #{tthfFzjghfdlxdh},
+      tthf_fzjghfddz = #{tthfFzjghfddz},
+      tthf_fzjghfdmc = #{tthfFzjghfdmc},
+      tthf_fzjghfdnsrsbh = #{tthfFzjghfdnsrsbh},
+      tthf_fzjghfddjxh = #{tthfFzjghfddjxh},
+      tthf_fzjgfduuid = #{tthfFzjgfduuid},
+      creatorid = #{creatorid},
+      createtime = #{createtime},
+      updatorid = #{updatorid},
+      updatetime =  now()
+    where tthf_id = #{id}
+  </update>
+</mapper>

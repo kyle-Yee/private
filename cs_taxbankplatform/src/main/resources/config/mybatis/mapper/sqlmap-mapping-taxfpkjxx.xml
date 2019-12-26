@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.fpkjxx.mapper.TaxFpKjxxEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.dcits.govsbu.sd.taxbankplatform.fpkjxx.model.TaxFpKjxxEntity" >
+    <id column="ttf_id" property="id" />
+    <result column="djxh" property="djxh" />
+    <result column="ttf_fpdm" property="ttfFpdm" />
+    <result column="ttf_fphm" property="ttfFphm" />
+    <result column="ttf_gf_nsrsbh" property="ttfGfNsrsbh" />
+    <result column="ttfk_xf_nsrsbh" property="ttfkXfNsrsbh" />
+    <result column="ttfk_je" property="ttfkJe" />
+    <result column="ttfk_se" property="ttfkSe" />
+    <result column="ttfk_sl" property="ttfkSl" />
+    <result column="ttfk_fp_kprq" property="ttfkFpKprq" />
+    <result column="ttfk_zfbz" property="ttfkZfbz" />
+    <result column="ttfk_bdbz" property="ttfkBdbz" />
+    <result column="ttfk_qy_mc" property="ttfkQyMc" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ttf_id, djxh, ttf_fpdm, ttf_fphm, ttf_gf_nsrsbh, ttfk_xf_nsrsbh, ttfk_je, ttfk_se, ttfk_sl, 
+    ttfk_fp_kprq, ttfk_zfbz, ttfk_bdbz, ttfk_qy_mc
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_tax_fp_kzxx
+    where ttf_id = #{id}
+  </select>
+  <delete id="deleteByDjxh" parameterType="String" >
+    delete from t_tax_fp_kzxx
+    where djxh = #{djxh}
+  </delete>
+  <insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.fpkjxx.model.TaxFpKjxxEntity" >
+    insert into t_tax_fp_kzxx (ttf_id, djxh, ttf_fpdm, ttf_fphm, 
+      ttf_gf_nsrsbh, ttfk_xf_nsrsbh, ttfk_je, 
+      ttfk_se, ttfk_sl, ttfk_fp_kprq, 
+      ttfk_zfbz, ttfk_bdbz, ttfk_qy_mc
+      )
+    values (#{id}, #{djxh}, #{ttfFpdm}, #{ttfFphm}, 
+      #{ttfGfNsrsbh}, #{ttfkXfNsrsbh}, #{ttfkJe}, 
+      #{ttfkSe}, #{ttfkSl}, #{ttfkFpKprq}, 
+      #{ttfkZfbz}, #{ttfkBdbz}, #{ttfkQyMc}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.dcits.govsbu.sd.taxbankplatform.fpkjxx.model.TaxFpKjxxEntity" >
+    update t_tax_fp_kzxx
+    set ttf_fpdm = #{ttfFpdm},
+      ttf_fphm = #{ttfFphm},
+      ttf_gf_nsrsbh = #{ttfGfNsrsbh},
+      ttfk_xf_nsrsbh = #{ttfkXfNsrsbh},
+      ttfk_je = #{ttfkJe},
+      ttfk_se = #{ttfkSe},
+      ttfk_sl = #{ttfkSl},
+      ttfk_fp_kprq = #{ttfkFpKprq},
+      ttfk_zfbz = #{ttfkZfbz},
+      ttfk_bdbz = #{ttfkBdbz},
+      ttfk_qy_mc = #{ttfkQyMc}
+    where ttf_id = #{id}
+  </update>
+</mapper>

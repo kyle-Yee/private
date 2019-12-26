@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.loanagreement.mapper.LoanAgreementMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	
+	<resultMap id="LoanAgreementMap" type="com.dcits.govsbu.sd.taxbankplatform.loanagreement.model.LoanAgreementEntity">
+		<id property="id" column="la_id"/>
+		<result property="laName" column="la_name" />
+		<result property="laContent" column="la_content" />
+		<result property="laxyid" column="la_xyid" />
+		<result property="orgId" column="org_id" />
+		<result property="regionId" column="region_id" />
+		<result property="enabled" column="enabled"/>
+		<result property="creatorid" column="creatorid"/>
+		<result property="createtime" column="createtime"/>
+		<result property="updatorid" column="updatorid"/>
+		<result property="updatetime" column="updatetime"/>
+	</resultMap>
+
+	<!-- 搜索数据 -->
+	<select id="queryListByPage" parameterType="map" resultMap="LoanAgreementMap" flushCache="true" useCache="true">
+		SELECT *
+		FROM tb_loan_agreement
+		<where>
+		     <if test="laxy !=null and laxy!=''">
+			    la_xyid is  null
+			</if>
+			<if test="laName != null and laName != ''">
+				and la_name LIKE CONCAT('%','${laName}','%' )
+			</if>
+			<if test="orgId != null and orgId != ''">
+				and org_id = '${orgId}' 
+			</if>
+			<if test="regionId != null and regionId != ''">
+				and region_id = '${regionId}' 
+			</if>
+			
+			and enabled = 'Y'
+		</where>
+	</select>
+		<!-- 验证认证协议  税务协议 是否存在 -->
+	<select id="queryListByrzxy" parameterType="map" resultMap="LoanAgreementMap" flushCache="true" useCache="true">
+		SELECT *
+		FROM tb_loan_agreement
+		<where>
+		<!-- 	<if test="laName != null and laName != ''">
+				and la_name LIKE CONCAT('%','${laName}','%' )
+			</if> -->
+			<if test="orgId != null and orgId != ''">
+				and org_id = '${orgId}' 
+			</if>
+			<if test="regionId != null and regionId != ''">
+				and region_id = '${regionId}' 
+			</if>
+			<if test="rzcxyid != null and rzcxyid != ''">
+				and la_xyid = '${rzcxyid}' 
+			</if>
+			and enabled = 'Y'
+		</where>
+	</select>
+		<!-- 验证认证协议  税务协议 是否存在 -->
+	<select id="queryListBysqxy" parameterType="map" resultMap="LoanAgreementMap" flushCache="true" useCache="true">
+		SELECT *
+		FROM tb_loan_agreement
+		<where>
+		<!-- 	<if test="laName != null and laName != ''">
+				and la_name LIKE CONCAT('%','${laName}','%' )
+			</if> -->
+			<if test="orgId != null and orgId != ''">
+				and org_id = '${orgId}' 
+			</if>
+			<if test="regionId != null and regionId != ''">
+				and region_id = '${regionId}' 
+			</if>
+			<if test="sqcxyid != null and sqcxyid != ''">
+				and la_xyid = '${sqcxyid}' 
+			</if>
+			and enabled = 'Y'
+		</where>
+	</select>
+	<!-- 验证名字是否存在 -->
+	<select id="checkName" parameterType="map" resultMap="LoanAgreementMap" flushCache="true" useCache="true">
+		SELECT * FROM tb_loan_agreement
+		<where>
+			<if test="laName != null and laName != ''">
+				and la_name = '${laName}'
+			</if>
+			<if test="orgId != null and orgId != ''">
+				and org_id = #{orgId} 
+			</if>
+			<if test="regionId != null and regionId != ''">
+				and region_id = #{regionId}
+			</if>
+			and enabled = 'Y'
+		</where>
+	</select>
+	
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.loanagreement.model.LoanAgreementEntity">
+		insert into tb_loan_agreement (
+			la_id,
+			la_name,
+			la_content,
+			org_id,
+			<if test="laxyid!=null and laxyid!=''">
+			la_xyid,
+			</if>
+			region_id,creatorid,createtime,updatorid,updatetime
+			)   
+		values (
+			#{id},
+			#{laName},
+			#{laContent},
+			#{orgId},
+			<if test="laxyid!=null and laxyid!=''">
+			#{laxyid},
+			</if>
+			#{regionId},
+			#{creatorid},
+			#{createtime},
+			#{updatorid},
+			#{updatetime}
+			)
+	</insert>
+	<update id="update" parameterType="com.dcits.govsbu.sd.taxbankplatform.loanagreement.model.LoanAgreementEntity">
+	  	update tb_loan_agreement
+	    <set>
+	      <if test="laName != null and laName != ''">
+	        la_name = #{laName},
+	      </if>
+	      <if test="orgId != null and orgId != ''">
+	        org_id = #{orgId},
+	      </if>
+	      <if test="regionId != null and regionId != ''">
+	        region_id = #{regionId},
+	      </if>
+	      <if test="laContent != null and laContent !=''">
+	        la_content = #{laContent},
+	      </if>
+	      <if test="creatorid != null and creatorid != ''">
+	        creatorid = #{creatorid},
+	      </if>
+	      <if test="createtime != null">
+	        createtime = #{createtime},
+	      </if>
+	      <if test="updatorid != null and updatorid !=''">
+	        updatorid = #{updatorid},
+	      </if>
+	      <if test="updatetime != null">
+	        updatetime = now(),
+	      </if>
+	      <if test="enabled != null">
+	        enabled = #{enabled},
+	      </if>
+	    </set>
+	    where la_id = #{id}
+	  </update>
+	<!-- 删除数据（逻辑删除） -->
+	<update id="delLoanAgreement" parameterType="com.dcits.govsbu.sd.taxbankplatform.loanagreement.model.LoanAgreementEntity"  flushCache="true">
+		update tb_loan_agreement
+		set enabled = 'N'
+		where la_id = #{id}
+	</update>
+	<!-- 根据ID查找对象 -->
+	<select id="findById" parameterType="String" resultMap="LoanAgreementMap" flushCache="true" useCache="true">
+		select *
+	    from tb_loan_agreement
+	    where la_id = #{id}
+	</select>
+	<!-- 根据ID查找对象 -->
+	<select id="findByOrgOrLaxyId" parameterType="String" resultMap="LoanAgreementMap" flushCache="true" useCache="true">
+		select *
+	    from tb_loan_agreement
+	    where  org_id = #{orgid}  and la_xyid='sqxy01' and enabled='Y'
+	</select>
+	
+</mapper>

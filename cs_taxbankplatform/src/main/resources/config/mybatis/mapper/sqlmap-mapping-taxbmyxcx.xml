@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.bmyxcx.mapper.TaxBmyxcxEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.dcits.govsbu.sd.taxbankplatform.bmyxcx.model.TaxBmyxcxEntity" >
+    <id column="ttb_id" property="id"  />
+    <result column="djxh" property="djxh" />
+    <result column="ttb_lpbm" property="ttbLpbm" />
+    <result column="ttb_sssq_q" property="ttbSssqQ"  />
+    <result column="ttb_sssq_z" property="ttbSssqZ"  />
+    <result column="creatorid" property="creatorid"  />
+    <result column="createtime" property="createtime" />
+    <result column="updatorid" property="updatorid"  />
+    <result column="updatetime" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ttb_id, djxh, ttb_lpbm, ttb_sssq_q, ttb_sssq_z, creatorid, createtime, updatorid, 
+    updatetime 
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_tax_bmyxcx
+    where ttb_id = #{id}
+  </select>
+  <delete id="deleteByDjxh" parameterType="String" >
+    delete from t_tax_bmyxcx
+    where djxh = #{djxh}
+  </delete>
+  <insert id="insert" parameterType="com.dcits.govsbu.sd.taxbankplatform.bmyxcx.model.TaxBmyxcxEntity" >
+    insert into t_tax_bmyxcx (ttb_id, djxh, ttb_lpbm, 
+      ttb_sssq_q, ttb_sssq_z, creatorid, 
+      createtime, updatorid, updatetime
+      )
+    values (#{id}, #{djxh}, #{ttbLpbm}, 
+      #{ttbSssqQ}, #{ttbSssqZ}, #{creatorid}, 
+      #{createtime}, #{updatorid}, #{updatetime}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.dcits.govsbu.sd.taxbankplatform.bmyxcx.model.TaxBmyxcxEntity" >
+    update t_tax_bmyxcx
+    set djxh = #{djxh},
+      ttb_lpbm = #{ttbLpbm},
+      ttb_sssq_q = #{ttbSssqQ},
+      ttb_sssq_z = #{ttbSssqZ},
+      creatorid = #{creatorid},
+      createtime = #{createtime},
+      updatorid = #{updatorid},
+      updatetime =  now()
+    where ttb_id = #{id}
+  </update>
+</mapper>

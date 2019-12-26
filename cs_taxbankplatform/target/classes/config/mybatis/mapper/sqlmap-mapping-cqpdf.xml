@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.pdf.mapper.CqPdfMapper" >
+  <resultMap id="BaseResultMap" type="com.dcits.govsbu.sd.taxbankplatform.pdf.model.CqPdfEntity" >
+		<result property="nsrmc" column="nsrmc"/>
+		<result property="scjydz" column="scjydz"/>
+		<result property="nd" column="nd"/>
+		<result property="shxydm" column="shxydm"/>
+		<result property="nsrsbh" column="nsrsbh"/>
+		<result property="zzjg_dm" column="zzjg_dm"/>
+		<result property="scjydlxdh" column="scjydlxdh"/>
+		<result property="hymx" column="hymx"/>
+		<result property="zgswskfj_dm" column="zgswskfj_dm"/>
+		<result property="nsrzg_dm" column="nsrzg_dm"/>
+		<result property="sfxxwlqy" column="sfxxwlqy"/>
+		<result property="zzsl" column="zzsl"/>
+		<result property="sdsl" column="sdsl"/>
+		<result property="fddbrhfzrhyzxm" column="fddbrhfzrhyzxm"/>
+		<result property="fddbrhfzrhyzsfzjhm" column="fddbrhfzrhyzsfzjhm"/>
+		<result property="fddbrhfzrhyzyddh" column="fddbrhfzrhyzyddh"/>
+		<result property="cwfzrxm" column="cwfzrxm"/>
+		<result property="cwfzrsfzjhm" column="cwfzrsfzjhm"/>
+		<result property="cwfzryddh" column="cwfzryddh"/>
+  </resultMap>
+
+  <select id="findSqxhByNsrsbh" resultType="String" parameterType="String" flushCache="true" useCache="true">
+	SELECT sqxh
+		FROM gs_syptgsdjxx
+		WHERE nsrsbh = #{nsrsbh} OR shxydm = #{nsrsbh}
+		ORDER BY sqxh DESC
+	LIMIT 1
+  </select>
+  <!-- 工商登记信息 税务登记信息 -->
+  <select id="findCqQyjcxxBySqxh" parameterType="String" resultMap="BaseResultMap" flushCache="true" useCache="true">
+	SELECT gs.nsrmc,gs.scjydz,gs.nd,gs.shxydm,gs.nsrsbh,gs.zzjg_dm,gs.scjydlxdh,gs.hymx,
+		sw.zgswskfj_dm,dm.nsrzglx_mc as nsrzg_dm,sw.sfxxwlqy,sw.zzsl,sw.sdsl,sw.fddbrhfzrhyzxm,sw.fddbrhfzrhyzsfzjhm,
+		sw.fddbrhfzrhyzyddh,sw.cwfzrxm,sw.cwfzrsfzjhm,sw.cwfzryddh
+		FROM gs_syptgsdjxx gs
+		LEFT JOIN gs_syptswdjxx sw ON gs.sqxh = sw.sqxh
+		LEFT JOIN dm_nsrzg dm ON sw.nsrzg_dm = dm.nsrzglx_dm
+	WHERE gs.sqxh = #{sqxh}
+  </select>
+    <!-- 纳税清单 -->
+ <select id="findCqNsqd" parameterType="map" resultMap="BaseResultMap" flushCache="true" useCache="true">
+	SELECT SUM(IFNULL(a1.bqsjybtsdse,0.00)+ IFNULL(a2.ynsdse,0.00)+ IFNULL(a3.aqtffyjnsrqdljyjdsdse,0.00)+ IFNULL(b1.ybtsdse,0.00)+ IFNULL(b2.ybtsdse,0.00)+ IFNULL(b3.hdynsdse,0.00)) AS sdssjnsed, SUM(IFNULL(a1.jmsdse,0.00)+ IFNULL(a2.fhtjdxxwlqyjmsdse,0.00)) AS sdsjmtse, SUM(IFNULL(xgm.bqybtse,0.00)+ IFNULL(yb.bqybtse,0.00)) AS zzssjnsed, SUM(IFNULL(yb.sjdkse,0.00)) AS zzsjmtse
+	FROM gs_syptgsdjxx jcxx
+	LEFT JOIN (
+	SELECT bqsjybtsdse,jmsdse,sqxh
+	FROM gs_syptqysdsa1
+	WHERE sqxh = #{sqxh} AND (nd BETWEEN #{starttime} AND #{endtime}) AND (yf BETWEEN #{yfstarttime} AND #{yfendtime}))a1 ON jcxx.sqxh = a1.sqxh
+	LEFT JOIN (
+	SELECT ynsdse,fhtjdxxwlqyjmsdse,sqxh
+	FROM gs_syptqysdsa2
+	WHERE sqxh = #{sqxh} AND (nd BETWEEN #{starttime} AND #{endtime}) AND (yf BETWEEN #{yfstarttime} AND #{yfendtime}))a2 ON jcxx.sqxh = a2.sqxh
+	LEFT JOIN (
+	SELECT aqtffyjnsrqdljyjdsdse,sqxh
+	FROM gs_syptqysdsa3
+	WHERE sqxh = #{sqxh} AND (nd BETWEEN #{starttime} AND #{endtime}) AND (yf BETWEEN #{yfstarttime} AND #{yfendtime}))a3 ON jcxx.sqxh = a3.sqxh
+	LEFT JOIN (
+	SELECT ybtsdse,sqxh
+	FROM gs_syptqysdsb1
+	WHERE sqxh = #{sqxh} AND (nd BETWEEN #{starttime} AND #{endtime}) AND (yf BETWEEN #{yfstarttime} AND #{yfendtime}))b1 ON jcxx.sqxh = b1.sqxh
+	LEFT JOIN (
+	SELECT ybtsdse,sqxh
+	FROM gs_syptqysdsb2
+	WHERE sqxh = #{sqxh} AND (nd BETWEEN #{starttime} AND #{endtime}) AND (yf BETWEEN #{yfstarttime} AND #{yfendtime}))b2 ON jcxx.sqxh = b2.sqxh
+	LEFT JOIN (
+	SELECT hdynsdse,sqxh
+	FROM gs_syptqysdsb3
+	WHERE sqxh = #{sqxh} AND (nd BETWEEN #{starttime} AND #{endtime}) AND (yf BETWEEN #{yfstarttime} AND #{yfendtime})) b3 ON jcxx.sqxh = b3.sqxh
+	LEFT JOIN (
+	SELECT bqybtse,sqxh
+	FROM gs_syptzzsxgm
+	WHERE sqxh = #{sqxh} AND (nd BETWEEN #{starttime} AND #{endtime}) AND (yf BETWEEN #{yfstarttime} AND #{yfendtime})) xgm ON jcxx.sqxh = xgm.sqxh
+	LEFT JOIN (
+	SELECT bqybtse,sjdkse,sqxh
+	FROM gs_syptzzsybnsr
+	WHERE sqxh = #{sqxh} AND (nd BETWEEN #{starttime} AND #{endtime}) AND (yf BETWEEN #{yfstarttime} AND #{yfendtime})) yb ON jcxx.sqxh = yb.sqxh
+  </select>
+  
+  <!-- 税务评级信息-->
+  <resultMap id="cqSwupjxxMap" type="com.dcits.govsbu.sd.taxbankplatform.pdf.model.CqSwupjxxEntity">
+	<result property="swxypj" column="swxypj"/>
+	<result property="swxypjsj" column="swxypjsj"/>
+	<result property="swxypffs" column="swxypffs"/>
+  </resultMap>  
+  <!-- 税务评级信息 -->
+  <select id="findCqSwpjxx" parameterType="String" resultMap="cqSwupjxxMap" flushCache="true" useCache="true">
+		SELECT gs.swxypj,gs.swxypjsj,gs.swxypffs
+		FROM gs_syptswpjxx gs
+		WHERE gs.sqxh = #{sqxh} AND swxypjsj BETWEEN #{starttime} AND #{endtime}
+  </select>
+  <!-- 税收优惠政策 -->
+  <resultMap id="cqPdfSsyhzcMap" type="com.dcits.govsbu.sd.taxbankplatform.pdf.model.CqPdfSsyhzcEntity">
+	<result property="jmqxq" column="jmqxq"/>
+	<result property="jmqxz" column="jmqxz"/>
+	<result property="jmlxdm" column="jmlx_dm"/>
+	<result property="jzed" column="jzed"/>
+	<result property="jzfd" column="jzfd"/>
+  </resultMap>
+    <!-- 税收优惠政策 -->
+  <select id="findCqSsyhzc" parameterType="map" resultMap="cqPdfSsyhzcMap" flushCache="true" useCache="true">
+		SELECT jmqxq,jmqxz,jmlx_dm,jzed,jzfd
+		FROM gs_syptssyhzcxx
+		WHERE sqxh = #{sqxh} <!-- AND jmqxq BETWEEN #{starttime} AND #{endtime} AND jmqxz <![CDATA[>]]> #{endtime}; -->
+  </select>
+  <!-- 违法违章明细 -->
+  <resultMap id="cqPdfWfwzMap" type="com.dcits.govsbu.sd.taxbankplatform.pdf.model.CqPdfWfwzEntity">
+		<result property="djrq" column="djrq"/>
+		<result property="wfss" column="wfss"/>
+		<result property="wfwzlx" column="wfwzzl_mc"/>
+		<result property="wfxwclztdm" column="wfwzclzt_mc"/>
+		<result property="larq" column="larq"/>
+  </resultMap>
+    <!-- 违法违章明细 -->
+  <select id="findCqWfwzmx" parameterType="map" resultMap="cqPdfWfwzMap" flushCache="true" useCache="true">
+		SELECT g.djrq,g.wfss,g.wfwzlx,g.wfxwclzt_dm,g.larq, lx.wfwzzl_mc,zt.wfwzclzt_mc
+		FROM gs_syptwfwzxx g
+		LEFT JOIN dm_wfwzlx lx ON g.wfwzlx_dm = lx.wfwzzl_dm
+		LEFT JOIN dm_wfwzclzt zt ON g.wfxwclzt_dm = zt.wfwzclzt_dm
+		WHERE g.sqxh = #{sqxh} <!-- AND djrq BETWEEN #{starttime} AND #{endtime} -->
+  </select>
+
+    <!-- 累计欠税信息 数据库表中没有时间字段当前只能是统计近三年的欠税信息 -->
+  <select id="findCqLjqsxx" parameterType="String" resultType="String" flushCache="true" useCache="true">
+	SELECT SUM(se)
+	FROM gs_syptqsye
+	WHERE sqxh = #{sqxh}
+  </select>
+    <!-- 更具申请id查询 nsrsbh -->
+  <select id="findNsrsbhById" parameterType="String" resultType="String" flushCache="true" useCache="true">
+		SELECT nsrsbh
+		FROM tb_loan_apply
+		WHERE la_id = #{id}
+  </select>
+  <!-- 获取组织名称 和 产品名称 -->
+  <select id="findFpnameById" resultType="java.util.Map" parameterType="String" flushCache="true" useCache="true">
+	SELECT tf.fp_name as fpName,tor.org_name as orgName
+		FROM tb_loan_apply la
+		LEFT JOIN 
+		tb_financial_product tf ON la.fp_id = tf.fp_id
+		LEFT JOIN tb_organizations tor ON tf.org_id = tor.org_id
+	WHERE la.la_id = #{id}
+  </select>
+    <!-- 违法违章明细 -->
+  <resultMap id="cqGsSwqdMap" type="com.dcits.govsbu.sd.taxbankplatform.pdf.model.CqGsSwqdEntity">
+		<result property="xh"     column="xh"/>          
+		<result property="sqxh"      column="sqxh"/>        
+		<result property="nsrsbh"    column="nsrsbh"/>      
+		<result property="nd"        column="nd"/>          
+		<result property="cxrqq"     column="cxrqq"/>       
+		<result property="cxrqz"     column="cxrqz"/>       
+		<result property="zzsse"     column="zzsse"/>       
+		<result property="qysdsse"   column="qysdsse"/>     
+		<result property="nsze"      column="nsze"/>        
+		<result property="zzsjmse"   column="zzsjmse"/>     
+		<result property="qysdsjmse" column="qysdsjmse"/>   
+		<result property="jmze"      column="jmze"/>        
+		<result property="xssr"      column="xssr"/>        
+		<result property="xxse"      column="xxse"/>        
+		<result property="jxse"      column="jxse"/>  
+  </resultMap>
+  <!-- 重庆dpf修改需求后获取纳税清单 -->
+  <select id="findNsqdDataByNsrsbh" resultMap="cqGsSwqdMap" parameterType="map" flushCache="true" useCache="true">
+  	SELECT cxrqq,cxrqz,zzsse,qysdsse,nsze,zzsjmse,qysdsjmse,jmze,xxse,jxse
+	FROM gs_syptssxxcx
+	WHERE sqxh = (
+		SELECT sqxh
+		FROM gs_syptgsdjxx
+		WHERE nsrsbh = #{nsrsbh} OR shxydm = #{nsrsbh}
+		ORDER BY sqxh DESC
+		LIMIT 1)
+  </select>
+  <!-- 判断是否需要去税务局调取数据 -->
+  <select id="findStatusByNsrsbh" resultType="java.lang.Integer" parameterType="map" flushCache="true" useCache="true">
+	SELECT count(1)
+	FROM gs_syptssxxcx
+	WHERE NSRSBH = #{nsrsbh} AND cxrqz BETWEEN #{startTime} AND #{endTime}
+  </select>
+</mapper>

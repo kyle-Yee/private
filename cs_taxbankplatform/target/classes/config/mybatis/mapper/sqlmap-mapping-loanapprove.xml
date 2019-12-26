@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.loanapprove.mapper.LoanApproveMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	<resultMap type="com.dcits.govsbu.sd.taxbankplatform.loanapprove.model.NsryhxxEntity" id="nsryhxxMap">
+		<id property="id" column="nsryhxx_id" />
+		<result property="nsrsbh" column="nsryhxx_nsrsbh" />
+		<result property="djxh" column="nsryhxx_djxh" />
+		<result property="lpbm" column="nsryhxx_lpbm" />
+		<result property="yxqq" column="nsryhxx_yxqq" />
+		<result property="yxqz" column="nsryhxx_yxqz" />
+		<result property="flag" column="nsryhxx_flag" />
+		<!-- 查询授信所需数据项返回实体-->
+		<collection property="sxsjxMapList" ofType="com.dcits.govsbu.sd.taxbankplatform.loanapprove.model.SxsjxEntity">
+			<result property="name" column="pdi_name" />
+			<result property="values" column="pdi_values" />
+		</collection>
+	</resultMap>
+	<!-- 贷款申请审批 -->
+	<!-- <insert id="insertRec" parameterType="com.dcits.govsbu.sd.taxbankplatform.loanapprove.model.LoanApproveFinalEntity" useGeneratedKeys="true" keyProperty="id"> -->
+	<insert id="insertRec" parameterType="com.dcits.govsbu.sd.taxbankplatform.loanapprove.model.LoanApproveFinalEntity">
+		insert into tb_loan_approve_rec
+		(lar_id,region_id, fp_id, la_id, las_id, lac_id, lar_credit_quota, lar_loan_deadline, lar_begin, lar_end, lar_rate, lar_isoverlay_area, rw_id, lar_bank_name, lar_bank_account, lar_contract, lar_opinion, creatorid, createtime, updatorid, updatetime<!-- ,las_id -->)
+		values
+		(#{lar_id},#{region_id}, #{fp_id}, #{la_id}, #{las_id}, #{lac_id}, #{lar_credit_quota}, #{lar_loan_deadline}, date_format(#{lar_begin}, '%Y-%m-%d %H:%i:%s'), date_format(#{lar_end}, '%Y-%m-%d %H:%i:%s'), #{lar_rate}, #{lar_isoverlay_area}, #{rw_id}, #{lar_bank_name}, #{lar_bank_account}, #{lar_contract}, #{lar_opinion}, #{creatorid},  date_format(now(), '%Y-%m-%d %H:%i:%s'), #{creatorid}, date_format(now(), '%Y-%m-%d %H:%i:%s'));
+	</insert>
+	
+	<!-- 更新贷款申请状态 -->
+	<update id="update" parameterType="com.dcits.govsbu.sd.taxbankplatform.loanapprove.model.LoanApproveFinalEntity">
+		update tb_loan_apply set la_status = #{las_id} ,
+		las_status = #{las_status}
+		<if test="las_id == 'DKZT01'">
+			, la_first_time = date_format(now(), '%Y-%m-%d %H:%i:%s')
+		</if>		
+		<if test="las_id == 'DKZT02'">
+			, la_end_time = date_format(now(), '%Y-%m-%d %H:%i:%s')
+		</if>
+		where la_id = #{la_id}
+	</update>
+	
+	<!-- 贷款申请审批完成录入结果信息 -->
+	<insert id="insertFinal" parameterType="com.dcits.govsbu.sd.taxbankplatform.loanapprove.model.LoanApproveFinalEntity">
+		insert into tb_loan_apply_final
+		(laf_id,region_id, fp_id, la_id, lac_id, laf_opinion, creatorid, createtime, updateid, updatetime)
+		values
+		(#{laf_id},#{region_id}, #{fp_id}, #{la_id}, 'YDKZT03', #{lar_opinion}, #{creatorid},  date_format(now(), '%Y-%m-%d %H:%i:%s'), #{creatorid},  date_format(now(), '%Y-%m-%d %H:%i:%s'));
+	</insert>
+		<!-- 接口贷款申请审批完成录入结果信息 -->
+	<insert id="insertFinalchannelid" parameterType="com.dcits.govsbu.sd.taxbankplatform.loanapprove.model.LoanApproveFinalEntity">
+		insert into tb_loan_apply_final
+		(laf_id,region_id, fp_id, la_id, lac_id, laf_opinion, creatorid, createtime, updateid, updatetime)
+		values
+		(#{laf_id},#{region_id}, #{fp_id}, #{la_id}, #{lac_id}, #{lar_opinion}, #{creatorid},  date_format(now(), '%Y-%m-%d %H:%i:%s'), #{updatorid},  date_format(now(), '%Y-%m-%d %H:%i:%s'));
+	</insert>
+	<!-- 贷款申请(初审/终审)明细查询 -->
+	<resultMap id="loanApproveQueryDetails" type="com.dcits.govsbu.sd.taxbankplatform.loanapprove.model.LoanApproveQueryEntity">
+		<id property="id" column="la_id"/>
+		<result property="fp_id" column="la_fp_id"/>
+		<result property="region_id" column="region_id"/>
+		<result property="la_amount" column="la_amount"/>
+		<result property="la_serial_number" column="la_serial_number"/>
+		<result property="la_repay_loan_deadline" column="la_repay_loan_deadline"/>
+		<result property="la_first_time" column="la_first_time"/>
+		<result property="nsrsbh" column="nsrsbh"/>
+		<result property="la_status" column="la_status"/>
+		<result property="la_apply_time" column="la_apply_time" />
+		<!-- 企业基础信息表 -->
+		<association property="taxQyjcxx" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.loanapprove.model.TaxQyjcxx">
+			<id property="id" column="tth_id"/>
+			<result property="tthNsrmc" column="tth_nsrmc"/>
+			<result property="tthHyDm" column="tth_hy_dm"/>
+			<result property="tthDjrq" column="tth_djrq"/>
+		</association>
+		<!-- 企业基础信息扩展表 -->
+		<association property="taxQyjcxxKz" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.loanapprove.model.TaxQyjcxxKz">
+			<id property="id" column="tthk_id"/>
+			<result property="tthkZczb" column="tthk_zczb"/>
+			<result property="tthkJyfw" column="tthk_jyfw"/>
+		</association>
+		<!-- 纳税人信息 -->
+		<association property="nsryhxxEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.loanapprove.model.NsryhxxEntity">
+			<id property="id" column="nsryhxx_id"/>
+			<result property="frsjh" column="nsryhxx_frsjh"/>
+			<result property="nsrmc" column="nsryhxx_nsrmc"/>
+			<result property="xydj" column="nsryhxx_xydj"/>
+			<result property="qymc" column="nsryhxx_qymc"/>
+			<result property="nsrsbh" column="nsryhxx_nsrsbh"/>
+			<result property="frmc" column="nsryhxx_frmc"/>
+			<result property="zcdz" column="nsryhxx_zcdz"/>
+			
+		</association>
+		<!-- 贷款申请关联产品信息表 -->
+		<association property="financialProduct" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.financialProduct.model.FinancialProduct">
+			<id property="id" column="fp_id"/>
+			<result property="fpName" column="fp_name"/>
+			<result property="orgId" column="org_id"/>
+			<result property="fpOverlayPcIds" column="fp_overlay_pc_ids"/>
+			<!-- 产品利率表 -->
+			<association property="ratesEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.rates.model.RatesEntity">
+				<id property="id" column="lr_id"/>
+				<result property="ratesName" column="lr_name"/>
+				<result property="code" column="lr_code"/>
+			</association>
+			<!-- 产品最高额度表 -->
+			<association property="amountEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.amount.model.AmountEntity">
+				<id property="id" column="la_id"/>
+				<result property="amountName" column="la_name"/>
+				<result property="code" column="la_code"/>
+			</association>
+			<!-- 产品贷款期限表 -->
+			<association property="deadlineEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.deadline.model.DeadlineEntity">
+				<id property="id" column="ld_id"/>
+				<result property="deadlineName" column="ld_name"/>
+				<result property="code" column="ld_code"/>
+			</association>
+		</association>
+		<!-- 贷款申请关联还款方式代码表 -->
+		<association property="repaymentWayEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.repaymentway.model.RepaymentWayEntity">
+			<id property="id" column="la_rw_id"/>
+			<result property="rwname" column="la_rw_name"/>
+		</association>
+		<!-- 贷款申请审批记录表 -->
+		<collection property="loanApproveRecList" ofType="com.dcits.govsbu.sd.taxbankplatform.loanapplyquery.model.LoanApproveRecEntity">
+			<id property="id" column="lar_id"/>
+			<result property="las_id" column="las_id"/>
+			<result property="lar_credit_quota" column="lar_credit_quota"/>
+			<result property="lar_loan_deadline" column="lar_loan_deadline"/>
+			<result property="lar_begin" column="lar_begin"/>
+			<result property="lar_end" column="lar_end"/>
+			<result property="lar_rate" column="lar_rate"/>
+			<result property="lar_isoverlay_area" column="lar_isoverlay_area"/>
+			<result property="rw_id" column="rw_id"/>
+			<result property="lar_bank_name" column="lar_bank_name"/>
+			<result property="lar_bank_account" column="lar_bank_account"/>
+			<result property="lar_contract" column="lar_contract"/>
+			<result property="lar_opinion" column="lar_opinion"/>
+			<result property="creatorid" column="creatorid"/>
+			<result property="createtime" column="createtime"/>
+			<!--审批记录关联用户信息表 -->
+			<association property="userEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.user.model.UserEntity">
+				<id property="id" column="u_id"/>
+				<result property="userName" column="u_name" />
+			</association>
+			<!-- 审批记录关联还款方式代码表 -->
+			<association property="repaymentWayEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.repaymentway.model.RepaymentWayEntity">
+				<id property="id" column="lar_rw_id"/>
+				<result property="rwname" column="lar_rw_name"/>
+			</association>
+			<!-- 审批记录关联审批意见代码表 -->
+			<association property="loanCodeEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.loanapplyquery.model.LoanCodeEntity">
+				<id property="id" column="lac_id"/>
+				<result property="lac_name" column="lac_name"/>
+			</association>
+		</collection>
+	</resultMap>
+	
+	<!-- 根据贷款申请id查询贷款审批记录-->
+	<select id="findById" parameterType="map" resultMap="loanApproveQueryDetails" flushCache="true" useCache="true">
+		    select  
+			la.la_id,
+			la.fp_id as la_fp_id,
+			la.la_amount,
+			la.la_serial_number,
+			la.la_repay_loan_deadline,
+			la.la_first_time,
+			la.nsrsbh,
+			la.la_status,
+			la.la_apply_time,
+			nsr.nsryhxx_id,
+			nsr.nsryhxx_nsrmc,
+			nsr.nsryhxx_frmc,
+			nsr.nsryhxx_frsjh,
+			nsr.nsryhxx_xydj,
+			nsr.nsryhxx_qymc,
+			nsr.nsryhxx_nsrsbh,
+			nsr.nsryhxx_zcdz,
+			fp.fp_id,
+			fp.fp_name,
+			fp.org_id,
+			fp.fp_overlay_pc_ids,
+	
+			rw1.rw_id as la_rw_id,
+			rw1.rw_name as la_rw_name,
+			lar.lar_credit_quota, 
+			lar.lar_loan_deadline, 
+			lar.lar_begin, 
+			lar.lar_end, 
+			lar.lar_rate, 
+			lar.lar_isoverlay_area,
+			lar.lar_bank_name, 
+			lar.lar_bank_account, 
+			lar.lar_contract, 
+			lar.lar_opinion, 
+			lar.createtime,
+			lar.las_id,
+			u.u_id,
+			u.u_name,
+			lac.lac_id,
+			lac.lac_name, 
+			rw2.rw_id as lar_rw_id,
+			rw2.rw_name as lar_rw_name,
+			lr.lr_name,
+			lr.lr_code,
+			lamount.la_name,
+			lamount.la_code,
+			ld.ld_name,
+			ld.ld_code
+		from tb_loan_apply la 
+			left join tb_nsryhxx nsr on la.nsrsbh = nsr.nsryhxx_nsrsbh
+			left join tb_financial_product fp on la.fp_id = fp.fp_id
+			left join tb_loan_approve_rec lar on la.la_id = lar.la_id
+			left join tb_user u on lar.creatorid = u.u_id
+			left join tb_loan_approve_code lac on lar.lac_id = lac.lac_id
+			left join tb_repayment_way rw1 on la.rw_id = rw1.rw_id
+			left join tb_repayment_way rw2 on lar.rw_id = rw2.rw_id
+			left join tb_loan_rates lr on fp.lr_id = lr.lr_id
+			left join tb_loan_amount lamount on fp.la_id=lamount.la_id
+			left join tb_loan_deadline ld on fp.ld_id=ld.ld_id
+			left join t_tax_qyjcxx tq on la.nsrsbh=tq.tth_nsrsbh
+			left join t_tax_qyjcxx_kz tk on tq.djxh=tk.djxh
+		where la.la_id = #{id}
+	</select>
+	<!-- 根据贷款申请id查询下载校验的数据-->
+	<resultMap id="downloadMap" type="com.dcits.govsbu.sd.taxbankplatform.loanapprove.model.DownLoadJiaoYanEntity" >
+		<result property="amount" column="la_amount"/>
+		<result property="loandeadline" column="la_repay_loan_deadline"/>
+		<result property="qymc" column="nsryhxx_qymc"/>
+		<result property="rwid" column="rw_id"/>
+		<result property="dj" column="ttn_dj"/>
+		<result property="nsrzglxdm" column="ttn_nsrzglx_dm"/>
+		<result property="fddbrxm" column="tth_fddbrxm"/>
+		<result property="fddbrsfzjhm" column="tth_fddbrsfzjhm"/>
+		<result property="fddbrsfzjlmdm" column="tth_fddbrsfzjlx_dm"/>
+		<result property="fddbrbzxx" column="tthk_fddbrbzxx"/>
+		<result property="fddbryddh" column="tthk_fddbryddh"/>
+		<result property="fddbrgddh" column="tthk_fddbrgddh"/>
+		<result property="xxse" column="ttyb_xxse"/>
+		<result property="jxse" column="ttyb_jxse"/>
+  </resultMap>
+	<select id="findDownDateById" parameterType="map" resultMap="downloadMap" flushCache="true" useCache="true">
+	SELECT 
+		la.la_amount,
+		la.la_repay_loan_deadline,
+		la.rw_id,
+		tn.nsryhxx_qymc,
+		ttn.ttn_dj,
+		ttnz.ttn_nsrzglx_dm,
+		ttq.tth_fddbrxm,
+		ttq.tth_fddbrsfzjhm,
+		ttq.tth_fddbrsfzjlx_dm,
+		ttqk.tthk_fddbrbzxx,
+		ttqk.tthk_fddbryddh,
+		ttqk.tthk_fddbrgddh,
+		tty.ttyb_xxse,
+		tty.ttyb_jxse
+		FROM tb_nsryhxx tn
+		LEFT JOIN tb_loan_apply la ON tn.nsryhxx_nsrsbh = la.nsrsbh
+		LEFT JOIN t_tax_nsrxydj ttn ON tn.nsryhxx_djxh = ttn.djxh
+		LEFT JOIN t_tax_nsrzgxxjgb ttnz ON ttn.djxh = ttnz.djxh
+		LEFT JOIN t_tax_qyjcxx ttq ON ttnz.djxh = ttq.djxh
+		LEFT JOIN t_tax_qyjcxx_kz ttqk ON ttq.djxh = ttqk.djxh
+		LEFT JOIN t_tax_ybnsrsbmxzb tty ON ttqk.djxh = tty.djxh
+		WHERE la.la_id = #{id} and tn.creatorid = #{creatorid};
+	</select>
+	
+	<select id="findNsryhxx" parameterType="String" resultMap="nsryhxxMap" flushCache="true" useCache="true">
+		select nsryhxx_id,nsryhxx_nsrsbh,nsryhxx_djxh,nsryhxx_lpbm,nsryhxx_yxqq,nsryhxx_yxqz,nsryhxx_flag
+		from tb_nsryhxx 
+		where creatorid = (select creatorid from tb_loan_apply where la_id = #{id})
+	</select>
+	<!--查询授信所需数据项  -->
+	<select id="findSXSJxById" parameterType="String" resultMap="nsryhxxMap" flushCache="true" useCache="true">
+		SELECT pdi.pdi_name,
+		laa.pdi_values
+		FROM tb_loan_apply_attach laa
+		LEFT JOIN tb_product_data_items pdi ON laa.pdi_id = pdi.pdi_id 
+		WHERE laa.la_id = #{id} and pdi.ht_id!=4
+	</select>
+	<!-- 获取湖南接口最新批次数据的申请序号 -->
+	<select id="findHNSqxh" resultType="String" flushCache="true" useCache="true">
+		SELECT SUBSTRING_INDEX(GROUP_CONCAT(sqxh
+		ORDER BY createtime DESC), ',', 1 ) sqxh FROM t_tax_qyjcxx
+	</select>
+	<!-- 根据纳税人识别号获取湖南接口最新批次数据的申请序号 -->
+	<select id="findHNSqxhbynsrsbh" resultType="String" flushCache="true" useCache="true">
+		SELECT SUBSTRING_INDEX(GROUP_CONCAT(xx.sqxh
+		ORDER BY xx.createtime DESC), ',', 1 ) sqxh FROM t_tax_qyjcxx  xx  where xx.tth_nsrsbh=#{nsrsbh}
+	</select>
+	
+</mapper>

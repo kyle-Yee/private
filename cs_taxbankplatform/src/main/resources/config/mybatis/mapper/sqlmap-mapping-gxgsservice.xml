@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.gxgsService.mapper.gxgsServiceMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	<!-- 贷后信息接收入库  -->
+	<insert id="insertLoanAfterInfo" parameterType="java.util.List">
+		INSERT INTO tb_loan_dhsx	
+     	(dhsx_id, businessid, tbpname, tbpcode, businesstype, indname, 
+     	indcerttype, indcertid, entname, entcreditid, enttaxid, applytimestart, 
+     	applytimeend, grantfindtimestart, grantfindtimeend, loanGrantTime, loanapplyamount, 
+     	loanamount, drawingbalance, loanterm, loanbalance, loantime, loanoverdue, 
+     	isextension, extensiontime, loanaccount, backups, createtime,updatetime,GRANTCODE) VALUES  
+	     <foreach collection="list" item="item" index="index"  separator="," > 
+	   	  (#{item.dhsxId,jdbcType=VARCHAR},#{item.businessid,jdbcType=VARCHAR},#{item.tbpName,jdbcType=VARCHAR},
+	   	  #{item.tbpCode,jdbcType=VARCHAR},#{item.businessType,jdbcType=VARCHAR},#{item.indName,jdbcType=VARCHAR},  
+	      #{item.indCertType,jdbcType=VARCHAR},#{item.indCertID,jdbcType=VARCHAR},#{item.entName,jdbcType=VARCHAR},
+	      #{item.entCreditID,jdbcType=VARCHAR},#{item.entTaxID,jdbcType=VARCHAR},#{item.applyTimeStart,jdbcType=VARCHAR}, 
+	      #{item.applyTimeEnd,jdbcType=VARCHAR},#{item.grantFindTimeStart,jdbcType=VARCHAR},#{item.grantFindTimeEnd,jdbcType=VARCHAR},
+	      #{item.loanGrantTime,jdbcType=VARCHAR},#{item.loanApplyAmount,jdbcType=VARCHAR},#{item.loanAmount,jdbcType=VARCHAR},
+	      #{item.drawingBalance,jdbcType=VARCHAR},#{item.loanTerm,jdbcType=VARCHAR},#{item.loanBalance,jdbcType=VARCHAR},
+	      #{item.loanTime,jdbcType=VARCHAR},#{item.loanOverdue,jdbcType=VARCHAR},#{item.isExtension,jdbcType=VARCHAR},
+	      #{item.extensionTime,jdbcType=VARCHAR},#{item.loanAccount,jdbcType=VARCHAR},#{item.backups,jdbcType=VARCHAR},NOW(),NOW(),#{item.grantCode,jdbcType=VARCHAR}) 
+	      </foreach>
+	</insert>
+	<!-- 根据银行传入的产品在税银平台找到对应的产品id，组织id，区域id -->
+	<select id="queryBaseDataByCpid" parameterType="String" resultType="java.util.Map" flushCache="true" useCache="true">
+		SELECT tb.org_id orgId,tb.fp_id fpId,tor.region_id regionId,tor.sqc_id agId
+		FROM tb_bank_code_defend tb, tb_financial_product tp,tb_organizations tor
+		WHERE tb.fp_id = tp.fp_id AND tp.org_id = tor.org_id AND tb.enabled = 'Y' AND tb.businessType = #{businessType};
+	</select>
+	
+	<!-- 新增贷款申请信息 -->
+	<insert id="insertLoanApply" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_loan_apply (
+			la_id,
+			region_id,
+			fp_id,
+			rw_id,
+			nsrsbh,
+			la_amount,
+			la_repay_loan_deadline,
+			la_apply_time,
+			la_status,
+			las_status,
+			creatorid,
+			createtime,
+			updatorid,
+			updatetime
+
+			)
+	values (
+			#{la_id},
+			#{region_id},
+			#{fp_id},
+			#{paybackType},
+			#{nsrsbh},
+			#{contractAmt},
+			#{contractTerm},
+			#{approveDate},
+			#{admissionResult},
+			#{admissionResult},
+			#{creatorid},
+			date_format(now(), '%Y-%m-%d %H:%i:%s'),
+			#{updatorid},
+			date_format(now(), '%Y-%m-%d %H:%i:%s')
+	)
+	</insert>
+	
+	<!-- 新增产品申贷审批记录表 -->
+	<insert id="insertLoanApproveRec" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_loan_approve_rec(
+			lar_id,
+			region_id,
+			fp_id,
+			la_id,
+			las_id,
+			lafs_id,
+			lac_id,
+			lar_credit_quota,
+			lar_loan_deadline,
+			lar_begin,
+			lar_end,
+			lar_rate,
+			lar_isoverlay_area,
+			rw_id,
+			lar_bank_name,
+			lar_bank_account,
+			lar_contract,
+			lar_opinion,
+			creatorid,
+			createtime,
+			updatorid,
+			updatetime
+			)
+	values	(
+			#{lar_id},
+			#{region_id},
+			#{fp_id},
+			#{la_id},
+			#{las_id},
+			#{lafs_id},
+			#{lac_id},
+			#{contractAmt},
+			#{contractTerm},
+			date_format(now(), '%Y-%m-%d %H:%i:%s'),
+			#{lar_end},
+			#{lar_rate},
+			#{lar_isoverlay_area},
+			#{paybackType},
+			#{lar_bank_name},
+			#{lar_bank_account},
+			#{lar_contract},
+			#{lar_opinion},
+			#{creatorid},
+			date_format(now(), '%Y-%m-%d %H:%i:%s'),
+			#{updatorid},
+			date_format(now(), '%Y-%m-%d %H:%i:%s')
+	)
+	</insert>
+	<!-- 新增产品申贷成功记录表 -->
+	<insert id="insertLoanApplyFinal" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+	insert into tb_loan_apply_final
+		(laf_id,region_id, fp_id, la_id, lac_id, laf_opinion,lafs_id, creatorid, createtime, updateid, updatetime)
+		values
+		(#{laf_id},#{region_id}, #{fp_id}, #{la_id}, #{lac_id}, #{lar_opinion},#{lafs_id}, #{creatorid},  date_format(now(), '%Y-%m-%d %H:%i:%s'), #{creatorid},  date_format(now(), '%Y-%m-%d %H:%i:%s'));
+	</insert>
+	
+	<!-- 新增信贷终止表 -->
+	<insert id="insertLoanApplyend" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_loan_applyend (lae_id,org_id,la_id,lafs_id, laf_id, 
+      nsrmc, nsrbh, lae_endDate, 
+      lae_credit_quota,lae_overdue_count ,bankloan_type ,creatorid, createtime, 
+      updatorid, updatetime)
+      values (#{lae_id},#{org_id},#{la_id},#{lafs_id}, #{laf_id}, 
+      #{entName}, #{nsrsbh}, #{endDate}, 
+      #{endBalance},#{overdueCount},
+      #{endClass},
+      #{creatorid}, date_format(now(), '%Y-%m-%d %H:%i:%s'), 
+      #{updatorid}, date_format(now(), '%Y-%m-%d %H:%i:%s'))
+      	</insert>
+      	
+    <!-- 更新贷款申请状态 -->
+	<update id="updateLoanApply" parameterType="java.util.Map">
+		update tb_loan_apply 
+		set 
+		la_status = #{las_id} ,
+		updatorid = #{updatorid},
+		updatetime= date_format(now(), '%Y-%m-%d %H:%i:%s')
+		where la_id = #{la_id}
+	</update>
+	<!-- 查找纳税人信息 -->
+	<select id="queryNsryhxx" parameterType="String" resultType="java.util.Map" flushCache="true" useCache="true">
+		select t.creatorid,t.region_id from tb_nsryh t LEFT JOIN tb_nsryhxx n on t.nsryhxx_id=n.nsryhxx_id
+		where n.nsryhxx_nsrsbh=#{nsrsbh} limit 1
+	</select>
+	
+	<!-- 查找对照表信息 -->
+	<select id="querySyptBankApply" parameterType="String" resultType="java.util.Map" flushCache="true" useCache="true">
+		select a.sypt_laId,a.sypt_fpid from sypt_bank_apply a where a.bank_laid =#{businessID}
+	</select>
+	
+	<!-- 产品申贷成功记录表 -->
+	<select id="queryLafId" parameterType="String" resultType="String" flushCache="true" useCache="true">
+		select a.laf_id from tb_loan_apply_final a where a.la_id =#{la_id} limit 1
+	</select>
+	
+		<!-- 修改纳税人用户表-->
+	<update id="updateNsryh" parameterType="map" flushCache="true">
+		update tb_nsryh set enabled = #{enabled}, updatetime = now() where nsryhxx_id = #{id}
+	</update>
+	
+	<!-- 修改纳税人用户信息表-->
+	<update id="updateNsryhxx" parameterType="map" flushCache="true">
+		update tb_nsryhxx 
+		set
+		nsryhxx_xydj = #{xydj},
+		nsryhxx_hydm = #{hydm},
+		nsryhxx_swjgdm = #{swjgdm},
+		nsryhxx_zgswjdm = #{zgswjdm},
+		<!-- updatorid = #{updatorid}, -->
+		updatetime = now()
+		where nsryhxx_id = #{id}
+	</update>
+	
+	<!-- 更新授权结果 -->
+	<update id="updateSqBySqdId" parameterType="map" flushCache="true">
+		update tb_authorization_record set sqzt = #{sqzt} , sqjg = #{sqjg},updatetime = now()
+		where at_sqdid = #{sqdid}
+	</update>
+	
+	<!-- 更新 认证结果 -->
+	<update id="updateRzBySqdId" parameterType="map" flushCache="true">
+		update tb_check_record set cr_shjg = #{rzzt} , cr_dbqk = #{rzjg},updatetime = now()
+		where cr_sqdid = #{sqdid}
+	</update>
+	<!-- 查询用户id -->
+	<select id="searchUserId" parameterType="String" resultType="String" flushCache="true" useCache="true">
+			SELECT tn.nsryhxx_id
+			FROM sypt_bank_apply tb, tb_nsryh tn
+			WHERE tb.sypt_userId = tn.nsryh_id  AND tb.bank_laid==#{sqxh} order by tn.updatetime desc limit 1	
+	</select>
+	
+	<!-- 查询是否在平台是否有认证通过的用户-->
+	<select id="searchUserByNsrsbh" parameterType="map" resultType="String" flushCache="true" useCache="true">
+		SELECT n.nsryh_name
+		from tb_nsryh n, tb_nsryhxx nx
+		where (n.nsryhxx_id = nx.nsryhxx_id and n.enabled = "Y" and nx.nsryhxx_shtyxydm = #{crNsrsbh})
+		or (n.nsryhxx_id = nx.nsryhxx_id and n.enabled = "Y" and nx.nsryhxx_nsrsbh = #{nsrsbh})
+		order by n.updatetime desc
+		limit 1
+	</select>
+	<!-- 插入纳税人用户表 -->
+	  <insert id="insertUser" parameterType="java.util.Map">
+		insert into tb_nsryh (
+			nsryh_id,region_id,nsryhxx_id,nsryh_qdcode,nsryh_name,nsryh_password,nsryh_credentials_salt,enabled,yxs,creatorid,createtime,updatorid,updatetime
+			)   
+		values (
+			#{userId},
+			#{regionId},
+			#{nsryhxxId},
+			#{qdcode},
+			#{userName},
+			#{password},
+			#{credentialsSalt},
+			#{enabled},
+			"K",
+			#{userId},
+			now(),
+			#{userId},
+			now()
+			) 
+	</insert>
+	<!-- 插入纳税人基础信息表 -->
+	 <insert id="insertUserInfo" parameterType="java.util.Map">
+		insert into tb_nsryhxx (
+			nsryhxx_id,nsryhxx_djxh,nsryhxx_nsrsbh,nsryhxx_shtyxydm,nsryhxx_zcsjh,nsryhxx_nsrmc,nsryhxx_zcdz,nsryhxx_qymc,nsryhxx_frmc,nsryhxx_xydj,nsryhxx_zjmc,nsryhxx_zjhm,
+			nsryhxx_swjgdm,nsryhxx_bsysjh,creatorid,createtime,updatorid,updatetime,nsryhxx_zgswjdm
+			)   
+		values (
+			#{nsryhxxId},
+			#{djxh},
+			#{nsrsbh},
+			#{shtyxydm},
+			#{phone},
+			#{nsrmc},
+			#{zcdz},
+			#{qymc},
+			#{frmc},
+			#{rank},
+			#{papersName},
+			#{papersNumb},
+			#{swjgdm},
+			#{bsysjh},
+			#{userId},
+			now(),
+			#{userId},
+			now(),
+			#{zgswjdm}
+			) 
+	</insert>
+	<!-- 插入授权记录表-->
+	<insert id="insertToAr" parameterType="java.util.Map">
+		insert into tb_authorization_record
+		(at_id,at_dkqx,at_sqdid,at_sqsj,at_qymc,at_nsrsbh,at_sqkssj,at_sqjssj,at_sqzt,sqzt,at_sqsyxq,org_id,
+		fp_id,ag_id,createtime,updatetime,la_id,at_frxm,at_frsfz,at_sjmc,sqjg)
+		values
+		(#{atId},#{atDkqx},#{atSqdid},#{atSqsj},#{atQymc},#{atNsrsbh},#{atSqkssj},#{atSqjssj},0,#{sqzt},#{atSqsyxq},#{orgId},
+		#{fpId},#{agId},now(),now(),#{laId},#{atFrxm},#{atFrsfz},#{atSjmc},#{sqjg})
+	</insert>
+	<!-- 插入认证记录表-->
+	<insert id="insertRecord" parameterType="java.util.Map">
+		insert into tb_check_record (
+			cr_id,cr_sqdid,cr_qymc,cr_nsrsbh,cr_frsjh,cr_zjlx,cr_zjhm,cr_sqsj,cr_rzsj,cr_shjg,cr_dbqk,creatorid,createtime,updatetime
+			)   
+		values (
+			#{crId},
+			#{crSqdid},
+			#{crQymc},
+			#{crNsrsbh},
+			#{crFrsjh},
+			#{crZjlx},
+			#{crZjhm},
+			#{crSqsj},
+			#{crRzsj},
+			#{crShjg},
+			#{crDbqk},
+			#{creatorid},
+			now(),
+			now()
+			) 
+	</insert>
+	<!-- 插入对照表-->
+	<insert id="insertSyptBankApply" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+		insert into sypt_bank_apply (
+		    id,
+			sypt_laId,
+			bank_laid,
+			sypt_fpid,
+			bank_fpid,
+			temp_laId,
+			channelid,
+			createtime,
+			updatetime,
+			sypt_userId,
+			nsrsbh
+			)   
+		values (
+		    #{id},
+			#{syptLaId},
+			#{bankLaId},
+			#{syptFpId},
+			#{bankFpId},
+			'Y',
+			#{channelId},
+			now(),
+			now(),
+			#{userId},
+			#{nsrsbh}
+			)  
+	</insert>
+		<!-- 更新 授权记录表 -->
+	<update id="updateAuRecord" parameterType="map" flushCache="true">
+		update tb_authorization_record set la_id = #{la_id},updatetime = now()
+		where at_sqdid = #{businessID}
+	</update>
+	<!-- 查找新增授信成功的增量数据 -->
+	<select id="getFinalTableData" parameterType="String" resultType="java.util.Map" flushCache="true" useCache="true">
+		SELECT SXJGXX_ID,BUSINESSID,INDNAME,INDCERTTYPE,INDCERTID,ENTNAME,ENTCREDITID,ENTREGID,ENTTAXID,APPROVEDATE,ADMISSIONRESULT,
+		CONTRACTAMT,CONTRACTTERM,CONTRACTRATE,PAYBACKTYPE,HTH,HTZT,createtime,enabled,channelid
+		FROM tb_dh_sxjgxx
+		WHERE APPROVEDATE = #{data} 	
+	</select>
+	<!-- 查找新增贷款结束信息的增量数据-->
+	<select id="getEndTableData" parameterType="String" resultType="java.util.Map" flushCache="true" useCache="true">
+		SELECT DKJSXX_ID,BUSINESSID,INDNAME,INDCERTTYPE,INDCERTID,ENTNAME,ENTCREDITID,ENTREGID,ENTTAXID,SERIALNO,
+		ENDTYPE,ENDDATE,ENDBALANCE,OVERDUECOUNT,MAXOVERDUEDAYS,ENDCLASS,BH,HTZT,createtime,enabled,channelid
+		FROM tb_dh_dkjsxx
+		WHERE ENDDATE =#{data}	
+	</select>
+	<!-- 根据身份证号码过滤出需要构造为授信失败的申请单id-->
+	<select id="getBankApplyData" parameterType="String" resultType="java.util.Map" flushCache="true" useCache="true">
+		SELECT id,sypt_laId,bank_laid,sypt_fpid,bank_fpid,temp_laId,temp_finalId,temp_endId,temp_endId,sypt_userId,nsrsbh,indcertid,regionid,orgid
+		FROM sypt_bank_apply 
+		WHERE indcertid =#{indcertid} and sypt_laId is not null and temp_finalId is null order by createtime desc
+	</select>
+	
+	<!-- 根据合同号码过滤出需要构造为授信成功的申请单id-->
+	<select id="getBankApplyByHth" parameterType="String" resultType="java.util.Map" flushCache="true" useCache="true">
+		SELECT sb.id,sb.sypt_laId,sb.bank_laid,sb.sypt_fpid,sb.bank_fpid,sb.temp_laId,sb.temp_finalId,sb.temp_endId,sb.temp_endId,sb.sypt_userId,sb.nsrsbh,sb.indcertid,sb.regionid,sb.orgid
+		FROM sypt_bank_apply sb,pb_tax_loan tp
+		WHERE tp.businessid = sb.bank_laid AND tp.dkhthm =#{hth};
+	</select>
+	
+		<!-- 根据银行申请单id过滤出需要构造为授信成功的申请单id-->
+	<select id="getBankApplyBySqdid" parameterType="String" resultType="java.util.Map" flushCache="true" useCache="true">
+		SELECT sb.id,sb.sypt_laId,sb.bank_laid,sb.sypt_fpid,sb.bank_fpid,sb.temp_laId,sb.temp_finalId,sb.temp_endId,sb.temp_endId,sb.sypt_userId,sb.nsrsbh,sb.indcertid,sb.regionid,sb.orgid
+		FROM sypt_bank_apply sb
+		WHERE sb.bank_laid = #{sqdid} order by sb.bank_laid desc limit 1
+	</select>
+	
+	<!-- 根据产品id获取区域id和 组织id-->
+	<select id="getBaseDataByFpid" parameterType="String" resultType="java.util.Map" flushCache="true" useCache="true">
+		SELECT fp_id,fp_name,org_id,region_id FROM tb_financial_product where fp_id = #{fpId}
+	</select>
+	<!-- 根据合同号码查找对应的基础信息-->
+	<select id="getBankApplyDataByHth" parameterType="String" resultType="java.util.Map" flushCache="true" useCache="true">
+		SELECT id,sypt_laId,bank_laid,sypt_fpid,bank_fpid,temp_laId,temp_finalId,temp_endId,temp_endId,sypt_userId,nsrsbh,indcertid,regionid,orgid
+		FROM sypt_bank_apply 
+		WHERE temp_finalId =#{hth} order by createtime limit 1
+	</select>
+	
+	<!-- 插入桂林银行贷前贷后数据对照表 pb_tax_loan-->
+	<insert id="insertTaxLoan" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+		insert into pb_tax_loan (
+		    pql_flowno,
+			pql_bsncode,
+			pql_stt,
+			pql_cstno,
+			pql_accno,
+			pql_cstname,
+			pql_certtype,
+			pql_certno,
+			pql_loanterm,
+			pql_loanamount,
+			pql_time,
+			pql_rate,
+			pql_channel,
+			industrycode,
+			regioncode,
+			dkhthm,
+			businessid,
+			cjsj
+			)   
+		values 
+		(
+		    #{pql_flowno},
+			#{pql_bsncode},
+			#{pql_stt},
+			#{pql_cstno},
+			#{pql_accno},
+			#{pql_cstname},
+			#{pql_certtype},
+			#{pql_certno},
+			#{pql_loanterm},
+			#{pql_loanamount},
+			#{pql_time},
+			#{pql_rate},
+			#{pql_channel},
+			#{industrycode},
+			#{regioncode},
+			#{dkhthm},
+			#{businessid},
+			now()
+			)  
+	</insert>
+	  <!-- 清空对照表数据 -->
+	 <delete id="delete" parameterType="java.lang.String">
+   		 delete from pb_tax_loan
+  	 </delete>
+	 <!-- 根据申请单id查找到对应的申请时的税号 -->
+	<select id="getNsrsbhBySqxh" parameterType="String" resultType="java.util.Map" flushCache="true" useCache="true">
+			SELECT at_sqdid,at_nsrsbh
+			FROM tb_authorization_record
+			WHERE at_sqdid==#{sqxh} order by at_sqdid desc limit 1	
+	</select>
+	<!-- 查找tb_authorization_record表信息 -->
+	<select id="getLaidByBusinessId" parameterType="String" resultType="java.util.Map" flushCache="true" useCache="true">
+		select la_id  from tb_authorization_record  where at_sqdid =#{businessID}
+	</select>
+</mapper>	

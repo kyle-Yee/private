@@ -1,0 +1,1912 @@
+<?xml version='1.0' encoding='GBK'?>
+<ROOT>
+	<PAGESIZE papertype="A4" orientation="landscape"/>
+	<HEADERFOOTER type="header" alignment="right">
+		<CHUNK type="FINAL" font="9" bold="y" color="red"></CHUNK>
+	</HEADERFOOTER>
+	<PARAGRAPH alignment="center">
+		<CHUNK type="FINAL" font="16" bold="y">企业涉税信息分析报告
+		</CHUNK>
+	</PARAGRAPH>
+	<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="10" bold="y" spacingBefore="50">
+		   企业名称: 包头市昌禄贸易有限责任公司
+        </CHUNK>
+        <CHUNK type="FINAL" font="10" bold="y">
+                        报告时间: 2016/09/09 
+        </CHUNK>
+        <CHUNK type="FINAL" font="10" bold="y">
+                        制作单位:东方微银银税互动服务平台
+       </CHUNK>
+	</PARAGRAPH>
+	<PARAGRAPH alignment="center">
+		<CHUNK type="FINAL" font="16" bold="y">报告阅读须知</CHUNK>
+	</PARAGRAPH>
+	<PARAGRAPH alignment="left" >
+		<CHUNK type="FINAL" font="10" bold="y" >
+		        1、本报告仅供查询机构参考，不起任何证明作用。且本报告仅限查询依照法律法规规章所规定的查询用途
+
+				      使用，不得用作法律诉讼依据；未经内蒙古自治区国家税务局书面同意或授权，不得向第三方透漏报告任
+				
+				      何内容；在任何情况下，对由于使用本报告所造成的损失，内蒙古自治区国家税务局不承担任何责任。
+				
+				
+				2、未经书面许可，不得擅自复制、摘录、编辑和发表。
+				
+				
+				3、本报告的生成依据是截至报告时间为止的税务局数据库中的相关信息。
+				
+				
+				4、请妥善保管本报告，并注意保密。
+		</CHUNK>
+	</PARAGRAPH>
+	<PARAGRAPH alignment="center">
+	<CHUNK type="FINAL" font="16" bold="y">目录
+	</CHUNK>
+	</PARAGRAPH>
+	<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="10" bold="y">
+
+		</CHUNK>
+	</PARAGRAPH>
+	
+	
+	<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="16" bold="y">
+		一、贷款申请信息
+		</CHUNK>
+	</PARAGRAPH>
+	<TABLE cloumn="1f" type="constitute" width="100" spacingBefore="10" spacingAfter="0">
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle" >
+			<CHUNK type="FINAL" font="10" bold="y" background-color="blue" color="blue"> 贷款申请信息 </CHUNK>
+		</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.5f,0.5f" type="constitute" width="100" spacingBefore="0" spacingAfter="0">
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">申请贷款额度（万元）：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y"> 期望贷款期限（月）： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y"> 期望还款方式：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">企业职工人数： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">联系人手机号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+	</TABLE>
+	
+	<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="16" bold="y">
+		二、企业基本信息
+		</CHUNK>
+	</PARAGRAPH>
+	<TABLE cloumn="1f" type="constitute" width="100" spacingBefore="10" spacingAfter="0">
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle" >
+			<CHUNK type="FINAL" font="10" bold="y" background-color="blue" color="blue"> 企业基本信息 </CHUNK>
+		</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.25f,0.25f,0.25f,0.25f" type="constitute" width="100" spacingBefore="0" spacingAfter="0">
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记机关代码：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJJG_DM">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJRQ">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记序号：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记注册类型代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">单位隶属关系代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">法定代表人身份证号码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">法定代表人身份证件类型代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">法定代表人姓名： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">非居民企业标志： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">国地管户类型代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">国地税类型代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">行业代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">街道乡镇代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">跨区财产税主体登记标志： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">纳税人名称： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">纳税人识别号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">纳税人状态代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">生产经营地址： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">生产经营地址行政区划数字代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">数据归属地区： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">数据同步时间： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">税收档案编号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">税收管理员代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">税务登记补录标志： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">注册地址： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">注册地址行政区划数字代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">主管税务局代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">主管税务所（科、分局）代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">组织机构代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+	</TABLE>
+	<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="16" bold="y">
+		三、企业基础信息扩展
+		</CHUNK>
+	</PARAGRAPH>
+	<TABLE cloumn="1f" type="constitute" width="100" spacingBefore="10" spacingAfter="0">
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle" >
+			<CHUNK type="FINAL" font="10" bold="y" background-color="blue" color="blue"> 企业基础信息扩展 </CHUNK>
+		</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.25f,0.25f,0.25f,0.25f" type="constitute" width="100" spacingBefore="0" spacingAfter="0">
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">办税人电子信箱：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJJG_DM">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">办税人固定电话： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJRQ">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">办税人身份证件号码：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">办税人身份证件种类代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">办税人姓名： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">办税人移动电话： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">办证方式代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">财务负责人电子信箱： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">财务负责人固定电话： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">财务负责人身份证件号码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">财务负责人身份证件种类代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">财务负责人姓名： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">财务负责人移动电话： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">从业人数： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记序号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">法定代表人电子信箱： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">法定代表人固定电话： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">法定代表人移动电话： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">固定工人数： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">雇工人数： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">国家或地区数字代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">国有控股类型代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">国有投资比例： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">合伙人数： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">户籍所在地： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">核算方式代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">经营范围： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">会计制度（准则）代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">临时税务登记有效期起： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">临时税务登记有效期止： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">税务代理人联系电话： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">生产经营地邮政编码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">税务代理人电子信箱： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">税务代理人联系电话： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">税务代理人名称： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">税务代理人纳税人识别号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">投资总额： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">外籍从业人数： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">网址： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">外资投资比例： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">营改增纳税人类型代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">印花税缴纳方式代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">注册地联系电话： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">注册地邮政编码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">注册资本： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">自然人投资比例： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">征收项目城乡标志代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">组织机构类型代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">增值税经营类别： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">增值税企业类型代码： </CHUNK>
+		</ITEM>
+	</TABLE>
+		<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="16" bold="y">
+		四、企业批准机构
+		</CHUNK>
+	</PARAGRAPH>
+	<TABLE cloumn="1f" type="constitute" width="100" spacingBefore="10" spacingAfter="0">
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle" >
+			<CHUNK type="FINAL" font="10" bold="y" background-color="blue" color="blue">企业批准机构</CHUNK>
+		</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.25f,0.25f,0.25f,0.25f" type="constitute" width="100" spacingBefore="0" spacingAfter="0">
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记序号：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJJG_DM">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">开业设立日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJRQ">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">流程实例 ID：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">批准机构 UUID： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">批准设立机关代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">批准设立机关类型代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">批准设立机关名称： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">批准证明或文件号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">生产经营期限起： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">生产经营期限止： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">数据归属地区： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">数据同步时间： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">证照编号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">执照类型代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+	</TABLE>
+	
+	
+		<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="16" bold="y">
+		五、企业变更信息
+		</CHUNK>
+	</PARAGRAPH>
+	<TABLE cloumn="1f" type="constitute" width="100" spacingBefore="10" spacingAfter="0">
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle" >
+			<CHUNK type="FINAL" font="10" bold="y" background-color="blue" color="blue"> 企业变更信息 </CHUNK>
+		</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.25f,0.25f,0.25f,0.25f" type="constitute" width="100" spacingBefore="0" spacingAfter="0">
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">变更项目代码：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJJG_DM">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">变更前内容： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJRQ">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">变更后内容：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记序号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">变更登记明细 UUID： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">数据同步时间： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">批准机关名称： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">批准文件： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">管理 UUID： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+	</TABLE>
+	<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="16" bold="y">
+		六、企业投资方
+		</CHUNK>
+	</PARAGRAPH>
+	<TABLE cloumn="1f" type="constitute" width="100" spacingBefore="10" spacingAfter="0">
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle" >
+			<CHUNK type="FINAL" font="10" bold="y" background-color="blue" color="blue"> 企业投资方 </CHUNK>
+		</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.25f,0.25f,0.25f,0.25f" type="constitute" width="100" spacingBefore="0" spacingAfter="0">
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记序号：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJJG_DM">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">地址： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJRQ">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">分配比例：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">国家或地区数字代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">数据归属地区： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">数据同步时间： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">投资比例： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">投资方（合伙人）名称： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">投资方（合伙人）证件号码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">投资方（合伙人）证件种类代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">投资方（合伙人）证件种类代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">投资金额： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">UUID： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">有效期起： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">有效期止： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+	</TABLE>
+	<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="16" bold="y">
+		七、企业分支机构
+		</CHUNK>
+	</PARAGRAPH>
+	<TABLE cloumn="1f" type="constitute" width="100" spacingBefore="10" spacingAfter="0">
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle" >
+			<CHUNK type="FINAL" font="10" bold="y" background-color="blue" color="blue"> 企业分支机构 </CHUNK>
+		</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.25f,0.25f,0.25f,0.25f" type="constitute" width="100" spacingBefore="0" spacingAfter="0">
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">有效期起：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJJG_DM">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">有效期止： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJRQ">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">数据归属地区：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">分支机构(分店)联系电话： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">分支机构(分店)地址： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">分支机构(分店)名称： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">分支机构(分店)纳税人识别号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">分支机构(分店)登记序号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记序号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">分支机构(分店)UUID： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">数据同步时间： </CHUNK>
+		</ITEM>
+	</TABLE>
+	<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="16" bold="y">
+		八、企业总分机构信息
+		</CHUNK>
+	</PARAGRAPH>
+	<TABLE cloumn="1f" type="constitute" width="100" spacingBefore="10" spacingAfter="0">
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle" >
+			<CHUNK type="FINAL" font="10" bold="y" background-color="blue" color="blue"> 企业总分机构信息 </CHUNK>
+		</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.25f,0.25f,0.25f,0.25f" type="constitute" width="100" spacingBefore="0" spacingAfter="0">
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y"> 数据同步时间：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJJG_DM">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">有效期起： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJRQ">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">总机构联系电话：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">总机构法定代表人姓名： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">总机构注册地邮政编码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">总机构注册地址： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">总机构名称： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">总机构登记序号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">总机构纳税人识别号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记序号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">有效标志： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">数据归属地区： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">总机构 UUID： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">有效期止： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">总机构经营范围： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+	</TABLE>
+	
+	
+	<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="16" bold="y">
+		九、企业违法违章
+		</CHUNK>
+	</PARAGRAPH>
+	<TABLE cloumn="1f" type="constitute" width="100" spacingBefore="10" spacingAfter="0">
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle" >
+			<CHUNK type="FINAL" font="10" bold="y" background-color="blue" color="blue"> 企业违法违章 </CHUNK>
+		</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.25f,0.25f,0.25f,0.25f" type="constitute" width="100" spacingBefore="0" spacingAfter="0">
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">案件来源：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJJG_DM">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记机关代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJRQ">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记人代码：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记序号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">非正常终结原因： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">活动实例 ID： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">稽查案件标志： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">流程实例 ID： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">纳税人名称： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">纳税人识别号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">人工登记标志： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">是否社保费违法： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">数据归属地区： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">事件实例 ID： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">数据同步时间： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">所属期间起： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">所属期间止： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">税收违法类型代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">税收违法手段代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">税收违法行为处理状态代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">税收违法行为登记 UUID： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">违法事实： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">违法行为编号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">违法行为名称： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">作废标志： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">作废人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">作废日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">终结类型代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">终结审核日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">终结审核人员代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+	</TABLE>
+	
+	
+	<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="16" bold="y">
+		十、企业稽查案件信息
+		</CHUNK>
+	</PARAGRAPH>
+	<TABLE cloumn="1f" type="constitute" width="100" spacingBefore="10" spacingAfter="0">
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle" >
+			<CHUNK type="FINAL" font="10" bold="y" background-color="blue" color="blue"> 企业稽查案件信息 </CHUNK>
+		</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.25f,0.25f,0.25f,0.25f" type="constitute" width="100" spacingBefore="0" spacingAfter="0">
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">督办案件标志：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJJG_DM">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">主管税务机关代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="DJRQ">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">案件所在机关代码：</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">检查所属期间起： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">检查所属期间止： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">立案申请日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">立案日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">执行登记日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">执行完毕日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">应缴税款总额： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">应缴罚款总额： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">应缴滞纳金总额： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">实缴税款总额： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">实缴滞纳金总额： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">实缴罚款总额： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记注册类型代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">行业代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">税务机关代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">结案日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">大要案标志： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">纳税人识别号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">纳税人名称： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">检查日期起： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">审理意见： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">处理完毕标志： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">检查截至日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">审理截至日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">稽查案件信息 UUID： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">违法信息 UUID： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">稽查案件编号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">案件名称： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">登记序号： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">案件类型代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">案件稽查状态代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">检查项目： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">任务下达日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">检查登记日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">税务检查通知书送达日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">检查结束日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">审理登记日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">审理结束日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">听证时间： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">检查人员： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">审理人员： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">执行人员： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">立案部门代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">检查部门代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">审理部门代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">执行部门代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">增值税企业类型代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">录入日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">修改日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">数据归属地区： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">作废标志： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">作废人代码： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">作废日期： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">流程实例 ID： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">问题案件标志： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">重大案件标志： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">数据同步时间： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y">移送司法标志： </CHUNK>
+		</ITEM>
+		<ITEM type="pdfCell"  horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="VAR" font="10" databinding="JYXX">DJLX</CHUNK>
+		</ITEM>
+	</TABLE>
+	<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="16" bold="y">
+		十一、企业申报信息
+		</CHUNK>
+	</PARAGRAPH>
+	<TABLE cloumn="1f" type="constitute" width="100" spacingBefore="10" spacingAfter="0">
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y" color="blue">企业申报信息</CHUNK>
+		</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f" type="normal2" width="100" spacingBefore="0" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">计税依据,
+		凭证序号, 税款所属期止,税款所属期起,纳税申报日,申报期,登记序号,征收品目代码</ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">转让方@FINAL,NSRMC,NSRLB,ZJLX,ZJHM,SFJTWYZF,SFGMWN,SFJTWYZF</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f" type="normal2" width="100" spacingBefore="30" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">
+		凭证明细序号,申报方式代码, 征收方式代码,应纳税额,已缴税额,减免税额,应补(退)税额,申报 UUID</ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">转让方@FINAL,NSRMC,NSRLB,ZJLX,ZJHM,SFJTWYZF,SFGMWN,SFJTWYZF</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f" type="normal2" width="100" spacingBefore="30" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">
+		应税项总数量或收入总额、应缴费人数、原值、面积、缴费基数等
+		,原申报期限, 应征凭证种类代码,行业代码,征收代理方式代码,街道乡镇代码,作废日期,作废标志</ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">转让方@FINAL,NSRMC,NSRLB,ZJLX,ZJHM,SFJTWYZF,SFGMWN,SFJTWYZF</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f" type="normal2" width="100" spacingBefore="30" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">
+		作废人代码,税收管理员代码, 主管税务所（科、分局）代码,录入人代码,录入日期,修改人代码,修改日期,数据同步时间</ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">转让方@FINAL,NSRMC,NSRLB,ZJLX,ZJHM,SFJTWYZF,SFGMWN,SFJTWYZF</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.11f,0.11f,0.11f,0.11f,0.11f,0.11f,0.11f,0.11f,0.12f" type="normal2" width="100" spacingBefore="30" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">
+		税率,征收子目代码, SBXXUUID ,主税凭证明细序号,认定凭证 UUID,数据归属地区,登记注册类型代码,更正类型代码,申报属性代码</ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">转让方@FINAL,NSRMC,NSRLB,ZJLX,ZJHM,SFJTWYZF,SFGMWN,SFJTWYZF,SFJTWYZF</ITEM>
+	</TABLE>
+	<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="16" bold="y">
+		十二、企业征收信息
+		</CHUNK>
+	</PARAGRAPH>
+	<TABLE cloumn="1f" type="constitute" width="100" spacingBefore="10" spacingAfter="0">
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y" color="blue">企业征收信息</CHUNK>
+		</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f" type="normal2" width="100" spacingBefore="0" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">
+		备注, 查补属性代码,操作类型代码,登记序号,登记注册类型代码,单位隶属关系代码,关联应征凭证明细序号,行业代码</ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">转让方@FINAL,NSRMC,NSRLB,ZJLX,ZJHM,SFJTWYZF,SFGMWN,SFJTWYZF</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f" type="normal2" width="100" spacingBefore="30" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">
+		街道乡镇代码, 缴款期限,减免税额,计税依据,扣缴登记序号,会计记账日期,科目比例国库特殊规则代码,课税数量</ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">转让方@FINAL,NSRMC,NSRLB,ZJLX,ZJHM,SFJTWYZF,SFGMWN,SFJTWYZF</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f" type="normal2" width="100" spacingBefore="30" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">
+		录入人代码,录入日期,纳税申报日期,确认明细 UUID,入库日期,申报方式代码,申报属性代码,数据归属地区</ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">转让方@FINAL,NSRMC,NSRLB,ZJLX,ZJHM,SFJTWYZF,SFGMWN,SFJTWYZF</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f" type="normal2" width="100" spacingBefore="30" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">
+		数据同步时间, 税款处理类型代码,税款所属期起,税款所属期止,税款所属税务机构代码,税款属性代码,税款种类代码,税率</ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">转让方@FINAL,NSRMC,NSRLB,ZJLX,ZJHM,SFJTWYZF,SFGMWN,SFJTWYZF</ITEM>
+	</TABLE>
+	
+	<TABLE cloumn="0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f" type="normal2" width="100" spacingBefore="0" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">
+		税收管理员代码,税源编号,调账类型代码,修改人代码,修改日期,应补(退)税额,原缴款期限</ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">转让方@FINAL,NSRMC,NSRLB,ZJLX,ZJHM,SFJTWYZF,SFGMWN,SFJTWYZF</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f" type="normal2" width="100" spacingBefore="30" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">
+		已缴税额,应缴税款状态代码,应纳税额,原应征凭证明细序号,应征处理日期,应征发生日期,应征归属日期,应征凭证明细序号</ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">转让方@FINAL,NSRMC,NSRLB,ZJLX,ZJHM,SFJTWYZF,SFGMWN,SFJTWYZF</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f" type="normal2" width="100" spacingBefore="30" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">
+		应征凭证序号,应征凭证种类代码,主管税务所（科、分局）代码,征收代理方式代码,征收方式代码,征收品目代码,征收税务机关代码,征收 UUID </ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">转让方@FINAL,NSRMC,NSRLB,ZJLX,ZJHM,SFJTWYZF,SFGMWN,SFJTWYZF</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.5f,0.5f" type="normal2" width="100" spacingBefore="30" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">
+		征收项目代码,征收子目代码</ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">NSRMC,NSRLB</ITEM>
+	</TABLE>
+	
+	<PARAGRAPH alignment="left">
+		<CHUNK type="FINAL" font="16" bold="y">
+		十三、企业资产负债表（小企业会计制度）
+		</CHUNK>
+	</PARAGRAPH>
+	<TABLE cloumn="1f" type="constitute" width="100" spacingBefore="10" spacingAfter="0">
+		<ITEM type="pdfCell" horizontalAlignment="left" verticalAlignment="middle">
+			<CHUNK type="FINAL" font="10" bold="y" color="blue">企业资产负债表（小企业会计制度）</CHUNK>
+		</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f,0.125f" type="normal2" width="100" spacingBefore="0" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">
+		期末余额_权益,负债和所有者权益项目名称,年初余额_资产,期末余额_资产,资产项目名称,二维表行序号,资料报送采集 UUID,年初余额_权益 </ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">转让方@FINAL,NSRMC,NSRLB,ZJLX,ZJHM,SFJTWYZF,SFGMWN,SFJTWYZF</ITEM>
+	</TABLE>
+	<TABLE cloumn="0.14f,0.15f,0.14f,0.14f,0.15f,0.14f,0.14f" type="normal2" width="100" spacingBefore="30" spacingAfter="0">
+		<ITEM type="header" font="10" horizontalAlignment="center" verticalAlignment="middle">
+		录入人代码,修改日期,UUID,数据同步时间,数据归属地区,修改人代码,录入日期 </ITEM>
+		<ITEM type="list" font="10" horizontalAlignment="center" databinding="JYXX.ZRFXX.ITEM">转让方@FINAL,NSRMC,NSRLB,ZJLX,ZJHM,SFJTWYZF,SFGMWN,SFJTWYZF</ITEM>
+	</TABLE>
+	
+	<IMAGE databinding="IMAG" path="IMAGPATH"></IMAGE>
+</ROOT>

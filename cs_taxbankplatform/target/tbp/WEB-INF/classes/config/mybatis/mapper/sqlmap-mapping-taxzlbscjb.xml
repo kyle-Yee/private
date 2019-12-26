@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.zlbscjb.mapper.TaxZlbscjbEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.dcits.govsbu.sd.taxbankplatform.zlbscjb.model.TaxZlbscjbEntity" >
+    <id column="ttz_id" property="id" />
+    <result column="djxh" property="djxh"/>
+    <result column="ttz_sssq_q" property="ttzSssqQ" />
+    <result column="ttz_sssq_z" property="ttzSssqZ" />
+    <result column="ttz_zlbscjuuid" property="ttzZlbscjuuid"/>
+    <result column="ttz_sjtbsj" property="ttzSjtbsj" />
+    <result column="ttz_bszl_dm" property="ttzBszlDm"/>
+    <result column="ttz_zfbz" property="ttzZfbz" />
+    <result column="ttz_zfrq" property="ttzZfrq"/>
+    <result column="ttz_zfr_dm" property="ttzZfrDm"/>
+    <result column="ttz_lrrq" property="ttzLrrq"/>
+    <result column="ttz_xgr_dm" property="ttzXgrDm"/>
+    <result column="ttz_xgrq" property="ttzXgrq"/>
+    <result column="ttz_sjgsdq" property="ttzSjgsdq" />
+    <result column="ttz_zlbsuuid" property="ttzZlbsuuid" />
+    <result column="ttz_bbh" property="ttzBbh" />
+    <result column="ttz_lrr_dm" property="ttzLrrDm" />
+    <result column="creatorid" property="creatorid" />
+    <result column="createtime" property="createtime" />
+    <result column="updatorid" property="updatorid" />
+    <result column="updatetime" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ttz_id, djxh, ttz_sssq_q, ttz_sssq_z, ttz_zlbscjuuid, ttz_sjtbsj, ttz_bszl_dm, ttz_zfbz, 
+    ttz_zfrq, ttz_zfr_dm, ttz_lrrq, ttz_xgr_dm, ttz_xgrq, ttz_sjgsdq, ttz_zlbsuuid, ttz_bbh, 
+    ttz_lrr_dm, creatorid, createtime, updatorid, updatetime
+  </sql>
+  <select id="findById" resultMap="BaseResultMap" parameterType="String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_tax_zlbscjb
+    where ttz_id = #{id}
+  </select>
+  <delete id="deleteByDjxh" parameterType="String" >
+    delete from t_tax_zlbscjb
+    where djxh = #{djxh}
+  </delete>
+</mapper>

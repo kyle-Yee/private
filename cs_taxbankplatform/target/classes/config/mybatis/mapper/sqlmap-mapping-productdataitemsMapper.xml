@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.mapper.ProductdataitemsMapper" >
+  <resultMap id="dataItemsMap" type="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitems" >
+    <id column="pdi_id" property="id"/>
+    <result column="pdi_name" property="pdiName" />
+    <result column="pdi_code" property="pdiCode"  />
+    <result column="ht_id" property="regionid"  />
+    <result column="enabled" property="enabled"  />
+       <result property="regionid" column="region_id"/>
+		<result property="orgid" column="org_id"/>
+       <result property="creatorid" column="creatorid"/>
+		<result property="createtime" column="createtime"/>
+		<result property="updatorid" column="updatorid"/>
+		<result property="updatetime" column="updatetime"/>
+    <association property="htmlTag" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.HtmlTag">
+			<id property="id" column="ht_id"/>
+			<result column="ht_name" property="htName" />
+            <result column="ht_code" property="htCode" />
+            <result column="enabled" property="enabled"  />
+		</association>
+	<collection property="productditvaluesList" column="id" javaType="ArrayList" ofType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitemvalues">
+	       <id property="id" column="pdiv_id"/>
+            <result column="pdiv_name" property="pdivName" />
+            <result column="pdiv_seq"  property="pdivSeq" />
+            <result column="creatorid"  property="creatorId" />
+            <result column="createtime"  property="createtime" />
+            <result column="updatorid"  property="updateId" />
+            <result column="updatetime"  property="updatetime" />
+	</collection>
+  </resultMap>
+  
+   <resultMap id="dataItemsValMap" type="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitemvalues" >
+    <id column="pdiv_id" property="id"/>
+    <result column="pdiv_name" property="pdivName" />
+ 
+  </resultMap> 
+
+  <select id="queryListByPage"  resultMap="dataItemsMap"  resultType="hashMap" flushCache="true" useCache="true" >
+   select pdi.pdi_id, pdi.pdi_name ,pdi.pdi_code,ht.ht_name,ht.ht_type ,pdi.region_id,pdi.org_id,
+   group_concat(pdiv.pdiv_name)as productditvaluesList from tb_product_data_items pdi  
+  left join tb_html_tag ht on pdi.ht_id=ht.ht_id
+  left join tb_product_data_item_values pdiv on pdiv.pdi_id=pdi.pdi_id 
+   <where> 
+      <if test="regionid!=null">
+        and pdi.region_id =#{regionid}
+      </if>
+      <if test="orgid!=null">
+       and pdi.org_id=#{orgid}
+      </if>
+      <if test="pdiName!=null">
+        and pdi.pdi_name  like concat('%', concat(#{pdiName}, '%'))    and pdi.enabled="Y"  group by pdi.pdi_id  desc
+      </if>
+      <if test="pdiName ==null">
+         and pdi.enabled="Y"  group by pdi.pdi_id desc
+      </if>
+   </where>
+  </select> 
+  <select id="queryListById"  resultMap="dataItemsMap"  resultType="hashMap" flushCache="true" useCache="true" >
+   select pdi.pdi_id, pdi.pdi_name ,pdi.pdi_code,ht.ht_name,ht.ht_type ,group_concat(pdiv.pdiv_name)as productditvaluesList from tb_product_data_items pdi  
+  left join tb_html_tag ht on pdi.ht_id=ht.ht_id
+  left join tb_product_data_item_values pdiv on pdiv.pdi_id=pdi.pdi_id  where pdi.pdi_id=#{id}   group by pdi.pdi_id
+  </select>
+  <select id="findItemIdByValueName" resultMap="dataItemsMap"  resultType="hashMap" flushCache="true" useCache="true">
+   select  pdiv.pdiv_id ,pdiv.pdiv_name,pdi.pdi_id from tb_product_data_item_values pdiv
+   ,tb_product_data_items pdi where pdiv.name=#{list.pdivName}
+  </select>
+  <select id="countItemId" resultMap="dataItemsMap"  resultType="hashMap" flushCache="true" useCache="true">
+    select count(*) from tb_product_data_item_values, tb_product_data_items pdi where pdi.pdi_id=#{id};
+  </select>
+    <insert id="insertItem" parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitems" >
+    insert into tb_product_data_items (pdi_id, pdi_name, pdi_code, 
+      ht_id, enabled, region_id, 
+      org_id, creatorid, createtime, 
+      updatorid, updatetime)
+    values (#{id},#{pdiName}, #{pdiCode}, 
+      #{htmlTag.id}, #{enabled}, #{regionid}, 
+      #{orgid}, #{creatorid}, #{createtime}, 
+      #{updatorid}, #{updatetime})
+  </insert>
+   <insert id="insertValues" parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitemvalues">
+    insert into tb_product_data_item_values (pdiv_id,pdi_id, pdiv_name, 
+      pdiv_seq, creatorid, createtime, 
+      updatorid, updatetime)
+    values (#{id},#{productdataitems.id}, #{pdivName}, 
+      #{pdivSeq}, #{creatorid}, date_format(now(), '%Y-%m-%d %H:%i:%s'), 
+      #{updatorid}, date_format(now(), '%Y-%m-%d %H:%i:%s'))
+  </insert>
+
+ <delete id="deleteByPrimaryKey" parameterType="String" >
+    delete from tb_product_data_items
+    where pdi_id = #{pdiId}
+  </delete>
+
+<!--   <insert id="insertValue" parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitems" useGeneratedKeys="true" keyProperty="pdiv.id">
+        insert into tb_product_data_item_values (pdiv_id, pdi_id, pdiv_name, 
+      pdiv_seq, creatorid, createtime, 
+      updatorid, updatetime)
+    values (#{id}, #{pdiId}, #{pdivName,jdbcType=VARCHAR}, 
+      #{pdivSeq}, #{creatorId}, #{createtime,jdbcType=DATE}, 
+      #{updatorid}, #{updatetime,jdbcType=DATE}) 
+  </insert> -->
+  <insert id="insertSelective" parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitems" >
+    insert into tb_product_data_items
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pdiId != null" >
+        pdi_id,
+      </if>
+      <if test="pdiName != null" >
+        pdi_name,
+      </if>
+      <if test="pdiCode != null" >
+        pdi_code,
+      </if>
+      <if test="regionid != null" >
+        ht_id,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="regionid != null" >
+        region_id,
+      </if>
+      <if test="orgid != null" >
+        org_id,
+      </if>
+      <if test="creatorId != null" >
+        creatorid,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatorid != null" >
+        updatorid,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pdiId != null" >
+        #{pdiId},
+      </if>
+      <if test="pdiName != null" >
+        #{pdiName},
+      </if>
+      <if test="pdiCode != null" >
+        #{pdiCode},
+      </if>
+      <if test="regionid != null" >
+        #{regionid},
+      </if>
+      <if test="enabled != null" >
+        #{enabled},
+      </if>
+      <if test="regionid != null" >
+        #{regionid},
+      </if>
+      <if test="orgid != null" >
+        #{orgid},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId},
+      </if>
+      <if test="createtime != null" >
+        #{createtime},
+      </if>
+      <if test="updatorid != null" >
+        #{updatorid},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitems" >
+    update tb_product_data_items
+    <set >
+      <if test="pdiName != null" >
+        pdi_name = #{pdiName},
+      </if>
+      <if test="pdiCode != null" >
+        pdi_code = #{pdiCode},
+      </if>
+      <if test="regionid != null" >
+        ht_id = #{regionid},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled},
+      </if>
+      <if test="regionid != null" >
+        region_id = #{regionid},
+      </if>
+      <if test="orgid != null" >
+        org_id = #{orgid},
+      </if>
+      <if test="creatorId != null" >
+        creatorid = #{creatorId},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime},
+      </if>
+      <if test="updatorid != null" >
+        updatorid = #{updatorid},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = now(),
+      </if>
+    </set>
+    where pdi_id = #{pdiId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitems" >
+    update tb_product_data_items
+    set pdi_name = #{pdiName},
+      pdi_code = #{pdiCode},
+      ht_id = #{regionid},
+      enabled = #{enabled},
+      region_id = #{regionid},
+      org_id = #{orgid},
+      creatorid = #{creatorId},
+      createtime = #{createtime},
+      updatorid = #{updatorid},
+      updatetime = date_format(now(), '%Y-%m-%d %H:%i:%s')
+    where pdi_id = #{pdiId}
+  </update> 
+  <update id="updateenableByID"  parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitems" >
+  update tb_product_data_items
+    set 
+      enabled ="N"
+    where pdi_id = #{id}
+  </update>
+  <update id="updateNoValueId" parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitems">
+   update tb_html_tag ht,tb_product_data_items pdi 
+  set  pdi.pdi_name=#{pdiName},pdi.pdi_code=#{pdiCode},pdi.updatorid=#{updatorid},
+  pdi.updatetime=date_format(now(), '%Y-%m-%d %H:%i:%s'),ht.ht_id=#{htmlTag.id}
+  where  pdi.pdi_id=#{id}
+  
+  </update>
+  <update id="updateItemId" parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitems">
+      update tb_html_tag ht,tb_product_data_items pdi,tb_product_data_item_values pdiv 
+      set pdi.pdi_name=#{pdiName},pdi.ht_id=#{htmlTag.id},pdi.pdi_code=#{pdiCode},pdi.updatorid=#{updatorid},pdi.updatetime=date_format(now(), '%Y-%m-%d %H:%i:%s'),
+      pdiv.pdiv_name=#{list.pdivName} where pdiv.pdi_id=#{id} and pdiv.pdiv_id=#{list.id} and pdi.pdi_id=pdiv.pdi_id
+   
+  </update>
+  <select id="selectByvalueName"  resultMap="dataItemsMap"  resultType="hashMap" flushCache="true" useCache="true" >
+      select pdiv_id,pdiv_name from tb_product_data_item_values where pdiv_name=#{pdivName}
+  </select>
+  <select id="selectByItemId" resultMap="dataItemsMap"  resultType="hashMap" flushCache="true" useCache="true" >
+     select  pdiv.pdiv_id,pdiv.pdiv_name,pdi.pdi_id,pdi.pdi_name 
+   from tb_product_data_items pdi,tb_product_data_item_values pdiv
+   where pdi.pdi_id=#{pdiid}
+  </select>
+  <!-- 根据PdiID删除数据项 -->
+  <delete id="deleteByPdiId"  parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitemvalues">
+      delete tb_product_data_item_values  where pdi_id=#{pdiId}
+  </delete>
+  <!-- 根据pdivID删除数据项 值-->
+  <delete id="deleteByPdivId"  parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitemvalues">
+      delete from  tb_product_data_item_values  where pdiv_id=#{pdivId}
+  </delete>
+   <!-- 根据pdivID删除数据项值-->
+  <delete id="deleteByPdivIds"  parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitemvalues">
+      delete from tb_product_data_item_values  where pdiv_id=#{id}
+  </delete>
+  <!-- 根据PdiID查询数据项值 -->
+  <select id="selectPdivByPdiId" parameterType="map" resultMap="dataItemsValMap" flushCache="true" useCache="true" >
+	select pdiv.pdiv_id ,pdiv.pdiv_name 
+	from tb_product_data_items pdi   
+	join tb_product_data_item_values pdiv 
+	on pdi.pdi_id=#{pdiId} and pdiv.pdi_id=pdi.pdi_id
+  </select>
+    <!-- 根据PdiID查询数据项 -->
+  <select id="selectPdiByPdiId" parameterType="map" resultMap="dataItemsMap" flushCache="true" useCache="true" >
+	select pdi.pdi_id,pdi.pdi_name
+	from tb_product_data_items pdi   
+	where pdi.pdi_id=#{pdiId} 
+	</select>
+  
+  <!-- 根据pdivID修改数据项值-->
+  <update id="updatePdivByPdivID" parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitemvalues">
+      update tb_product_data_item_values pdiv,tb_product_data_items pdi
+      <set>
+      <if test="pdivName != null">
+      pdiv.pdiv_name = #{pdivName},
+      </if >
+      pdiv.updatorid = #{updatorid},
+      pdiv.updatetime = date_format(now(), '%Y-%m-%d %H:%i:%s')
+      </set>
+    where pdiv.pdiv_id = #{id}
+  </update>
+  <!-- 根据pdiID修改选项名称 -->
+    <update id="updatePdiByPdiID" parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitems">
+      update tb_product_data_items pdi
+      <set>
+      <if test="pdiName != null">
+      pdi.pdi_name = #{pdiName},
+      pdi.pdi_code=#{pdiCode},
+      </if >
+      pdi.updatorid = #{updatorid},
+      pdi.updatetime = date_format(now(), '%Y-%m-%d %H:%i:%s')
+      </set>
+    where pdi.pdi_id = #{id}
+  </update>
+  <!-- 根据pdivId查询数据项值 -->
+    <select id="selectPdivByPdivId" parameterType="map" resultMap="dataItemsValMap" flushCache="true" useCache="true" >
+	select pdiv.pdiv_id ,pdiv.pdiv_name ,pdiv.pdi_id
+	from tb_product_data_item_values pdiv 
+	where pdiv.pdiv_id=#{pdivId}
+  </select>
+  
+  <!-- 数据项验证 -->
+    <select id="ckPdivName" parameterType="com.dcits.govsbu.sd.taxbankplatform.productdataitemvalues.model.Productdataitemvalues" resultMap="dataItemsValMap" flushCache="true" useCache="true" >
+	select pdiv_id from tb_product_data_item_values where pdiv_name = #{pdivName} and pdi_id = #{id}
+  </select>
+</mapper>

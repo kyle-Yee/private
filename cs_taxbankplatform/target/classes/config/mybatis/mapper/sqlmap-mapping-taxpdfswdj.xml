@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.taxpdf.mapper.TaxPdfSwdjMapper" >
+<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+  <resultMap id="BaseResultMap" type="com.dcits.govsbu.sd.taxbankplatform.taxpdf.model.TaxPdfSwdjEntity" >
+		<result property="dj" column="ttn_dj"/>
+		<result property="year" column="ttn_year"/>
+		<result property="nsrzglxdm" column="ttn_nsrzglx_dm"/>
+		<result property="zgswjgdm" column="tta_zgswjg_dm"/>
+		<result property="zgswskfjdm" column="tth_zgswskfj_dm"/>
+		<collection property="taxSwdjList" ofType="com.dcits.govsbu.sd.taxbankplatform.taxpdf.model.TaxSwdjListEntity">
+			<!--征收税种信息 -->
+			<association property="taxSbxxEntity" column="id" javaType="com.dcits.govsbu.sd.taxbankplatform.sbxx.model.TaxSbxxEntity">
+				<id column="tts_id" property="id" />
+				<result property="ttsZsxmDm" column="tts_zsxm_dm"/>
+				<result property="ttsZspmDm" column="tts_zspm_dm"/>
+				<result property="ttsSl1" column="tts_sl_1"/>
+				<result property="ttsSbqx" column="tts_sbqx"/>
+				
+			</association>
+			<!-- 税收优惠政策 -->
+		</collection>
+  </resultMap>
+  
+  <!-- 税务登记信息 -->
+	<select id="findByDjxh" parameterType="map" resultMap="BaseResultMap" flushCache="true" useCache="true">
+	SELECT 
+		ttn.ttn_dj,
+		ttn.ttn_year,
+		ttng.ttn_nsrzglx_dm,
+		tta.tta_zgswjg_dm,
+		tts.tts_zsxm_dm, 
+		tts.tts_zspm_dm,
+		tts.tts_sl_1,
+		tts.tts_sbqx,
+		ttq.tth_zgswskfj_dm
+		
+		FROM tb_nsryhxx tnx
+		LEFT JOIN t_tax_nsrxydj ttn ON tnx.nsryhxx_djxh = ttn.djxh 
+		LEFT JOIN t_tax_nsrzgxxjgb ttng on ttn.djxh = ttng.djxh
+		AND ttn.sqxh = ttng.sqxh
+		LEFT JOIN t_tax_ajxx tta on ttn.djxh = tta.djxh
+		AND ttng.sqxh = tta.sqxh
+		LEFT JOIN t_tax_sbxx tts on tta.djxh = tts.djxh
+		AND tta.sqxh = tts.sqxh
+		LEFT JOIN t_tax_qyjcxx ttq on tts.djxh = ttq.djxh
+		AND tts.sqxh = ttq.sqxh
+		where tnx.creatorid = #{userid} AND ttq.sqxh = #{sqxh}
+	</select>
+</mapper>

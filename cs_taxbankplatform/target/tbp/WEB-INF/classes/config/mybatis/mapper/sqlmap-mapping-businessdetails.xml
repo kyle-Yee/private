@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.count.mapper.BusinessdetailsMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志  -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	
+	<resultMap id="detailsMap" type="com.dcits.govsbu.sd.taxbankplatform.count.model.BusinessdetailsEntity">
+		<id property="id" column="id"  />
+		<result property="nsrmc" column="qymc" />
+		<result property="sdsj" column="sdsj" />
+		<result property="bankname" column="blh" />
+		<result property="orgname" column="org_name"/>
+		<result property="laamount" column="sdje" />
+		<result property="lastatus" column="spzt" />
+		<result property="lascode" column="lascode" />
+		<result property="sxsj" column="sxsj" />
+		<result property="creditquota" column="sxje" />
+		<result property="larrate" column="pdll" />
+		<result property="report" column="bg" />
+	</resultMap>
+	<select id="searchDetails" parameterType="Map" resultMap="detailsMap" flushCache="true" useCache="true">
+		select 
+			la.la_id id,
+			n.nsryhxx_qymc qymc ,
+			date_format(la.la_apply_time, '%Y-%m-%d') sdsj,
+			org.org_name blh,
+			org.org_name,
+			la.la_amount sdje,
+<!-- 			las.las_name spzt, -->
+			las.las_bank_status spzt,
+			las.las_code lascode,
+			<!-- date format -->
+			date_format(temp2.updatetime, '%Y-%m-%d')sxsj,
+			temp2.lar_credit_quota sxje,
+			temp2.lar_rate pdll,
+			dr.la_id bg
+			
+		from 
+			tb_loan_apply la
+			left join tb_nsryhxx n on la.creatorid=n.creatorid 
+			join tb_financial_product fp on fp.fp_id=la.fp_id
+			join tb_organizations org on org.org_id=fp.org_id
+		    <if test="subbranch !=null and subbranch != ''">
+				and  org.org_name like CONCAT('%',#{subbranch},'%')
+			</if>
+			left join (select 
+						tb_loan_approve_rec.lar_id,
+						tb_loan_approve_rec.region_id,
+						tb_loan_approve_rec.fp_id,
+						tb_loan_approve_rec.la_id,
+						tb_loan_approve_rec.las_id,
+						tb_loan_approve_rec.lar_credit_quota,
+						tb_loan_approve_rec.lar_loan_deadline,
+						tb_loan_approve_rec.lar_rate,
+						tb_loan_approve_rec.updatetime,
+						tb_loan_approve_rec.lar_bank_name
+					from 
+						tb_loan_approve_rec
+						join tb_loan_apply on tb_loan_approve_rec.la_id=tb_loan_apply.la_id		
+						join tb_regions on tb_regions.region_id=tb_loan_apply.region_id
+						join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+					where
+						tb_loan_approve_rec.las_id ='DKZT03') temp2 on temp2.la_id=la.la_id
+			left join tb_loan_approve_status las on las.las_id=la.la_status
+			left join (SELECT *
+						FROM 
+							(
+							SELECT 
+								rec.drr_id,
+								rec.org_id,
+								rec.region_id,
+								rec.down_name,
+								rec.enterprise_name,
+								rec.down_status,
+								rec.down_time,
+								rec.report_url, 
+								rec.la_id
+							FROM 
+								tb_downloads_report_rec rec
+							ORDER BY rec.down_time DESC) temp
+						GROUP BY la_id
+						ORDER BY down_time ASC) dr on dr.la_id=la.la_id
+			left join tb_province_cities pc on SUBSTR(pc.pc_code,1,6)=SUBSTR(n.nsryhxx_swjgdm,2,6)
+		<where>
+			<if test="subbranch != null and subbranch != ''">
+				org.org_name like CONCAT('%',#{subbranch},'%')
+			</if>
+			<if test="loanproduct != null and loanproduct != ''">
+				and fp.fp_name = #{loanproduct}
+			</if>
+			<if test="starttime !=null and starttime!= '' and endtime != null and endtime != ''">
+				and  date_format(la.la_apply_time, '%Y-%c-%d') between date_format(#{starttime}, '%Y-%c-%d') and date_format(#{endtime}, '%Y-%c-%d')
+			</if>
+			<if test="pcId !=null and pcId !='' ">
+				and (pc.pc_id = #{pcId} 
+					or pc.pc_pid = #{pcId}
+					or pc.pc_pid in 
+						(select 
+							pcs.pc_id 
+						from
+							tb_province_cities pcs 
+						where 
+							pcs.pc_pid = #{pcId} ))
+			</if>
+			<if test="orgId != null and orgId != ''">
+				and (org.org_id = #{orgId}
+					or org.up_org_id = #{orgId}
+					or org.up_org_id  in 
+						(select 
+							org1.org_id
+						from 
+							tb_organizations org1
+						where 
+							org1.up_org_id = #{orgId} ))
+			</if>		
+		</where>
+		<!-- ORDER BY la.la_apply_time DESC -->
+	</select>
+	
+</mapper>

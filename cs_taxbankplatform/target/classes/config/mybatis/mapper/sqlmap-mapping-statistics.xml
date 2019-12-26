@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.statistics.mapper.StatisticsMapper" >
+<!-- 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  -->
+	  <resultMap id="loanDetailsMap" type="com.dcits.govsbu.sd.taxbankplatform.statistics.model.LoanDetailsInfo" >
+	    <result column="businessid" property="businessid" />
+	    <result column="entname" property="entname"  />
+	    <result column="entcreditid" property="entcreditid"  />
+	    <result column="tbpname" property="tbpname"  />
+	    <result column="fpName" property="fpName"  />
+	    <result column="atId" property="atId"  />
+	    <result column="atSqsj" property="atSqsj"  />
+	    <result column="atSqsyxq" property="atSqsyxq"  />
+	    <result column="atSqqzsj" property="atSqqzsj" />
+	    <result column="loanterm" property="loanterm"/>
+	    <result column="applytime" property="applytimestart" />
+	    <result column="loanGrantTime" property="loanGrantTime" />
+	    <result column="grantfindtimeend" property="grantfindtimeend" />
+	    <result column="loanamount" property="loanamount" />
+	    <result column="isPutLoan" property="isPutLoan" />
+	    <result column="loantime" property="loantime" />
+	    <result column="hyMc" property="hyMc" />
+	    <result column="djzclxmc" property="djzclxmc" />
+	  </resultMap>
+	  <resultMap id="loanCompreMap" type="com.dcits.govsbu.sd.taxbankplatform.statistics.model.LoanCompreInfo" >
+	    <result column="businessid" property="businessid" />
+	    <result column="tbpname" property="tbpname"  />
+	    <result column="tbpcode" property="tbpcode"  />
+	    <result column="fpId" property="fpId"  />
+	    <result column="fpName" property="fpName"  />	    
+	    <result column="applyEntCount" property="applyEntCount"  />
+	    <result column="applyLoanCount" property="applyLoanCount"  />
+	    <result column="grantQueryCount" property="grantQueryCount"  />
+	    <result column="auditApproveCount" property="auditApproveCount"  />
+	    <result column="auditFailureCount" property="auditFailureCount"  />
+	    <result column="auditingCount" property="auditingCount" />
+	    <result column="loanAmountSum" property="loanAmountSum"/>
+	    <result column="loanPutOutCount" property="loanPutOutCount" />
+	    <result column="loanBalanceCount" property="loanBalanceCount" />
+	    <result column="loanApplyAmountSum" property="loanApplyAmountSum" />
+	    <result column="loanApplyAmountAvg" property="loanApplyAmountAvg" />
+	    <result column="loanAmountAvg" property="loanAmountAvg" />
+	    <result column="loanBalance" property="loanBalance" />
+	  </resultMap>	
+	  <resultMap id="bankManagerMap" type="com.dcits.govsbu.sd.taxbankplatform.statistics.model.BankManagerInfo" >
+	    <result column="fp_id" property="fpId" />
+	    <result column="fp_name" property="fpName"  />
+	    <result column="bankid" property="bankid"  />
+	    <result column="org_name" property="bankname"  />
+	    <result column="data_items" property="dataItems"  />	    
+	    <result column="createid" property="createid"  />
+	    <result column="starttime" property="starttime"  />
+	    <result column="endtime" property="endtime"  />
+	    <result column="status" property="status"  />
+	  </resultMap>	  
+	  <resultMap id="commonMap" type="com.dcits.govsbu.sd.taxbankplatform.statistics.model.CommonEntity" >
+	    <result column="dm" property="dm" />
+	    <result column="mc" property="mc"  />
+	 </resultMap>
+	  <parameterMap id="callLoanCompreMap" type="java.util.Map">
+        <parameter property="bankCode" jdbcType="VARCHAR" mode="IN" />
+        <parameter property="fpId" jdbcType="VARCHAR" mode="IN" />
+        <parameter property="nsrzgswj" jdbcType="VARCHAR" mode="IN" />
+        <parameter property="starttime" jdbcType="VARCHAR" mode="IN" />
+        <parameter property="endtime" jdbcType="VARCHAR" mode="IN" />
+        <parameter property="retStr" jdbcType="VARCHAR" mode="OUT" />
+    </parameterMap>
+    <!-- 查询出税务机构代码 -->
+    <select id="querySsswjDmList" parameterType="String" resultMap="commonMap">
+    	SELECT dm.swj_mc mc,dm.tb_swj_dm dm FROM tb_data_swj_dm dm WHERE dm.tb_swj_dm LIKE CONCAT('%',#{ssswjDm},'%')
+    </select>
+	<!-- 明细清册查询 -->
+	<select id="queryLoanDetailsList" parameterType="java.util.Map" resultMap="loanDetailsMap">
+		SELECT tb.BUSINESSID,tb.ENTNAME,tb.ENTCREDITID,tb.TBPNAME,tb.fp_name fpName,
+		tb.GRANTCODE atId,tb.at_sqsj atSqsj,tb.at_sqsyxq atSqsyxq,CONCAT_WS('至',tb.at_sqkssj,tb.at_sqjssj) atSqqzsj,
+		tb.LOANTERM,tb.APPLYTIME,tb.LOANGRANTTIME,tb.at_sjmc atSjmc,tb.LOANAMOUNT,
+		IF(tb.LOANTIME,'是','否') isPutLoan,tb.LOANTIME,tb.hy_mc hyMc,tb.djzclxmc
+		FROM (SELECT dksq.BUSINESSID,dksq.ENTNAME,dksq.ENTCREDITID,dksq.BUSINESSTYPE,dksq.TBPCODE,dksq.TBPNAME,fp.fp_name
+					,authorization.GRANTCODE,authorization.at_sqsj,authorization.at_sqsyxq,LEFT(authorization.at_sqkssj,10) at_sqkssj
+					,LEFT(authorization.at_sqjssj,10) at_sqjssj,dhsx.LOANTERM,dksq.APPLYTIME,dhsx.LOANGRANTTIME,authorization.at_sjmc
+					,dhsx.LOANAMOUNT,dhsx.LOANTIME,hydm.hy_dm,hydm.hy_mc,djzclx.djclx_dm,djzclx.djzclxmc,request.nsrzgswj
+			FROM tb_loan_dksq dksq LEFT JOIN tb_loan_dhsx dhsx ON dksq.GRANTCODE = dhsx.GRANTCODE LEFT JOIN 
+			tb_authorization_record authorization ON dksq.GRANTCODE=authorization.GRANTCODE LEFT JOIN 
+			tb_data_request request ON dksq.GRANTCODE=request.GRANTCODE LEFT JOIN 
+			tb_hydm hydm ON request.HY_DM=hydm.hy_dm LEFT JOIN 
+			t_djzclx_dm djzclx ON request.DJZCLX_DM=djzclx.djclx_dm LEFT JOIN 
+			tb_financial_product fp ON dksq.BUSINESSTYPE=fp.fp_id) tb
+		<where>
+			<if test="bankCode != null and bankCode !=''">
+				AND tb.TBPCODE = #{bankCode}
+			</if>
+			<if test="fpId != null and fpId !=''">
+				AND tb.BUSINESSTYPE = #{fpId}
+			</if>
+			<if test="lxdm != null and lxdm !=''">
+				AND tb.djclx_dm IN (SELECT djzclxxl.djclx_dm FROM t_djzclx_dm djzclxxl WHERE djzclxxl.sjdjzclx_dm in (
+										SELECT djzclxzl.djclx_dm FROM t_djzclx_dm djzclxzl WHERE djzclxzl.sjdjzclx_dm = #{lxdm}))
+			</if>
+			<if test="hydm != null and hydm !=''">
+				AND tb.HY_DM IN (SELECT hydmxl.hy_dm FROM tb_hydm hydmxl WHERE hydmxl.hy_sjhydm in (
+										SELECT hydmzl.hy_dm FROM tb_hydm hydmzl WHERE hydmzl.hy_sjhydm in (
+													SELECT hydmdl.hy_dm FROM tb_hydm hydmdl WHERE hydmdl.hy_sjhydm = #{hydm})))
+			</if>
+			<if test="entname != null and entname !=''">
+				AND tb.ENTNAME LIKE CONCAT('%',#{entname},'%')
+			</if>
+			<if test="entcreditid != null and entcreditid !=''">
+				AND tb.ENTCREDITID = #{entcreditid}
+			</if>
+			<if test="isfk != null and isfk !='' and isfk == '1'.toString()">
+				AND tb.LOANTIME is not null
+			</if>
+			<if test="isfk != null and isfk !='' and isfk == '0'.toString()">
+				AND tb.LOANTIME is  null
+			</if>
+			<if test="starttime != null and starttime !='' and endtime != null and endtime !=''">
+				AND tb.APPLYTIME BETWEEN STR_TO_DATE(#{starttime},'%Y-%m-%d') AND STR_TO_DATE(#{endtime},'%Y-%m-%d')
+			</if>
+			<if test="nsrzgswj != null and nsrzgswj != ''">
+				and  tb.nsrzgswj like  '${nsrzgswj}%'
+			</if>		
+		</where>
+	GROUP BY tb.TBPCODE,tb.BUSINESSTYPE,tb.BUSINESSID
+	</select>
+	<select id="queryFPMsg" parameterType="java.util.Map" resultMap="loanCompreMap">	
+		 	SELECT
+		    tf.fp_id as fpId,
+		    org.org_name as tbpname,
+		    org.org_id as orgId,
+		    org.org_code as tbpcode,
+		    tf.fp_name as fpName 
+		FROM tb_financial_product tf, tb_organizations org	
+		<where>
+		     org.org_id = tf.org_id
+			<if test="bankCode != null and bankCode !=''">
+				AND  org.org_code = #{bankCode}
+			</if>
+			<if test="fpId != null and fpId !=''">
+				AND  tf.fp_id = #{fpId}
+			</if>
+		</where>
+	</select>
+	<!-- 贷款申请统计  2018-09-08 liuc-->
+	<select id="callLoanCompre" parameterType="java.util.Map" resultMap="loanCompreMap">
+			select  COUNT(1) as applyLoanCount , 	<!-- 申请贷款笔数  -->
+			sum(case when dksq.ADMITTANCE = '0' then 1 else null end) as  auditApproveCount, <!--  申请贷款通过笔数-->
+			sum(case when dksq.ADMITTANCE != '0' then 1 else null end) as auditFailureCount, <!-- 申请贷款不通过笔数-->
+			COUNT(DISTINCT dksq.ENTNAME)  as applyEntCount ,<!-- 申请企业数量 -->
+			sum(dksq.LOANAMOUNT) as loanAmountSum ,  <!--  审批授信金额-->
+			sum(case when dhsx.LOANTIME is not null then 1 else null end) as loanPutOutCount , <!-- 已放款户数-->
+			sum(case when dhsx.DRAWINGBALANCE > 0  then 1 else null end) as  loanBalanceCount , <!--  贷款余额户数-->
+			sum(dhsx.LOANBALANCE) as loanBalance , <!--  贷款余额-->
+			sum(dksq.LOANAPPLYAMOUNT) as loanApplyAmountSum <!--  贷款申请金额-->
+			from tb_loan_dksq dksq 
+			left join tb_loan_dhsx dhsx on dksq.GRANTCODE = dhsx.GRANTCODE
+			left join  tb_data_request request on dksq.GRANTCODE = request.grantCode
+			<where>
+			<if test="bankCode != null and bankCode !=''">
+				AND dksq.TBPCODE = #{bankCode}
+			</if>
+			<if test="fpId != null and fpId !=''">
+				AND dksq.BUSINESSTYPE = #{fpId}
+			</if>
+			
+			<if test="starttime != null and starttime !='' and endtime != null and endtime !=''">
+				AND dksq.APPLYTIME BETWEEN STR_TO_DATE(#{starttime},'%Y-%m-%d') AND STR_TO_DATE(#{endtime},'%Y-%m-%d')
+			</if>
+			<if test="nsrzgswj != null and nsrzgswj != ''">
+				and  request.nsrzgswj like  '${nsrzgswj}%'
+			</if>
+			
+		</where>		
+
+	</select>
+	
+	<!--申请统计  授权查询笔数  2018-09-08 liuc-->
+	<select id="findSqcxbs" parameterType="java.util.Map" resultType="java.lang.String">
+			select   COUNT(1) as sqcxbs   <!-- 授权查询笔数 -->
+			from tb_data_request   request
+			<where>
+			<if test="bankCode != null and bankCode !=''">
+				AND request.bankCode = #{bankCode}
+			</if>
+			<if test="fpId != null and fpId !=''">
+				AND request.businessType = #{fpId}
+			</if>
+			
+			<if test="starttime != null and starttime !='' and endtime != null and endtime !=''">
+				AND request.createtime BETWEEN STR_TO_DATE(#{starttime},'%Y-%m-%d') AND STR_TO_DATE(#{endtime},'%Y-%m-%d')
+			</if>
+			<if test="nsrzgswj != null and nsrzgswj != ''">
+				and  request.nsrzgswj like  '${nsrzgswj}%'
+			</if>
+			
+		</where>		
+
+	</select>
+	
+		<!-- 贷款综合情况统计数据查询 -->
+	<select id="queryLoanCompreList" parameterType="java.util.Map" resultMap="loanCompreMap">
+		SELECT DISTINCT dksq.BUSINESSID ,dksq.TBPCODE tbpcode,dksq.TBPNAME tbpname,fp.fp_id fpId,fp.fp_name fpName
+			,COUNT(DISTINCT dksq.entCreditID) applyEntCount
+			,COUNT(DISTINCT dksq.BUSINESSID) applyLoanCount
+			,SUM(IFNULL(dksq.LOANAPPLYAMOUNT,0)) loanApplyAmountSum
+			,AVG(IFNULL(dksq.LOANAPPLYAMOUNT,0)) loanApplyAmountAvg
+			,(SELECT COUNT(DISTINCT dksqpass.BUSINESSID) FROM tb_loan_dksq dksqpass WHERE dksqpass.admittance='0' 
+			AND dksqpass.TBPCODE=dksq.TBPCODE AND dksq.BUSINESSTYPE = dksqpass.BUSINESSTYPE) auditApproveCount
+			,(SELECT COUNT(DISTINCT dksqpass.BUSINESSID) FROM tb_loan_dksq dksqpass WHERE dksqpass.admittance!='0' 
+			AND dksqpass.TBPCODE=dksq.TBPCODE AND dksq.BUSINESSTYPE = dksqpass.BUSINESSTYPE) auditFailureCount
+			,(SELECT COUNT(1) from tb_data_request request LEFT JOIN 
+			 tb_authorization_record authorization ON request.grantCode=authorization.grantcode LEFT JOIN 
+			 tb_loan_dksq dksqgrant ON  dksqgrant.BUSINESSID=authorization.at_sqdid
+			 WHERE dksqgrant.TBPCODE=dksq.TBPCODE AND dksq.BUSINESSTYPE = dksqgrant.BUSINESSTYPE) grantQueryCount
+			,'0' AS auditingCount
+			 ,SUM(IFNULL(dhsx.loanAmount,0)) loanAmountSum
+			 ,AVG(IFNULL(dhsx.loanAmount,0))loanAmountAvg
+			 ,COUNT(dhsx.loantime) loanPutOutCount
+			 ,(SELECT COUNT(DISTINCT loan_dhsx.BUSINESSID) FROM tb_loan_dhsx loan_dhsx WHERE loan_dhsx.loanBalance='Y'
+			 AND loan_dhsx.TBPCODE=dhsx.TBPCODE AND dhsx.BUSINESSTYPE = loan_dhsx.BUSINESSTYPE) loanBalanceCount
+			FROM tb_loan_dksq dksq LEFT JOIN 
+			tb_loan_dhsx dhsx ON dksq.BUSINESSID = dhsx.BUSINESSID LEFT JOIN 
+			tb_financial_product fp ON dksq.BUSINESSTYPE=fp.fp_id LEFT JOIN 
+			tb_authorization_record aut ON dksq.BUSINESSID=aut.at_sqdid
+			left join  tb_data_request  request on  (dksq.ENTCREDITID = request.nsrsbh or dksq.ENTTAXID =  request.nsrsbh)
+		<where>
+			<if test="bankCode != null and bankCode !=''">
+				AND dksq.TBPCODE = #{bankCode}
+			</if>
+			<if test="fpId != null and fpId !=''">
+				AND dksq.BUSINESSTYPE = #{fpId}
+			</if>
+<!-- 			<if test="taxpayerManagement != null and taxpayerManagement !=''"> -->
+<!-- 				AND aut.at_sjmc LIKE  CONCAT('%',#{taxpayerManagement},'%') -->
+<!-- 			</if> -->
+			<if test="starttime != null and starttime !='' and endtime != null and endtime !=''">
+				AND dksq.APPLYTIME BETWEEN STR_TO_DATE(#{starttime},'%Y-%m-%d') AND STR_TO_DATE(#{endtime},'%Y-%m-%d')
+			</if>
+			<if test="nsrzgswj != null and nsrzgswj != ''">
+				and  request.nsrzgswj like  '${nsrzgswj}%'
+			</if>
+			
+		</where>
+		GROUP BY dksq.TBPCODE, dksq.BUSINESSTYPE
+	</select>
+	<!-- 贷款综合情况统计数据查询 以贷款申请为主表-->
+	<select id="queryLoanCompreListForDKSQ" parameterType="java.util.Map" resultMap="loanCompreMap">
+		SELECT dksq.BUSINESSID ,dksq.TBPCODE tbpcode,dksq.TBPNAME tbpname,dksq.BUSINESSTYPE fpId,fp.fp_name fpName
+			,COUNT(DISTINCT dksq.entCreditID) applyEntCount
+			,COUNT(DISTINCT dksq.BUSINESSID) applyLoanCount
+			,SUM(IFNULL(dksq.LOANAPPLYAMOUNT,0)) loanApplyAmountSum
+			,AVG(IFNULL(dksq.LOANAPPLYAMOUNT,0)) loanApplyAmountAvg
+			,(SELECT COUNT(DISTINCT dksqpass.BUSINESSID) FROM tb_loan_dksq dksqpass WHERE dksqpass.admittance='0' 
+			AND dksqpass.TBPCODE=dksq.TBPCODE AND dksq.BUSINESSTYPE = dksqpass.BUSINESSTYPE) auditApproveCount
+			,(SELECT COUNT(DISTINCT dksqpass.BUSINESSID) FROM tb_loan_dksq dksqpass WHERE dksqpass.admittance!='0' 
+			AND dksqpass.TBPCODE=dksq.TBPCODE AND dksq.BUSINESSTYPE = dksqpass.BUSINESSTYPE) auditFailureCount
+			,(SELECT COUNT(1) from tb_data_request request LEFT JOIN 
+			 tb_authorization_record authorization ON request.grantCode=authorization.grantCode LEFT JOIN 
+			 tb_loan_dksq dksqgrant ON  dksqgrant.BUSINESSID=authorization.at_sqdid
+			 WHERE dksqgrant.TBPCODE=dksq.TBPCODE AND dksq.BUSINESSTYPE = dksqgrant.BUSINESSTYPE) grantQueryCount
+			,'0' AS auditingCount
+			FROM tb_loan_dksq dksq LEFT JOIN 
+			tb_financial_product fp ON dksq.BUSINESSTYPE=fp.fp_id LEFT JOIN 
+			tb_authorization_record aut ON dksq.BUSINESSID=aut.at_sqdid 
+			left join  tb_data_request  request on  (dksq.ENTCREDITID = request.nsrsbh or dksq.ENTTAXID =  request.nsrsbh)
+		<where>
+			<if test="bankCode != null and bankCode !=''">
+				AND dksq.TBPCODE = #{bankCode}
+			</if>
+			<if test="fpId != null and fpId !=''">
+				AND dksq.BUSINESSTYPE = #{fpId}
+			</if>
+<!-- 			<if test="taxpayerManagement != null and taxpayerManagement !=''"> -->
+<!-- 				AND aut.at_sjmc LIKE  CONCAT('%',#{taxpayerManagement},'%') -->
+<!-- 			</if> -->
+			<if test="starttime != null and starttime !='' and endtime != null and endtime !=''">
+				AND dksq.APPLYTIME BETWEEN STR_TO_DATE(#{starttime},'%Y-%m-%d') AND STR_TO_DATE(#{endtime},'%Y-%m-%d')
+			</if>
+			<if test="nsrzgswj != null and nsrzgswj != ''">
+				and  request.nsrzgswj like  '${nsrzgswj}%'
+			</if>
+		</where>
+		GROUP BY dksq.TBPCODE, dksq.BUSINESSTYPE
+	</select>
+		<!-- 贷款综合情况统计数据查询 以贷后授信为主表 -->
+	<select id="queryLoanCompreListForDHSX" parameterType="java.util.Map" resultMap="loanCompreMap">
+		SELECT tb.BUSINESSID ,tb.TBPCODE tbpcode,tb.TBPNAME tbpname,tb.BUSINESSTYPE fpId,tb.fp_name fpName
+ 			 ,SUM(IFNULL(tb.loanAmount,0)) loanAmountSum
+			 ,AVG(IFNULL(tb.loanAmount,0))loanAmountAvg
+ 			 ,COUNT(tb.loantime) loanPutOutCount
+ 			 ,(SELECT COUNT(DISTINCT loan_dhsx.BUSINESSID) FROM tb_loan_dhsx loan_dhsx WHERE loan_dhsx.loanBalance='Y'
+ 			 AND loan_dhsx.TBPCODE=tb.TBPCODE AND tb.BUSINESSTYPE = loan_dhsx.BUSINESSTYPE) loanBalanceCount
+		FROM (SELECT dhsx.BUSINESSID,dhsx.TBPCODE,dhsx.TBPNAME,dhsx.BUSINESSTYPE,fp.fp_name,dhsx.loanAmount
+				,dhsx.loantime,aut.at_sjmc,dhsx.APPLYTIMESTART FROM tb_loan_dhsx dhsx LEFT JOIN 
+				tb_financial_product fp ON dhsx.BUSINESSTYPE=fp.fp_id LEFT JOIN 
+				tb_authorization_record aut ON dhsx.BUSINESSID=aut.at_sqdid)tb
+		<where>
+			<if test="bankCode != null and bankCode !=''">
+				AND tb.TBPCODE = #{bankCode}
+			</if>
+			<if test="fpId != null and fpId !=''">
+				AND tb.BUSINESSTYPE = #{fpId}
+			</if>
+<!-- 			<if test="taxpayerManagement != null and taxpayerManagement !=''"> -->
+<!-- 				AND tb.at_sjmc LIKE  CONCAT('%',#{taxpayerManagement},'%') -->
+<!-- 			</if> -->
+			<if test="starttime != null and starttime !='' and endtime != null and endtime !=''">
+				AND tb.APPLYTIMESTART BETWEEN STR_TO_DATE(#{starttime},'%Y-%m-%d') AND STR_TO_DATE(#{endtime},'%Y-%m-%d')
+			</if>
+			 
+		</where>
+		GROUP BY tb.TBPCODE, tb.BUSINESSTYPE 
+	</select>
+	<!-- 获取银行管理设置  -->
+	<select id="queryBankManagerList" resultMap="bankManagerMap">
+		SELECT dataupdate.bankid,org.org_name,dataupdate.fp_id,fp.fp_name,dataupdate.data_items
+		,dataupdate.opentime,LEFT(dataupdate.starttime,10) starttime,LEFT(dataupdate.endtime,10) endtime,dataupdate.createtime,'已停用' AS status
+		FROM tb_gz_dataupdate_record dataupdate ,tb_financial_product fp ,tb_organizations org
+		WHERE dataupdate.bankid=fp.org_id AND dataupdate.fp_id=fp.fp_id
+		AND org.org_id = dataupdate.bankid 
+		<if test="bankid != null and bankid !=''">
+			AND dataupdate.bankid = #{bankid}
+		</if>
+		<if test="fpId != null and fpId !=''">
+			AND dataupdate.fp_id = #{fpId}
+		</if>
+		ORDER BY dataupdate.createtime desc	
+	</select>
+	<!-- 查询行业门类  -->
+	<select id="queryHYList" resultMap="commonMap">
+		SELECT hydm.hy_dm dm,hy_mc mc FROM tb_hydm hydm WHERE hydm.hy_mlbz='Y'
+	</select>
+	<!-- 查询登记注册类型大类  -->
+	<select id="queryDJZCLXList" resultMap="commonMap">
+		SELECT djzclx.djclx_dm dm,djzclx.djzclxmc mc FROM t_djzclx_dm djzclx WHERE djzclx.dlbz='Y'	
+	</select>
+	<!-- 根据dataDM获取工商表名称  -->
+	<select id="queryGSBMCByDataDM" parameterType="String" resultType="String">
+		SELECT dm.gsbmc FROM dm_gsdata_dm dm WHERE left(dm.xh,4) = #{key} AND dm.yxbz = 'Y' LIMIT 1
+	</select>
+	<!-- 根据dataDM获取数据项名称  -->
+	<select id="queryMCByDataDM" parameterType="String" resultType="String">
+		SELECT dm.bzdmc FROM dm_gsdata_dm dm WHERE dm.xh = #{key} AND dm.yxbz = 'Y' AND sign = '1' LIMIT 1
+	</select>
+	<!-- 得到为实质性内容数据项  -->
+	<select id="findDataCount" parameterType="java.util.List" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM dm_gsdata_dm dm WHERE dm.xh in 	     
+		 <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND dm.yxbz = 'Y' AND sign = '1'
+	</select>
+</mapper>

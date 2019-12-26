@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dcits.govsbu.sd.taxbankplatform.regulatorstatistics.mapper.ProductstatisticsMapper">
+	<!--mybatis ehcache缓存配置,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志  -->
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> 
+	
+	<resultMap id="productstatisticsMap" type="com.dcits.govsbu.sd.taxbankplatform.regulatorstatistics.model.BanklistInfoEntity">
+		<result property="bankName" column="bankname" />
+		<result property="pdName" column="pdname" />
+		<result property="enabled" column="psid" />
+		<result property="dked" column="dked" />
+		<result property="llsp" column="llsp" />
+		<result property="dbfs" column="dbfs" />
+		<result property="cgsxbs" column="sxbs" />
+		<result property="cgsxed" column="sxje" />
+		<result property="bll" column="bll" />
+	</resultMap>	
+	<resultMap id="guaranteestyleMap" type="com.dcits.govsbu.sd.taxbankplatform.regulatorstatistics.model.GuaranteeStyleEntity">
+		<id property="id" column="gs_id"/>
+		<result property="gsname" column="gs_name"/>
+		<result property="gscode" column="gs_code"/>
+		<result property="enabled" column="enabled"/>
+	</resultMap>
+	<select id="productstatistics_bef" parameterType="map" resultMap="productstatisticsMap" flushCache="true" useCache="true">
+		<!-- modify by xiecui 2018/04/02 begin -->
+		<!-- select 
+			org1.org_name bankname, 
+			fp.fp_name pdname,
+			fp.ps_id enabled,
+			la.la_name dked,
+			lr.lr_name llsp,
+			fp.gs_ids dbfs,
+			ifnull(temp2.sxbs1,0) sxbs,
+			ROUND(ifnull(temp2.sxze1,0) , 2) sxje,
+			ifnull(round((count(distinct lae.laf_id)/temp2.sxbs1)*100,0),0) bll
+		from  tb_financial_product fp
+		left join (select tar.fp_id,ROUND(ifnull(sum(tar.lar_credit_quota),0),2) sxze1,count(distinct tar.la_id) sxbs1
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_nsryhxx nsrxx,tb_loan_apply_final taf,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and ta.la_id=taf.la_id
+		and ((ta.nsrsbh=nsrxx.nsryhxx_nsrsbh and ta.nsrsbh!='') or (nsrxx.nsryhxx_shtyxydm = ta.nsrsbh and ta.nsrsbh!=''))
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		<if test="starttime !=null and starttime!= '' and endtime != null and endtime != ''">
+			and (date_format(ta.la_apply_time, '%Y-%c-%d') between date_format(#{starttime}, '%Y-%c-%d') and date_format(#{endtime}, '%Y-%c-%d'))
+			and unix_timestamp(DATE_FORMAT(ta.la_apply_time, '%Y-%m-%d')) between unix_timestamp(#{starttime}) and  unix_timestamp(#{endtime})
+		</if>
+		group by tar.fp_id) temp2 on temp2.fp_id=fp.fp_id
+		left join tb_organizations org1 on org1.org_id=fp.org_id
+		left join tb_loan_amount la on la.la_id=fp.la_id
+		left join tb_loan_rates lr on lr.lr_id=fp.lr_id
+		left join tb_loan_apply_final laf on fp.fp_id=laf.fp_id
+		left join tb_loan_applyend lae on lae.laf_id=laf.laf_id and lae.bankloan_type in ('DHPJ04','DHPJ05')
+		join tb_province_cities pc on pc.pc_id=org1.pc_id
+		<where>
+			<if test="pcId !=null and pcId !='' ">
+				fp.enabled ='Y' and fp.ps_id in('CPZT02','CPZT03') and (pc.pc_id = #{pcId} or pc.pc_pid = #{pcId}
+				or pc.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId}))
+			</if>
+			<if test="starttime !=null and starttime!= '' and endtime != null and endtime != ''">
+				and (date_format(fp.createtime, '%Y-%c-%d') between date_format(#{starttime}, '%Y-%c-%d') and date_format(#{endtime}, '%Y-%c-%d'))
+			</if>
+		</where>
+		group by fp.fp_id
+		ORDER BY fp.createtime -->
+		
+		select 
+			org1.org_name bankname, 
+			fp.fp_name pdname,
+			fp.ps_id enabled,
+			la.la_name dked,
+			lr.lr_name llsp,
+			fp.gs_ids dbfs,
+			ifnull(temp2.sxbs1,0) sxbs,
+			ROUND(ifnull(temp2.sxze1,0) , 2) sxje,
+			ifnull(round((count(distinct lae.laf_id)/temp2.sxbs1)*100,0),0) bll
+		from  tb_financial_product fp
+		left join 
+		(select max(t.fp_id) fp_id,sum(t.sxze1) sxze1,sum(sxbs1) sxbs1 from 
+		(select tar.fp_id,ROUND(ifnull(sum(tar.lar_credit_quota),0),2) sxze1,count(distinct tar.la_id) sxbs1
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_nsryhxx nsrxx,tb_loan_apply_final taf,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and ta.la_id=taf.la_id
+		and ta.nsrsbh=nsrxx.nsryhxx_nsrsbh 
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		<if test="starttime !=null and starttime!= '' and endtime != null and endtime != ''">
+			<!-- and (date_format(ta.la_apply_time, '%Y-%c-%d') between date_format(#{starttime}, '%Y-%c-%d') and date_format(#{endtime}, '%Y-%c-%d')) -->
+			and unix_timestamp(DATE_FORMAT(ta.la_apply_time, '%Y-%m-%d')) between unix_timestamp(#{starttime}) and  unix_timestamp(#{endtime})
+		</if>
+		group by tar.fp_id
+		
+		union all
+		
+		select tar.fp_id,ROUND(ifnull(sum(tar.lar_credit_quota),0),2) sxze1,count(distinct tar.la_id) sxbs1
+		from tb_loan_approve_rec tar,tb_loan_apply ta,tb_nsryhxx nsrxx,tb_loan_apply_final taf,tb_nsryh nsr
+		where nsr.nsryhxx_id = nsrxx.nsryhxx_id and tar.la_id=ta.la_id and ta.la_id=taf.la_id
+		and nsrxx.nsryhxx_shtyxydm = ta.nsrsbh 
+		and nsr.enabled='Y' and tar.las_id ='DKZT03'
+		<if test="starttime !=null and starttime!= '' and endtime != null and endtime != ''">
+			<!-- and (date_format(ta.la_apply_time, '%Y-%c-%d') between date_format(#{starttime}, '%Y-%c-%d') and date_format(#{endtime}, '%Y-%c-%d')) -->
+			and unix_timestamp(DATE_FORMAT(ta.la_apply_time, '%Y-%m-%d')) between unix_timestamp(#{starttime}) and  unix_timestamp(#{endtime})
+		</if>
+		group by tar.fp_id) t
+		where t.fp_id is not null
+		group by t.fp_id
+		) temp2 on temp2.fp_id=fp.fp_id
+		left join tb_organizations org1 on org1.org_id=fp.org_id
+		left join tb_loan_amount la on la.la_id=fp.la_id
+		left join tb_loan_rates lr on lr.lr_id=fp.lr_id
+		left join tb_loan_apply_final laf on fp.fp_id=laf.fp_id
+		left join tb_loan_applyend lae on lae.laf_id=laf.laf_id and lae.bankloan_type in ('DHPJ04','DHPJ05')
+		join tb_province_cities pc on pc.pc_id=org1.pc_id
+		<where>
+			<if test="pcId !=null and pcId !='' ">
+				fp.enabled ='Y' and fp.ps_id in('CPZT02','CPZT03') and (pc.pc_id = #{pcId} or pc.pc_pid = #{pcId}
+				or pc.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId}))
+			</if>
+			<!-- <if test="starttime !=null and starttime!= '' and endtime != null and endtime != ''">
+				and (date_format(fp.createtime, '%Y-%c-%d') between date_format(#{starttime}, '%Y-%c-%d') and date_format(#{endtime}, '%Y-%c-%d'))
+			</if> -->
+		</where>
+		group by fp.fp_id
+		ORDER BY fp.createtime
+		<!-- modify by xiecui 2018/04/02 end -->
+		
+		
+		<!-- select 
+			org1.org_name bankname, 
+			fp.fp_name pdname,
+			la.la_name dked,
+			lr.lr_name llsp,
+			fp.gs_ids dbfs,
+			ifnull(temp2.sxbs1,0) sxbs,
+			ROUND(ifnull(temp2.sxze1,0) , 2) sxje,
+			ifnull(round((count(distinct lae.laf_id)/temp2.sxbs1)*100,0),0) bll
+		from  tb_financial_product fp
+		left join (select count(A.la_id) sxbs1 ,sum(A.lar_credit_quota) sxze1 ,max(A.fp_id) fpid1
+					from (select 
+						tb_loan_approve_rec.lar_id,
+						tb_loan_approve_rec.region_id,
+						tb_loan_approve_rec.fp_id,
+						tb_loan_approve_rec.la_id,
+						tb_loan_approve_rec.las_id,
+						tb_loan_approve_rec.lar_credit_quota,
+						tb_loan_approve_rec.lar_loan_deadline,
+						tb_loan_approve_rec.lar_rate,
+						tb_loan_approve_rec.updatetime,
+						tb_loan_approve_rec.lar_bank_name
+					from 
+						tb_loan_approve_rec
+						join tb_loan_apply on tb_loan_approve_rec.la_id=tb_loan_apply.la_id		
+						join tb_regions on tb_regions.region_id=tb_loan_apply.region_id
+						join tb_province_cities on tb_province_cities.pc_code=tb_regions.region_code
+					where
+						tb_loan_approve_rec.las_id =3
+						<if test="starttime !=null and starttime!= '' and endtime != null and endtime != ''">
+							and (date_format(tb_loan_approve_rec.updatetime, '%Y-%c-%d') between date_format(#{starttime}, '%Y-%c-%d') and date_format(#{endtime}, '%Y-%c-%d'))
+						</if>
+						) A 
+				group by A.fp_id) temp2 on temp2.fpid1=fp.fp_id
+			
+		left join tb_organizations org1 on org1.org_id=fp.org_id
+		left join tb_loan_amount la on la.la_id=fp.la_id
+		left join tb_loan_rates lr on lr.lr_id=fp.lr_id
+		left join tb_loan_apply_final laf on fp.fp_id=laf.fp_id
+		left join tb_loan_applyend lae on lae.laf_id=laf.laf_id and lae.bankloan_type in (4,5)
+		join tb_province_cities pc on pc.pc_id=org1.pc_id
+		<where>
+			<if test="pcId !=null and pcId !='' ">
+				(pc.pc_id = #{pcId} or pc.pc_pid = #{pcId}
+				or pc.pc_pid in (select pcs.pc_id from tb_province_cities pcs where pcs.pc_pid = #{pcId}))
+			</if>
+			<if test="starttime !=null and starttime!= '' and endtime != null and endtime != ''">
+				and (date_format(fp.createtime, '%Y-%c-%d') between date_format(#{starttime}, '%Y-%c-%d') and date_format(#{endtime}, '%Y-%c-%d'))
+			</if>
+		</where>
+		group by fp.fp_name
+		ORDER BY fp.createtime -->
+	</select>
+	<select id="findgsById" parameterType="String" resultMap="guaranteestyleMap" flushCache="true" useCache="true">
+		select gs_id,gs_name,gs_code,enabled
+	    from tb_guarantee_style
+	    where gs_id = #{id}
+	</select>
+	
+	
+	<select id="productstatistics" parameterType="map" resultMap="productstatisticsMap" flushCache="true" useCache="true">
+		SELECT bankinfo.`bankname` AS bankname, bankinfo.`pdname` AS pdname,bankinfo.`psid` AS psid, bankinfo.`laname` AS dked,bankinfo.`lrname` AS llsp,bankinfo.`dbfs` AS dbfs,IFNULL(SUM(bankinfo.`sxbs`),0) AS sxbs,IFNULL(SUM(bankinfo.`sxze`),0) AS sxje,IFNULL(ROUND((SUM(bankinfo.`bls`)/SUM(bankinfo.`sxbs`))*100,0),0) AS bll
+		FROM `tb_statistics_bankinfo` bankinfo
+		<where>
+			<if test="pcId !=null and pcId !='' ">
+				bankinfo.`enabled` = 'Y' AND bankinfo.`psid` IN ('CPZT02','CPZT03')
+				AND (bankinfo.`pcid` = #{pcId} or bankinfo.`pcpid` = #{pcId} or bankinfo.`pcppid` = #{pcId})
+			</if>
+			<if test="starttime !=null and starttime!= '' and endtime != null and endtime != ''">
+				and unix_timestamp(DATE_FORMAT(bankinfo.`sdrq`, '%Y-%m-%d')) between unix_timestamp(#{starttime}) and  unix_timestamp(#{endtime})
+			</if>
+		</where>
+		GROUP BY bankinfo.`fpid`
+	</select>
+
+	<select id="productstatistics_new" parameterType="map" resultType="map" flushCache="true" useCache="true">
+		SELECT sq.TBPCODE tbpcode,
+			   sq.TBPNAME tbpname,
+			   sq.BUSINESSTYPE businesstype,
+			   COUNT(1) sdbs,
+			   round(SUM(sq.LOANAPPLYAMOUNT) / 10000) sdje,
+			   SUM(IF(sq.ADMITTANCE='0',1,0)) sxbs,
+			   round(SUM(sq.LOANAMOUNT) / 10000) sxje,
+			   concat(CONVERT(round(count(case when sq.LOANOVERDUE = 'Y' then 1 else null end) / count(1) * 100, 2),CHAR),"%") bll
+		  FROM fact_dkxx sq
+		 WHERE 1 = 1
+		 <if test="pcId != null and pcId != '' ">
+			AND sq.xzqhszdm LIKE CONCAT(substring(#{pcId},1,2), '%') 
+		</if>
+		<if test="starttime != null and starttime != '' ">
+		   and unix_timestamp(sq.APPLYTIME) >= UNIX_TIMESTAMP(#{starttime})
+		</if>
+		<if test="endtime != null and endtime != '' ">
+		   AND unix_timestamp(sq.APPLYTIME) <![CDATA[ <= ]]> UNIX_TIMESTAMP(#{endtime})
+		</if>
+		 GROUP BY sq.TBPCODE, sq.TBPNAME, sq.BUSINESSTYPE
+	</select>
+</mapper>
