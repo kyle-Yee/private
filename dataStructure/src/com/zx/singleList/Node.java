@@ -13,6 +13,12 @@ public class Node {
 		this.data = data;
 	}
 
+	public Node() {
+		super();
+	}
+
+
+
 	// 获取结点中的数据
 	public int getData() {
 		return this.data;
