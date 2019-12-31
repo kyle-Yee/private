@@ -43,6 +43,17 @@ public class SingleListTest {
 		}
 		
 	}
+	/**
+	 * 删除链表，将头结点指针域置为空
+	 * @param headNode
+	 * @return
+	 */
+	public SingleListTest del(Node headNode) {
+		SingleListTest sin = new SingleListTest();
+		headNode=sin.new Node();
+		headNode.next=null;
+		return sin;
+	}
 	
  
 	/**
@@ -59,6 +70,9 @@ public class SingleListTest {
         	   headNode=headNode.next;
         	   System.out.print(headNode.data+" ");
            }
+           test.del(headNode);
+           System.out.println(headNode.next);
+           
 	}
  
 }
