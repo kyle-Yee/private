@@ -39,7 +39,6 @@ public class  StaticLinkList
 
         int cur = sll[0].getCur(); //获取sll数组/静态链表的头指针
         Object data = sll[0].getData();
-        System.out.println(data);
         int preArray = this.searchPre(length + 1);
 
         sll[0].setCur(sll[cur].getCur());
@@ -98,7 +97,7 @@ public class  StaticLinkList
     public int searchPre(int index){ //传入index为数组长度length+1
         int arrayPos = MAX_SIZE - 1; //在数组中的位置
         int cur = sll[MAX_SIZE - 1].getCur();
-        int cur1 = sll[MAX_SIZE - 2].getCur();
+        //int cur1 = sll[MAX_SIZE - 2].getCur();
         int i = 1;
         //插入前一个结点的游标就是插入结点的数组下标
         while(index != i){
