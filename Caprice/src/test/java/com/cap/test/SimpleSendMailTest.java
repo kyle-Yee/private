@@ -14,7 +14,7 @@ public class SimpleSendMailTest {
 	public void testSendStringStringStringArray() {
 		SimpleSendMail ssm = new SimpleSendMail();
 		String code = createData(6);
-		boolean result = ssm.send("验证码", code, "834284006@qq.com");
+		boolean result = ssm.send("验证码", code, "1659535789@qq.com");
 		Assert.assertEquals(result,true);
 	}
 	
