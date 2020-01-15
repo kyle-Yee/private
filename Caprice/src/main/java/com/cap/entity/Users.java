@@ -6,7 +6,7 @@ import com.sun.jmx.snmp.Timestamp;
 
 import lombok.Data;
 @Data
-public class User implements Serializable {
+public class Users implements Serializable {
 
 	private int userId;
 	private String userName;
@@ -14,7 +14,7 @@ public class User implements Serializable {
 	private String telephone;
 	private int level;
 	private String mailBox;
-	private String passWord;
+	private String password;
 	private Timestamp registerTime;
 	private Timestamp birthday;
 	private String headPortrait;

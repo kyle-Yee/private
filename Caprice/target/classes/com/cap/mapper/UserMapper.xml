@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cap.mapper.UserMapper">
+
+	<resultMap id="UserMap" type="com.cap.entity.Users">
+		<id column="userId" jdbcType="INTEGER" property="userId" />
+		<result column="userName" jdbcType="VARCHAR" property="userName" />
+		<result column="sex" jdbcType="CHAR" property="sex" />
+		<result column="telephone" jdbcType="VARCHAR" property="telephone" />
+		<result column="level" jdbcType="INTEGER" property="sex" />
+		<result column="mailbox" jdbcType="VARCHAR" property="mailBox" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="registerTime" jdbcType="TIMESTAMP" property="registerTime" />
+		<result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+		<result column="headPortrait" jdbcType="VARCHAR" property="headPortrait" />
+		<result column="Signature" jdbcType="VARCHAR" property="Signature" />
+	</resultMap>
+	
+	<select id="findUser" parameterType="String" resultMap="UserMap">
+		select * from user where userName=#{userName}
+	</select>
+	
+	<insert id="register" parameterType="com.cap.entity.Users">
+		insert into user(
+			userName,
+			mailBox,
+			password
+		) values (
+			#{userName},
+			#{mailBox},
+			#{password}
+		)
+	</insert>
+	
+	<update id="modifyInfo" parameterType="com.cap.entity.Users">
+		update users
+		<set>
+			<if test="userName!=null and userName!=''">
+				userName=#{userName},
+			</if>
+			<if test="sex!=null and sex!=''">
+				sex=#{sex},
+			</if>
+			<if test="telephone!=null and telephone!=''">
+				telephone=#{telephone},
+			</if>
+			<if test="level!=null and level!=''">
+				`level`=#{level},
+			</if>
+			<if test="birthday!=null and birthday!=''">
+				birthday=#{birthday},
+			</if>
+			<if test="headPortrait!=null and headPortrait!=''">
+				headPortrait=${headPortrait},
+			</if>
+			<if test="signature!=null and signature!=''">
+				signature=#{signature}
+			</if>
+		</set>
+		where userId=#{userId}
+	</update>
+	
+	<select id="login" parameterType="String" resultType="com.cap.entity.Users">
+		select userName,password from users
+		<where>
+			userName=#{userName},password=#{password}
+		</where>
+	</select>
+	
+	<select id="findUser" parameterType="String" resultType="List">
+		select * from users 
+		<where>
+			<if test="userName!=null and userName!=''">
+				userName=#{userName},
+			</if>
+			<if test="userId!=null and userId!=''">
+				userId=#{userId}
+			</if>
+		</where>
+	</select>
+</mapper>
