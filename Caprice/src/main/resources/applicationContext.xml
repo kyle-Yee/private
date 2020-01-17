@@ -12,36 +12,51 @@
         http://www.springframework.org/schema/tx    
         http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">  
         
+        <!-- 配置要扫描的包 -->
+		<context:component-scan base-package="com.cap.service.impl" />
+		<context:component-scan base-package="com.cap.controller" />
+		<context:component-scan base-package="com.cap.util" />
+		
+		<!-- 加载 jdbc.properties 配置文件:方式一 -->
+		<context:property-placeholder ignore-unresolvable="true" location="classpath:jdbc.properties"/> 
+
         <!-- Mybatis 和 Spring的整合 -->  
-	    <!-- 1.数据源：DriverManagerDataSource -->  
+	    <!-- 1.数据源：德鲁伊数据源 -->  
 	    <bean id="dataSource"  
-	        class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
-	        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>  
-	        <property name="url" value="jdbc:mysql://localhost:3306/test"></property>  
-	        <property name="username" value="root"></property>  
-	        <property name="password" value="root"></property>  
+	        class="com.alibaba.druid.pool.DruidDataSource" 
+	        init-method="init" destroy-method="close">  
+	        <property name="driverClassName" value="${jdbc.driverClass}"></property>  
+	        <property name="url" value="${jdbc.url}"></property>  
+	        <property name="username" value="${jdbc.username}"></property>  
+	        <property name="password" value="${jdbc.password}"></property>  
 	    </bean> 
 	    
 	    <!-- 2.Mybatis 的 SqlSession的工厂：SqlSessionFactoryBean dataSource引用数据源 Mybatis   
 	  	 定义数据源，同意加载配置 -->  
 	    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
 	        <property name="dataSource" ref="dataSource"></property>  
-	        <property name="configLocation" value="classpath:mybatis-config.xml"></property>  
+	        <property name="configLocation" value="classpath:mybatis-config.xml"></property> 
+	        <!-- 匹配Mapper映射文件 -->
+			<property name="mapperLocations" value="com.cap.mapper.*.xml"></property>
+			<!-- 映射实体 -->
+			<property name="typeAliasesPackage" value="com.cap.entity" /> 
 	    </bean> 
 	    
 	    <!-- 3. Mybatis自动扫描加载Sql映射文件/接口：MapperScannerConfigurer sqlSessionFactory   
         basePackage:指定sql映射文件/接口所在的包（自动扫描） -->  
-	    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
-	        <property name="basePackage" value="com.cjl.mapper"></property>  
-	        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>  
-	    </bean> 
+	    <!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
+	        <property name="basePackage" value="com.cap.mapper"></property>  
+	        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	    </bean>  -->
 	    
 	    <!-- 4.事务管理：DataSourceTransactionManager dataSource 引用上面定义好的数据源 -->  
 	    <bean id="txManager"  
 	        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
 	        <property name="dataSource" ref="dataSource"></property>  
 	    </bean> 
-	    
+	    <mvc:annotation-driven/>
+    	<!--访问静态资源（假如没找到相应的控制器就去找静态资源，如果都没有则返回404）-->
+    	<mvc:default-servlet-handler/>
 	    <!-- 5.使用声明式事务： transaction-manager = "txManager" tx:advice 这种 是用 aop方式管理事物   
         annotation-driven 这种是注解方式管理事物 第一种方式，需要在spring配置文件配置一些参数 第二种方式，需要在 类里 加一些注解进行事物管理   
         	用一种就行，没必须都用 -->  

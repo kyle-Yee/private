@@ -116,6 +116,11 @@
 	      <artifactId>jsqlparser</artifactId>  
 	      <version>0.9.1</version>  
 	    </dependency>
+	    <dependency>
+	        <groupId>com.alibaba</groupId>
+	        <artifactId>druid</artifactId>
+	        <version>1.1.6</version>
+    	</dependency>
 	    
 	    <!--servlet、基本包-->  
 	    <dependency>  
